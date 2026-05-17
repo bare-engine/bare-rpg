@@ -1,1 +1,1 @@
-# BareRPG
+# Bare-Template

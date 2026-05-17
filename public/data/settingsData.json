@@ -1,0 +1,20 @@
+{
+  "categories": {
+    "tiles": {
+      "entries": "tile_0000#131",
+      "expanded": true
+    }
+  },
+  "baseEntities": {
+    "ANY": {},
+    "ANY_ENTITY": {
+      "baseEntity": "ANY"
+    }
+  },
+  "layers": ["objects", "surface"],
+  "settings": {
+    "minimized": false,
+    "gridEnabled": true,
+    "gridSize": 16
+  }
+}
