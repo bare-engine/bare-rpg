@@ -11,7 +11,8 @@
         "position": {
           "x": 112,
           "y": 64
-        }
+        },
+        "customName": "playerStart"
       },
       {
         "name": "tile_0064",
@@ -38,7 +39,7 @@
         "name": "tile_0123",
         "position": {
           "x": 96,
-          "y": 16
+          "y": 32
         }
       },
       {

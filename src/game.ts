@@ -1,13 +1,26 @@
-import { cameraHandler, CameraScaleMode, CanvasPosition, CanvasScale, GameObject, LevelData, Scene, StartBare, TextureFilterMode } from 'bare-engine';
+import { cameraHandler, CameraScaleMode, CanvasPosition, CanvasScale, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, Scene, StartBare, TextureFilterMode, uiScene } from 'bare-engine';
 import settingsDataJson from '../public/data/settingsData.json';
+import { Joystick } from './ui/joystick';
+import { Layer } from './generated/layers';
 
 export class Game extends Scene
 {
-    obj: GameObject;
+    player: PhysicsObjectBare;
     
     constructor()
     {
+        bareEngine.AddClass(PhysicsControllerBare);
+        bareEngine.AddClass(PhysicsObjectBare);
+
         super(settingsDataJson);
+    }
+
+    OnAwake()
+    {
+        this.player = this.AddGameObject("tile_0098") as PhysicsObjectBare;
+
+        var joystick = new Joystick(uiScene, this.player, 90);
+        uiScene.AddGameObject(joystick);
     }
 
     OnStart()
@@ -19,11 +32,23 @@ export class Game extends Scene
     {
         cameraHandler.SetScaleMode(CameraScaleMode.Contain);
         cameraHandler.SetDimensionsToLevel();
+
+        var playerStartPositionObject = this.objectController.GetObjectByCustomName("playerStart");
+        if (playerStartPositionObject)
+        if (playerStartPositionObject)
+        {
+            this.player.SetPosition(playerStartPositionObject.position.x, playerStartPositionObject.position.y);
+            playerStartPositionObject.Remove();
+        }
     }
 
-    override OnFixedUpdate(): void
+    override Render()
     {
+        objectController.GetLayer(Layer.OBJECTS).sort((a, b) => {
+            return a.y - b.y;
+        });
         
+        super.Render();
     }
 }
 

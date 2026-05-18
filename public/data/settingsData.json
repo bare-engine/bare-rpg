@@ -6,15 +6,58 @@
     }
   },
   "baseEntities": {
-    "ANY": {},
     "ANY_ENTITY": {
-      "baseEntity": "ANY"
-    }
+      "baseClass": "PhysicsObjectBare",
+      "hitbox": {
+        "x1": 0,
+        "y1": 0.6,
+        "x2": 1,
+        "y2": 1
+      },
+      "drag": 0.1,
+      "static": true
+    },
+    "NONE": {}
   },
   "layers": ["objects", "surface"],
   "settings": {
     "minimized": false,
     "gridEnabled": true,
     "gridSize": 16
+  },
+  "entities": {
+    "tile_0042": {
+      "baseEntity": "NONE"
+    },
+    "tile_0067": {
+      "baseEntity": "NONE"
+    },
+    "tile_0098": {
+      "static": false,
+      "persistent": true,
+      "hitbox": {
+        "x1": 0,
+        "y1": 0.7,
+        "x2": 1,
+        "y2": 1
+      }
+    },
+    "tile_0066": {
+      "baseEntity": "NONE"
+    },
+    "tile_0081": {
+      "baseEntity": "NONE"
+    },
+    "tile_0055": {
+      "hitbox": {
+        "x1": 0,
+        "y1": 0.3,
+        "x2": 1,
+        "y2": 1
+      }
+    },
+    "tile_0049": {
+      "baseEntity": "NONE"
+    }
   }
 }
