@@ -8,16 +8,16 @@ export class Joystick extends GameObject
     private stick: GameObject;
     private interactDistance: number = 13;
     private stickDeltaNormalized: Vec2 = new Vec2(0, 0);
+    private callback: (normalizedVec: Vec2) => void;
     
-    constructor(scene: Scene, controlledObject: PhysicsObjectBare, moveSpeed: number = 5)
+    constructor(scene: Scene, callback: (normalizedVec: Vec2) => void)
     {
         super(scene, "ring");
 
         this.persistent = true;
         this.alpha = .5;
 
-        this.controlledObject = controlledObject;
-        this.moveSpeed = moveSpeed;
+        this.callback = callback;
 
         this.CenterPivot();
         this.SetPosition(bare.width * .75, bare.height * .75);
@@ -37,8 +37,7 @@ export class Joystick extends GameObject
         var vec = this.stickDeltaNormalized;
         if (vec.squaredLength() > 0)
         {
-            var move = vec.multiply(this.moveSpeed);
-            this.controlledObject.SetVelocity(move);
+            this.callback(vec);
         }
     }
 

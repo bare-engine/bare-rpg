@@ -1,4 +1,4 @@
-import { cameraHandler, CameraScaleMode, CanvasPosition, CanvasScale, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, Scene, StartBare, TextureFilterMode, uiScene } from 'bare-engine';
+import { cameraHandler, CameraScaleMode, CanvasPosition, CanvasScale, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, Scene, StartBare, TextureFilterMode, uiScene, Vec2 } from 'bare-engine';
 import settingsDataJson from '../public/data/settingsData.json';
 import { Joystick } from './ui/joystick';
 import { Layer } from './generated/layers';
@@ -19,7 +19,11 @@ export class Game extends Scene
     {
         this.player = this.AddGameObject("tile_0098") as PhysicsObjectBare;
 
-        var joystick = new Joystick(uiScene, this.player, 90);
+        var joystick = new Joystick(uiScene, (normalizedVec: Vec2) => {
+            var move = normalizedVec.multiply(90);
+            this.player.SetVelocity(move);
+        });
+        
         uiScene.AddGameObject(joystick);
     }
 
