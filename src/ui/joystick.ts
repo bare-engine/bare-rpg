@@ -7,6 +7,7 @@ export class Joystick extends GameObject
 
     private stick: GameObject;
     private interactDistance: number = 13;
+    private moveAlongDistance: number = 50;
     private stickDeltaNormalized: Vec2 = new Vec2(0, 0);
     private callback: (normalizedVec: Vec2) => void;
     
@@ -73,6 +74,16 @@ export class Joystick extends GameObject
 
         var normalized = this.NormalizedStickVector;
         this.stickDeltaNormalized.set(normalized.x, normalized.y);
+
+        var dist = localPos.length();
+        var maxDist = this.moveAlongDistance;
+        if (dist > maxDist)
+        {
+            var distOverflow = dist - maxDist;
+            var dir = localPos.normalized();
+            this.x += dir.x * distOverflow;
+            this.y += dir.y * distOverflow;
+        }
     }
 
     private PointerUp({ mouseX, mouseY, event, isLeftButton }: Events['pointerUp']): void
