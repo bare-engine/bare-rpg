@@ -15,11 +15,11 @@ export class MovementHandler
         this.player = scene.player;
         this.levelHandler = scene.levelHandler;
 
+        // CREATE A JOYSTICK AND LET IT MOVE THE PLAYER
         var joystick = new Joystick(uiScene, (normalizedVec: Vec2) => {
             var move = normalizedVec.multiply(this.playerSpeed);
             this.player.SetVelocity(move);
         });
-        
         uiScene.AddGameObject(joystick);
     }
 
@@ -31,6 +31,7 @@ export class MovementHandler
 
     static CheckMovementKeys()
     {
+        // KEYBOARD MOVEMENT
         if (keyboardController.IsLeftDown())
         {
             this.player.velocity.x = -this.playerSpeed;
@@ -46,6 +47,13 @@ export class MovementHandler
         if (keyboardController.IsDownDown())
         {
             this.player.velocity.y = this.playerSpeed;
+        }
+
+        // LIMIT MOVEMENT, SINCE TWO ORTHOGONAL VELOCITIES EXCEED THE MAX VELOCITY
+        var speed = this.player.velocity.length();
+        if (speed > this.playerSpeed)
+        {
+            this.player.velocity = this.player.velocity.normalize().multiply(this.playerSpeed);
         }
     }
 
