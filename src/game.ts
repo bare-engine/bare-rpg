@@ -5,6 +5,7 @@ import { WiggleComponent } from './components/wiggleComponent';
 import { Layer } from './generated/layers';
 import { Direction, MapHandler } from './handlers/mapHandler';
 import { Joystick } from './ui/joystick';
+import { MovementHandler } from './handlers/movementHandler';
 
 export class Game extends Scene
 {
@@ -26,12 +27,7 @@ export class Game extends Scene
         
         this.player = this.AddGameObject("tile_0098") as PhysicsObjectBare;
 
-        var joystick = new Joystick(uiScene, (normalizedVec: Vec2) => {
-            var move = normalizedVec.multiply(90);
-            this.player.SetVelocity(move);
-        });
-        
-        uiScene.AddGameObject(joystick);
+        MovementHandler.Init(this);
     }
 
     async OnStart()
@@ -55,7 +51,7 @@ export class Game extends Scene
 
     OnUpdate(deltaTime: number): void
     {
-        this.CheckOffScreen();
+        MovementHandler.OnUpdate(deltaTime);
     }
 
     override Render()
@@ -65,83 +61,6 @@ export class Game extends Scene
         });
         
         super.Render();
-    }
-
-    async SaveLevel()
-    {
-        // KEEP IN BARE?
-        levelHandler.SaveLevel();
-        SaveDataHandler.Save();
-    }
-    
-    CheckOffScreen()
-    {
-        if (!levelHandler.currentLevel)
-            return;
-
-        if (this.player.velocity.isZero())
-            return;
-
-        var dims:Size = levelHandler.currentLevel.dimensions;
-        var checkLevel = (dir:Direction) =>{
-            var newLevel = MapHandler.GetLevelInDirectionFrom(SaveData.currentLevelStr, dir);
-            if (newLevel != "")
-            {
-                var loadLevel = async () => {
-                    this.SaveLevel();
-                    
-                    await levelHandler.LoadLevel(newLevel);
-
-                    // WARP PLAYER POSITION
-                    let dimsNewLevel:Size = levelHandler.currentLevel.dimensions;
-                    var marge = 20;
-                    if (dir == "left")
-                    {
-                        this.player.x = dimsNewLevel.width - marge;
-                    }
-                    if (dir == "right")
-                    {
-                        this.player.x = marge;
-                    }
-                    if (dir == "top")
-                    {
-                        this.player.y = dimsNewLevel.height - marge;
-                        this.player.x = (this.player.x / dims.width) * dimsNewLevel.width;
-                    }
-                    if (dir == "bottom")
-                    {
-                        this.player.y = marge;
-                        this.player.x = (this.player.x / dims.width) * dimsNewLevel.width;
-                    }
-                }
-               
-                loadLevel();
-            }
-        }
-
-        if (this.player.x < 0)
-        {
-            this.player.x = 0;
-            checkLevel("left");
-        }
-        else
-        if (this.player.x > dims.width)
-        {
-            this.player.x = dims.width;
-            checkLevel("right");
-        }
-        else
-        if (this.player.y < 0)
-        {
-            this.player.y = 0;
-            checkLevel("top");
-        }
-        else
-        if (this.player.y > dims.height)
-        {
-            this.player.y = dims.height;
-            checkLevel("bottom");
-        }
     }
 }
 
