@@ -1,11 +1,10 @@
-import { cameraHandler, CameraScaleMode, CanvasPosition, CanvasScale, LevelData, levelHandler, objectController, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, Size, StartBare, TextureFilterMode, uiScene, Vec2 } from 'bare-engine';
+import { cameraHandler, CameraScaleMode, CanvasPosition, CanvasScale, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, Scene, StartBare, TextureFilterMode } from 'bare-engine';
 import settingsDataJson from '../public/data/settingsData.json';
 import { LevelConnectorComponent } from './components/levelConnectorComponent';
 import { WiggleComponent } from './components/wiggleComponent';
 import { Layer } from './generated/layers';
-import { Direction, MapHandler } from './handlers/mapHandler';
-import { Joystick } from './ui/joystick';
-import { MovementHandler } from './handlers/movementHandler';
+import { InteractionHandler } from './handlers/interactionHandlerHandler';
+import { MapHandler } from './handlers/mapHandler';
 
 export class Game extends Scene
 {
@@ -23,11 +22,10 @@ export class Game extends Scene
 
     async OnAwake()
     {
-        await MapHandler.Init(this);
-        
         this.player = this.AddGameObject("tile_0098") as PhysicsObjectBare;
 
-        MovementHandler.Init(this);
+        InteractionHandler.Init(this);
+        await MapHandler.Init(this);
     }
 
     async OnStart()
@@ -51,7 +49,7 @@ export class Game extends Scene
 
     OnUpdate(deltaTime: number): void
     {
-        MovementHandler.OnUpdate(deltaTime);
+        InteractionHandler.OnUpdate(deltaTime);
     }
 
     override Render()

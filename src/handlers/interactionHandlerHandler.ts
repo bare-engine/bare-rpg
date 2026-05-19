@@ -3,12 +3,12 @@ import { Game } from "../game";
 import { Joystick } from "../ui/joystick";
 import { Direction, MapHandler } from "./mapHandler";
 
-export class MovementHandler
+export class InteractionHandler
 {
-    private static playerSpeed = 90;
-
     private static player:PhysicsObjectBare;
     private static levelHandler:LevelHandler;
+
+    private static playerSpeed = 90;
 
     static async Init(scene: Game)
     {
@@ -16,9 +16,9 @@ export class MovementHandler
         this.levelHandler = scene.levelHandler;
 
         // CREATE A JOYSTICK AND LET IT MOVE THE PLAYER
-        var joystick = new Joystick(uiScene, (normalizedVec: Vec2) => {
-            var move = normalizedVec.multiply(this.playerSpeed);
-            this.player.SetVelocity(move);
+        var joystick = new Joystick(uiScene, (normalizedStickVec: Vec2) => {
+            var moveVec = normalizedStickVec.multiply(this.playerSpeed);
+            this.player.SetVelocity(moveVec);
         });
         uiScene.AddGameObject(joystick);
     }
