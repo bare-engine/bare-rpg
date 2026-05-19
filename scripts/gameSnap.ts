@@ -1,0 +1,149 @@
+import settingsDataJson from '../public/data/settingsData.json';
+import { CameraScaleMode, CanvasPosition, LevelData, PhysicsControllerBare, PhysicsObjectBare, Scene, StartBare, TextureFilterMode } from 'bare-engine';
+import { LevelConnectorComponent } from '../src/components/levelConnectorComponent';
+import { WiggleComponent } from '../src/components/wiggleComponent';
+import { Layer } from '../src/generated/layers';
+
+type SnapMapOptions = {
+    levelName: string;
+    saveUrl: string;
+    token: string;
+};
+
+function GetSnapMapOptions(): SnapMapOptions | null
+{
+    const params = new URLSearchParams(window.location.search);
+    const levelName = params.get("snapMap");
+
+    if (!levelName)
+        return null;
+
+    return {
+        levelName,
+        saveUrl: params.get("snapSave") || "",
+        token: params.get("snapToken") || ""
+    };
+}
+
+function GetSnapMapDimension(paramName: string, fallback: number): number
+{
+    const value = Number(new URLSearchParams(window.location.search).get(paramName));
+    return Number.isFinite(value) && value > 0 ? value : fallback;
+}
+
+function ReportSnapMapError(error: unknown): void
+{
+    const options = GetSnapMapOptions();
+    if (!options?.saveUrl)
+        return;
+
+    const url = new URL(options.saveUrl);
+    url.pathname = "/error";
+    url.searchParams.set("level", options.levelName);
+    url.searchParams.set("token", options.token);
+
+    const message = error instanceof Error ? error.stack || error.message : String(error);
+    fetch(url.toString(), {
+        method: "POST",
+        headers: { "Content-Type": "text/plain" },
+        body: message
+    }).catch(() => {});
+}
+
+window.addEventListener("error", event => ReportSnapMapError(event.error || event.message));
+window.addEventListener("unhandledrejection", event => ReportSnapMapError(event.reason));
+
+export class Game extends Scene
+{
+    private snapMapOptions: SnapMapOptions | null = GetSnapMapOptions();
+
+    constructor()
+    {
+        bareEngine.AddClass(PhysicsControllerBare);
+        bareEngine.AddClass(PhysicsObjectBare);
+        bareEngine.AddClass(WiggleComponent);
+
+        // REGISTER LevelConnectorComponent
+        // NEEDED SINCE IT'S REFERENCED IN mapDataJson
+        bareEngine.AddClass(LevelConnectorComponent);
+
+        super(settingsDataJson);
+    }
+
+    async OnStart()
+    {
+        await this.LoadLevel(this.snapMapOptions?.levelName);
+    }
+
+    OnPostLoadLevel(level: LevelData): void
+    {
+        this.cameraHandler.SetScaleMode(CameraScaleMode.Contain);
+        this.cameraHandler.SetDimensionsToLevel();
+
+        if (this.snapMapOptions)
+            this.QueueSnapMapCapture(level);
+    }
+
+    private QueueSnapMapCapture(level: LevelData): void
+    {
+        this.CaptureSnapMap(level).catch((error) => {
+            console.error("Failed to capture snap map", error);
+            (window as any).__snapMapsError = error instanceof Error ? error.message : String(error);
+            ReportSnapMapError(error);
+        });
+    }
+
+    private async CaptureSnapMap(level: LevelData): Promise<void>
+    {
+        if (!this.snapMapOptions?.saveUrl)
+            return;
+
+        await this.WaitForFrames(1);
+
+        const canvas = document.querySelector("canvas") as HTMLCanvasElement | null;
+        if (!canvas)
+            throw new Error("Could not find game canvas for snapMaps capture.");
+
+        bareEngine.Render();
+
+        const dataUrl = canvas.toDataURL("image/webp", 1);
+        const blob = await (await fetch(dataUrl)).blob();
+
+        const url = new URL(this.snapMapOptions.saveUrl);
+        url.searchParams.set("level", level.name || this.snapMapOptions.levelName);
+        url.searchParams.set("token", this.snapMapOptions.token);
+
+        const response = await fetch(url.toString(), {
+            method: "POST",
+            headers: { "Content-Type": "image/webp" },
+            body: blob
+        });
+
+        if (!response.ok)
+            throw new Error(`snapMaps save failed with HTTP ${response.status}`);
+
+        (window as any).__snapMapsReady = level.name || this.snapMapOptions.levelName;
+    }
+
+    private async WaitForFrames(frameCount: number): Promise<void>
+    {
+        for (let i = 0; i < frameCount; i++)
+            await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+    }
+
+    override Render()
+    {
+        this.objectController.GetLayer(Layer.OBJECTS).sort((a, b) => {
+            return a.y - b.y;
+        });
+        
+        super.Render();
+    }
+}
+
+StartBare(Game, {antiAlias: false, textureFilter: TextureFilterMode.NEAREST, 
+    showEditorButton: false,
+    resolution: {
+    width: GetSnapMapDimension("snapWidth", 240),
+    height: GetSnapMapDimension("snapHeight", 160),
+}});
