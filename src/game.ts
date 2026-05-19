@@ -68,7 +68,10 @@ export class Game extends Scene
         this.mapEditorButton = new Button(uiScene, {text: "Map Editor", OnPress: async () => {
             await OnClickMapEditorButton();
         }});
-        this.mapEditorButton.SetScale(.3);
+        var scale = 1;
+        if (bareEngine.resolution && bareEngine.resolution.width != undefined && bareEngine.resolution.height != undefined)
+            scale = bareEngine.resolution.width * .001736;
+        this.mapEditorButton.SetScale(scale);
         this.mapEditorButton.name = "mapEditorButton";
 
         // ADDING mapEditorButton
@@ -198,9 +201,11 @@ export class Game extends Scene
     }
 }
 
-StartBare(Game, {antiAlias: false, textureFilter: TextureFilterMode.NEAREST, resolution: {
-    width: 240, 
-    height: 160, 
-    scale: CanvasScale.Fit, 
-    position: CanvasPosition.Center
-}});
+StartBare(Game, {antiAlias: false, textureFilter: TextureFilterMode.NEAREST, 
+    resolution: {
+        width: 240, 
+        height: 160, 
+        scale: CanvasScale.Fit, 
+        position: CanvasPosition.Center
+    }
+});
