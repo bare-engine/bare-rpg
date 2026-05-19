@@ -91,7 +91,7 @@ export class Joystick extends GameObject
         if (!isLeftButton)
             return;
 
-        TweenTo(this.stick.innerPosition, .4, { delay: .12, x: 0, y: 0, ease: Easing.Sinusoidal.InOut });
+        TweenTo(this.stick.innerPosition, .15, { delay: .12, x: 0, y: 0, ease: Easing.Back.Out });
         TweenTo(this, .6, { delay: .4, alpha: 0 });
 
         this.stickDeltaNormalized.set(0, 0);

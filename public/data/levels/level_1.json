@@ -1,0 +1,41 @@
+{
+  "name": "level_1",
+  "dimensions": {
+    "width": 240,
+    "height": 160
+  },
+  "entitiesByLayer": {
+    "objects": [
+      {
+        "name": "tile_0082",
+        "position": {
+          "x": 120,
+          "y": 80
+        }
+      },
+      {
+        "name": "tile_0082",
+        "position": {
+          "x": 120,
+          "y": 96
+        }
+      },
+      {
+        "name": "tile_0082",
+        "position": {
+          "x": 136,
+          "y": 64
+        }
+      },
+      {
+        "name": "tile_0082",
+        "position": {
+          "x": 136,
+          "y": 80
+        }
+      }
+    ],
+    "surface": []
+  },
+  "backgroundColor": "#eaa56c"
+}

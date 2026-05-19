@@ -1,0 +1,74 @@
+{
+  "name": "map",
+  "dimensions": {
+    "width": 2250,
+    "height": 2000
+  },
+  "settingsData": "mapData",
+  "isData": true,
+  "backgroundColor": "#979797",
+  "entitiesByLayer": {
+    "objects": [
+      {
+        "name": "level_2",
+        "components": {
+          "levelConnector": {
+            "top": "",
+            "right": "",
+            "bottom": "level_4",
+            "left": "level_1"
+          }
+        },
+        "position": {
+          "x": 1216,
+          "y": 704
+        }
+      },
+      {
+        "name": "level_1",
+        "components": {
+          "levelConnector": {
+            "top": "",
+            "right": "level_2",
+            "bottom": "level_3",
+            "left": ""
+          }
+        },
+        "position": {
+          "x": 832,
+          "y": 704
+        }
+      },
+      {
+        "name": "level_3",
+        "components": {
+          "levelConnector": {
+            "top": "level_1",
+            "right": "level_4",
+            "bottom": "",
+            "left": ""
+          }
+        },
+        "position": {
+          "x": 832,
+          "y": 1088
+        }
+      },
+      {
+        "name": "level_4",
+        "components": {
+          "levelConnector": {
+            "top": "level_2",
+            "right": "",
+            "bottom": "",
+            "left": "level_3"
+          }
+        },
+        "position": {
+          "x": 1216,
+          "y": 1088
+        }
+      }
+    ]
+  }
+}

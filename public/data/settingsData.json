@@ -15,7 +15,14 @@
         "y2": 1
       },
       "drag": 0.1,
-      "static": true
+      "static": true,
+      "components": {
+        "wiggle": {}
+      },
+      "pivotBasedOnHitbox": {
+        "x": 0.5,
+        "y": 1
+      }
     },
     "NONE": {}
   },
@@ -35,12 +42,8 @@
     "tile_0098": {
       "static": false,
       "persistent": true,
-      "hitbox": {
-        "x1": 0,
-        "y1": 0.7,
-        "x2": 1,
-        "y2": 1
-      }
+      "stayInBounds": false,
+      "components": {}
     },
     "tile_0066": {
       "baseEntity": "NONE"
@@ -59,5 +62,6 @@
     "tile_0049": {
       "baseEntity": "NONE"
     }
-  }
+  },
+  "editorObjectSnapToPivot": false
 }

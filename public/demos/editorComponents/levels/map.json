@@ -1,0 +1,13 @@
+{
+  "name": "map",
+  "dimensions": {
+    "width": 2250,
+    "height": 2000
+  },
+  "settingsData": "mapData",
+  "isData": true,
+  "backgroundColor": "#979797",
+  "entitiesByLayer": {
+    "objects": []
+  }
+}

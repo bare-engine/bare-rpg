@@ -1,0 +1,156 @@
+{
+  "name": "level_start",
+  "dimensions": {
+    "width": 240,
+    "height": 160
+  },
+  "entitiesByLayer": {
+    "objects": [
+      {
+        "name": "tile_0098",
+        "position": {
+          "x": 120,
+          "y": 80
+        },
+        "persistent": false,
+        "customName": "playerStart"
+      },
+      {
+        "name": "tile_0064",
+        "position": {
+          "x": 32,
+          "y": 16
+        }
+      },
+      {
+        "name": "tile_0065",
+        "position": {
+          "x": 192,
+          "y": 32
+        }
+      },
+      {
+        "name": "tile_0082",
+        "position": {
+          "x": 176,
+          "y": 128
+        }
+      },
+      {
+        "name": "tile_0123",
+        "position": {
+          "x": 96,
+          "y": 32
+        }
+      },
+      {
+        "name": "tile_0082",
+        "position": {
+          "x": 160,
+          "y": 128
+        }
+      },
+      {
+        "name": "tile_0082",
+        "position": {
+          "x": 192,
+          "y": 112
+        }
+      },
+      {
+        "name": "tile_0082",
+        "position": {
+          "x": 176,
+          "y": 112
+        }
+      },
+      {
+        "name": "tile_0055",
+        "position": {
+          "x": 48,
+          "y": 112
+        }
+      }
+    ],
+    "surface": [
+      {
+        "name": "tile_0066",
+        "position": {
+          "x": 192,
+          "y": 48
+        }
+      },
+      {
+        "name": "tile_0066",
+        "position": {
+          "x": 32,
+          "y": 32
+        }
+      },
+      {
+        "name": "tile_0081",
+        "position": {
+          "x": 48,
+          "y": 112
+        }
+      },
+      {
+        "name": "tile_0081",
+        "position": {
+          "x": 48,
+          "y": 128
+        }
+      },
+      {
+        "name": "tile_0081",
+        "position": {
+          "x": 48,
+          "y": 144
+        }
+      },
+      {
+        "name": "tile_0067",
+        "position": {
+          "x": 48,
+          "y": 96
+        }
+      },
+      {
+        "name": "tile_0049",
+        "position": {
+          "x": 112,
+          "y": 128
+        }
+      },
+      {
+        "name": "tile_0042",
+        "position": {
+          "x": 144,
+          "y": 96
+        }
+      },
+      {
+        "name": "tile_0042",
+        "position": {
+          "x": 160,
+          "y": 32
+        }
+      },
+      {
+        "name": "tile_0042",
+        "position": {
+          "x": 48,
+          "y": 64
+        }
+      },
+      {
+        "name": "tile_0049",
+        "position": {
+          "x": 16,
+          "y": 96
+        }
+      }
+    ]
+  },
+  "backgroundColor": "#eaa46a"
+}

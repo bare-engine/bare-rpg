@@ -1,0 +1,26 @@
+{
+  "name": "mapData",
+  "categories": {
+    "Levels": {
+      "entries": "level_[editorImages]",
+      "baseEntity": "level"
+    }
+  },
+  "baseEntities": {
+    "level": {
+      "imagePath": "editorImages",
+      "components": {
+        "levelConnector": {}
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "entities": {},
+  "settings": {
+    "gridEnabled": false,
+    "gridSize": 64
+  }
+}
