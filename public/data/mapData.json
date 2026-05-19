@@ -21,6 +21,7 @@
   "entities": {},
   "settings": {
     "gridEnabled": false,
-    "gridSize": 64
+    "gridSize": 64,
+    "minimized": false
   }
 }

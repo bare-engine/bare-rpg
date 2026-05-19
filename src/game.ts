@@ -80,9 +80,9 @@ export class Game extends Scene
         plugin?.AddDebugAction("Toggle Map Editor", () => OnClickMapEditorButton());
     }
 
-    OnStart()
+    async OnStart()
     {
-        this.LoadLevel('level_2');
+        await this.LoadLevel('level_2');
     }
 
     OnPostLoadLevel(level: LevelData): void

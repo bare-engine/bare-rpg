@@ -6,7 +6,7 @@
   },
   "settingsData": "mapData",
   "isData": true,
-  "backgroundColor": "#979797",
+  "backgroundColor": "#3d3d3d",
   "entitiesByLayer": {
     "objects": [
       {
@@ -35,7 +35,7 @@
           }
         },
         "position": {
-          "x": 832,
+          "x": 896,
           "y": 704
         }
       },
@@ -50,8 +50,8 @@
           }
         },
         "position": {
-          "x": 832,
-          "y": 1088
+          "x": 896,
+          "y": 960
         }
       },
       {
@@ -66,7 +66,7 @@
         },
         "position": {
           "x": 1216,
-          "y": 1088
+          "y": 960
         }
       }
     ]
