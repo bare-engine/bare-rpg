@@ -11,7 +11,7 @@
         "analyze": "bare-engine-analyze",
         "poki-upload": "poki upload",
         "build:assets": "node node_modules/bare-engine/scripts/buildAssets.cjs",
-        "snapMaps": "node scripts/snapMaps.mjs"
+        "snapLevels": "node scripts/snapLevels.mjs"
     },
     "repository": {
         "type": "git",

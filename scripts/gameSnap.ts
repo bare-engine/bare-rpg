@@ -1,20 +1,20 @@
 import settingsDataJson from '../public/data/settingsData.json';
-import { CameraScaleMode, CanvasPosition, LevelData, PhysicsControllerBare, PhysicsObjectBare, Scene, StartBare, TextureFilterMode } from 'bare-engine';
+import { CameraScaleMode, LevelData, PhysicsControllerBare, PhysicsObjectBare, Scene, StartBare, TextureFilterMode } from 'bare-engine';
 import { LevelConnectorComponent } from '../src/components/levelConnectorComponent';
 import { WiggleComponent } from '../src/components/wiggleComponent';
 import { Layer } from '../src/generated/layers';
 
-type SnapMapOptions = {
+type SnapLevelOptions = {
     levelName: string;
     saveUrl: string;
     token: string;
     showLabel: boolean;
 };
 
-function GetSnapMapOptions(): SnapMapOptions | null
+function GetSnapLevelOptions(): SnapLevelOptions | null
 {
     const params = new URLSearchParams(window.location.search);
-    const levelName = params.get("snapMap");
+    const levelName = params.get("snapLevel");
 
     if (!levelName)
         return null;
@@ -23,19 +23,19 @@ function GetSnapMapOptions(): SnapMapOptions | null
         levelName,
         saveUrl: params.get("snapSave") || "",
         token: params.get("snapToken") || "",
-        showLabel: params.get("snapLabel") !== "false"
+        showLabel: params.get("snapLabel") === "true"
     };
 }
 
-function GetSnapMapDimension(paramName: string, fallback: number): number
+function GetSnapLevelDimension(paramName: string, fallback: number): number
 {
     const value = Number(new URLSearchParams(window.location.search).get(paramName));
     return Number.isFinite(value) && value > 0 ? value : fallback;
 }
 
-function ReportSnapMapError(error: unknown): void
+function ReportSnapLevelError(error: unknown): void
 {
-    const options = GetSnapMapOptions();
+    const options = GetSnapLevelOptions();
     if (!options?.saveUrl)
         return;
 
@@ -52,12 +52,12 @@ function ReportSnapMapError(error: unknown): void
     }).catch(() => {});
 }
 
-window.addEventListener("error", event => ReportSnapMapError(event.error || event.message));
-window.addEventListener("unhandledrejection", event => ReportSnapMapError(event.reason));
+window.addEventListener("error", event => ReportSnapLevelError(event.error || event.message));
+window.addEventListener("unhandledrejection", event => ReportSnapLevelError(event.reason));
 
 export class Game extends Scene
 {
-    private snapMapOptions: SnapMapOptions | null = GetSnapMapOptions();
+    private snapLevelOptions: SnapLevelOptions | null = GetSnapLevelOptions();
 
     constructor()
     {
@@ -74,7 +74,7 @@ export class Game extends Scene
 
     async OnStart()
     {
-        await this.LoadLevel(this.snapMapOptions?.levelName);
+        await this.LoadLevel(this.snapLevelOptions?.levelName);
     }
 
     OnPostLoadLevel(level: LevelData): void
@@ -82,42 +82,42 @@ export class Game extends Scene
         this.cameraHandler.SetScaleMode(CameraScaleMode.Contain);
         this.cameraHandler.SetDimensionsToLevel();
 
-        if (this.snapMapOptions)
-            this.QueueSnapMapCapture(level);
+        if (this.snapLevelOptions)
+            this.QueueSnapLevelCapture(level);
     }
 
-    private QueueSnapMapCapture(level: LevelData): void
+    private QueueSnapLevelCapture(level: LevelData): void
     {
-        this.CaptureSnapMap(level).catch((error) => {
+        this.CaptureSnapLevel(level).catch((error) => {
             console.error("Failed to capture snap map", error);
-            (window as any).__snapMapsError = error instanceof Error ? error.message : String(error);
-            ReportSnapMapError(error);
+            (window as any).__snapLevelsError = error instanceof Error ? error.message : String(error);
+            ReportSnapLevelError(error);
         });
     }
 
-    private async CaptureSnapMap(level: LevelData): Promise<void>
+    private async CaptureSnapLevel(level: LevelData): Promise<void>
     {
-        if (!this.snapMapOptions?.saveUrl)
+        if (!this.snapLevelOptions?.saveUrl)
             return;
 
         await this.WaitForFrames(1);
 
         const canvas = document.querySelector("canvas") as HTMLCanvasElement | null;
         if (!canvas)
-            throw new Error("Could not find game canvas for snapMaps capture.");
+            throw new Error("Could not find game canvas for snapLevels capture.");
 
         bareEngine.Render();
 
         let blob: Blob;
 
-        if (this.snapMapOptions.showLabel) {
+        if (this.snapLevelOptions.showLabel) {
             const labelCanvas = document.createElement("canvas");
             labelCanvas.width = canvas.width;
             labelCanvas.height = canvas.height;
             const ctx = labelCanvas.getContext("2d")!;
             ctx.drawImage(canvas, 0, 0);
 
-            const levelName = level.name || this.snapMapOptions.levelName;
+            const levelName = level.name || this.snapLevelOptions.levelName;
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
 
@@ -136,7 +136,7 @@ export class Game extends Scene
 
             ctx.font = `bold ${fontSize}px sans-serif`;
             const textX = canvas.width / 2;
-            const textY = canvas.height / 2;
+            const textY = Math.max(fontSize * 0.65, 8);
             const textW = ctx.measureText(levelName).width;
             const textH = fontSize;
 
@@ -154,9 +154,9 @@ export class Game extends Scene
             blob = await (await fetch(dataUrl)).blob();
         }
 
-        const url = new URL(this.snapMapOptions.saveUrl);
-        url.searchParams.set("level", level.name || this.snapMapOptions.levelName);
-        url.searchParams.set("token", this.snapMapOptions.token);
+        const url = new URL(this.snapLevelOptions.saveUrl);
+        url.searchParams.set("level", level.name || this.snapLevelOptions.levelName);
+        url.searchParams.set("token", this.snapLevelOptions.token);
 
         const response = await fetch(url.toString(), {
             method: "POST",
@@ -165,9 +165,9 @@ export class Game extends Scene
         });
 
         if (!response.ok)
-            throw new Error(`snapMaps save failed with HTTP ${response.status}`);
+            throw new Error(`snapLevels save failed with HTTP ${response.status}`);
 
-        (window as any).__snapMapsReady = level.name || this.snapMapOptions.levelName;
+        (window as any).__snapLevelsReady = level.name || this.snapLevelOptions.levelName;
     }
 
     private async WaitForFrames(frameCount: number): Promise<void>
@@ -189,6 +189,6 @@ export class Game extends Scene
 StartBare(Game, {antiAlias: false, textureFilter: TextureFilterMode.NEAREST, 
     showEditorButton: false,
     resolution: {
-    width: GetSnapMapDimension("snapWidth", 240),
-    height: GetSnapMapDimension("snapHeight", 160),
+    width: GetSnapLevelDimension("snapWidth", 240),
+    height: GetSnapLevelDimension("snapHeight", 160),
 }});

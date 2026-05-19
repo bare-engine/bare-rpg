@@ -13,6 +13,7 @@ const levelsDir = path.join(root, "public", "data", "levels");
 const outputDir = path.join(root, "public", "images", "editorImages");
 const token = randomBytes(16).toString("hex");
 const pendingSaves = new Map();
+const showLabel = getShowLabelArg();
 
 const chromePath = findChrome();
 if (!chromePath) {
@@ -28,7 +29,7 @@ const savePort = saveServer.address().port;
 const vite = await createViteServer({
     configFile: path.join(root, "vite.config.cjs"),
     mode: "development",
-    plugins: [snapMapsEntryPlugin()],
+    plugins: [snapLevelsEntryPlugin()],
     server: {
         host: "127.0.0.1",
         port: 0,
@@ -86,14 +87,15 @@ async function getLevelFiles() {
 async function snapLevel(level, vitePort, savePort) {
     const outputPath = path.join(outputDir, `${level.name}.webp`);
     const savePromise = waitForSave(level.name, outputPath);
-    const profileDir = await mkdtemp(path.join(tmpdir(), "bare-rpg-snapmaps-"));
+    const profileDir = await mkdtemp(path.join(tmpdir(), "bare-rpg-snaplevels-"));
     const url = new URL(`http://127.0.0.1:${vitePort}/`);
 
-    url.searchParams.set("snapMap", level.name);
+    url.searchParams.set("snapLevel", level.name);
     url.searchParams.set("snapWidth", String(level.width));
     url.searchParams.set("snapHeight", String(level.height));
     url.searchParams.set("snapSave", `http://127.0.0.1:${savePort}/save`);
     url.searchParams.set("snapToken", token);
+    url.searchParams.set("snapLabel", showLabel ? "true" : "false");
 
     console.log(`Snapshotting ${level.name} -> ${path.relative(root, outputPath)}`);
 
@@ -152,7 +154,7 @@ function createSaveServer() {
         if (request.method === "POST" && url.pathname === "/error") {
             if (url.searchParams.get("token") !== token) {
                 response.writeHead(403);
-                response.end("Bad snapMaps token.");
+                response.end("Bad snapLevels token.");
                 return;
             }
 
@@ -162,7 +164,7 @@ function createSaveServer() {
 
             request.on("data", chunk => chunks.push(chunk));
             request.on("end", () => {
-                const message = Buffer.concat(chunks).toString("utf8") || `Unknown snapMaps error in ${level}.`;
+                const message = Buffer.concat(chunks).toString("utf8") || `Unknown snapLevels error in ${level}.`;
                 if (pending) {
                     pending.reject(new Error(message));
                     pendingSaves.delete(level);
@@ -182,7 +184,7 @@ function createSaveServer() {
 
         if (url.searchParams.get("token") !== token) {
             response.writeHead(403);
-            response.end("Bad snapMaps token.");
+            response.end("Bad snapLevels token.");
             return;
         }
 
@@ -190,7 +192,7 @@ function createSaveServer() {
         const pending = pendingSaves.get(level);
         if (!pending) {
             response.writeHead(400);
-            response.end(`Unexpected snapMaps level "${level}".`);
+            response.end(`Unexpected snapLevels level "${level}".`);
             return;
         }
 
@@ -213,9 +215,9 @@ function createSaveServer() {
     });
 }
 
-function snapMapsEntryPlugin() {
+function snapLevelsEntryPlugin() {
     return {
-        name: "bare-rpg:snapmaps-entry",
+        name: "bare-rpg:snaplevels-entry",
         transformIndexHtml: {
             order: "post",
             handler(html) {
@@ -248,6 +250,10 @@ function findChrome() {
     ].filter(Boolean);
 
     return candidates.find(candidate => existsSync(candidate));
+}
+
+function getShowLabelArg() {
+    return process.argv.slice(2).some(arg => arg === "--showLabel" || arg === "--show-label" || arg === "--label");
 }
 
 function listen(server, host, port) {
