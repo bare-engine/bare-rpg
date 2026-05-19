@@ -1,4 +1,4 @@
-import { BaseComponent, componentController, GameMode, mouseController, Run, Save, Scene } from "bare-engine"
+import { BaseComponent, componentController, GameMode, mouseController, Run, Save, Scene, sceneController, TextTexture } from "bare-engine"
 import { GameObject } from "bare-engine";
 import { Color, Vec2 } from "bare-engine";
 
@@ -11,6 +11,39 @@ export class LevelConnectorComponent extends BaseComponent
     @Save private right:string;
     @Save private bottom:string;
     @Save private left:string;
+
+    textOverlay: GameObject;
+
+    OnAdded(): void
+    {
+        this.textOverlay = bare.AddGameObject(new TextTexture(rapid, {text: this.go.name, stroke: "#ffffff", strokeThickness: 4}), this.go);
+        this.textOverlay.visibleInEditor = false;
+        this.textOverlay.SetPosition(this.go.width - this.textOverlay.width * .5 - 3, this.textOverlay.height * .5 + 3);
+        this.textOverlay.CenterPivot();
+
+        // SHOW/HIDE OVERLAY TEXT ON HOVER IN/OUT
+        this.go.OnPointerEnter(() => {
+            this.textOverlay.visibleInEditor = true;
+        });
+        this.go.OnPointerLeave(() => {
+            this.textOverlay.visibleInEditor = false;
+        });
+
+        // SCAKE OVERLAY TEXT ON HOVER IN/OUT
+        this.textOverlay.OnPointerEnter(() => {
+            this.textOverlay.SetInnerScale(1.1);
+        });
+        this.textOverlay.OnPointerLeave(() => {
+            this.textOverlay.SetInnerScale(1);
+        });
+
+        // GO TO LEVEL ON RELEASE
+        this.textOverlay.OnPointerUp(() => {
+            var levelToGo = this.go.name;
+            sceneController.Remove(this.go.scene);
+            sceneController.GetLevelScene()?.LoadLevel(levelToGo);
+        });
+    }
 
     OnUpdate(deltaTime: number): void 
     {
