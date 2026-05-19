@@ -8,6 +8,7 @@ type SnapMapOptions = {
     levelName: string;
     saveUrl: string;
     token: string;
+    showLabel: boolean;
 };
 
 function GetSnapMapOptions(): SnapMapOptions | null
@@ -21,7 +22,8 @@ function GetSnapMapOptions(): SnapMapOptions | null
     return {
         levelName,
         saveUrl: params.get("snapSave") || "",
-        token: params.get("snapToken") || ""
+        token: params.get("snapToken") || "",
+        showLabel: params.get("snapLabel") !== "false"
     };
 }
 
@@ -106,8 +108,51 @@ export class Game extends Scene
 
         bareEngine.Render();
 
-        const dataUrl = canvas.toDataURL("image/webp", 1);
-        const blob = await (await fetch(dataUrl)).blob();
+        let blob: Blob;
+
+        if (this.snapMapOptions.showLabel) {
+            const labelCanvas = document.createElement("canvas");
+            labelCanvas.width = canvas.width;
+            labelCanvas.height = canvas.height;
+            const ctx = labelCanvas.getContext("2d")!;
+            ctx.drawImage(canvas, 0, 0);
+
+            const levelName = level.name || this.snapMapOptions.levelName;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+
+            // Binary-search for the largest font size that fits within 90% of canvas width
+            let lo = 8, hi = canvas.height * 2, fontSize = lo;
+            while (lo <= hi) {
+                const mid = Math.floor((lo + hi) / 2);
+                ctx.font = `bold ${mid}px sans-serif`;
+                if (ctx.measureText(levelName).width <= canvas.width * 0.75) {
+                    fontSize = mid;
+                    lo = mid + 1;
+                } else {
+                    hi = mid - 1;
+                }
+            }
+
+            ctx.font = `bold ${fontSize}px sans-serif`;
+            const textX = canvas.width / 2;
+            const textY = canvas.height / 2;
+            const textW = ctx.measureText(levelName).width;
+            const textH = fontSize;
+
+            ctx.fillStyle = "rgba(255,255,255,0.2)";
+            ctx.fillRect(textX - textW / 2 - 4, textY - textH / 2 - 2, textW + 8, textH + 4);
+
+            ctx.fillStyle = "#000000";
+            ctx.fillText(levelName, textX, textY);
+
+            blob = await new Promise<Blob>((resolve, reject) =>
+                labelCanvas.toBlob(b => b ? resolve(b) : reject(new Error("toBlob returned null")), "image/webp", 1)
+            );
+        } else {
+            const dataUrl = canvas.toDataURL("image/webp", 1);
+            blob = await (await fetch(dataUrl)).blob();
+        }
 
         const url = new URL(this.snapMapOptions.saveUrl);
         url.searchParams.set("level", level.name || this.snapMapOptions.levelName);
