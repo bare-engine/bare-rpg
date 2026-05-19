@@ -1,6 +1,10 @@
 
-import { EditorScene, globalEvents, LevelData, sceneController } from "bare-engine";
-import type { Events, Scene } from "bare-engine";
+
+import mapLevelJson from '../../public/data/levels/map.json';
+import mapDataJson from '../../public/data/mapData.json';
+
+import { Button, EditorScene, Events, globalEvents, LevelData, plugin, sceneController, SettingsHandler, uiScene } from "bare-engine";
+import { Game } from "../game";
 
 export type Direction = "top" | "right" | "bottom" | "left";
 
@@ -12,27 +16,72 @@ type LevelMap = Record<string, Level>;
 
 export class MapHandler
 {
-    public scene: Scene;
-    public map: LevelMap;
-    public lastSavedMap: LevelData;
-
-    constructor(scene: Scene)
-    {
-      this.scene = scene;
-      globalEvents.persistent.on('level_savedToDisk', this.OnLevelSaved.bind(this));
-    }
-
-    OnLevelSaved({ level }: Events['level_savedToDisk'])
-    {
-      var editorScene = sceneController.Get(EditorScene) as EditorScene;
-      if (editorScene?.settingsData.name == "mapData")
-      {
-        this.lastSavedMap = level;
-      }
-    }
+    public static mapSettingsHandler: SettingsHandler;
+    public static map: LevelMap;
     
+    static async Init(scene: Game): Promise<void>
+    {
+      this.mapSettingsHandler = new SettingsHandler(scene);
+
+      // THE MAP HAS "level_[editorImages]" IN IT'S CATEGORIES, THIS WILL RESOLVE THAT
+      // BY FINDING ALL IMAGES IN editorImages FOLDER AND MAKING THEM INTO PLACABLE OBJECTS
+      // (NOT NEEDED RIGHT AWAY, BUT HANDY TO HAVE IT BEFORE OPENING THE MAP EDITOR)
+      await this.mapSettingsHandler.Process(mapDataJson);
+
+      // READ INITIAL LEVEL MAP, SO WE KNOW HOW LEVELS ARE CONNECTED
+      this.FillLevelMap(mapLevelJson);
+
+      // UPDATE LEVEL MAP WHEN IT'S SAVED/CHANGED
+      globalEvents.persistent.on('level_savedToDisk', ( levelPayload: Events['level_savedToDisk']) => {
+        if (levelPayload.level?.settingsData == "mapData")
+        {
+          this.FillLevelMap(levelPayload.level);
+        }
+      });
+
+      this.AddMapEditorButton(scene);
+    }
+
+    static AddMapEditorButton(scene: Game)
+    {
+      // CREATE MAP EDITOR BUTTON
+      var OnClickMapEditorButton = async () => {
+          sceneController.DisableAllScenes();
+
+          for (var scene of sceneController.GetAllScenes())
+          {
+              // HARDCODED THESE FOR NOW - NEEDED SO MOUSE IS NOT LOCKED TO DOWN AFTER CLICKING THIS BUTTON
+              // HITBOX CONTROLLER FOR GOOD MEASURE TOO
+              scene.hitboxController?.Reset();
+              scene.mouseController?.Reset();
+          }
+
+          await sceneController.Add(EditorScene, {
+              levelPathOrData: "data/levels/map.json",
+              settingsHandler: this.mapSettingsHandler,
+          });
+      }
+
+      var mapEditorButton = new Button(uiScene, {text: "Map Editor", OnPress: async () => {
+          await OnClickMapEditorButton();
+      }});
+      var scale = 1;
+      if (bareEngine.resolution && bareEngine.resolution.width != undefined && bareEngine.resolution.height != undefined)
+          scale = bareEngine.resolution.width * .001736;
+      mapEditorButton.SetScale(scale);
+      mapEditorButton.name = "mapEditorButton";
+
+      // ADDING mapEditorButton
+      uiScene.AddGameObject(mapEditorButton)
+          .SetPosition(scene.width, 0)
+          .SetPivot(1, 0);
+
+      // ADD DEBUG ACTIONS FOR THE CHROME PLUGIN (IF IT'S THERE)
+      plugin?.AddDebugAction("Toggle Map Editor", () => OnClickMapEditorButton());
+    }
+
     // FILLING UP this.map WITH RELEVANT DATA FROM LEVEL MAP
-    FillLevelMap(levelMapJson:LevelData): void
+    static FillLevelMap(levelMapJson:LevelData): void
     {
       this.map = {};
 
@@ -54,7 +103,7 @@ export class MapHandler
       }
     }
 
-    GetLevelInDirectionFrom(fromLevel:string, direction: Direction): string
+    static GetLevelInDirectionFrom(fromLevel:string, direction: Direction): string
     {
       if (!this.map[fromLevel])
           return "";

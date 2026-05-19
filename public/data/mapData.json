@@ -3,7 +3,8 @@
   "categories": {
     "Levels": {
       "entries": "level_[editorImages]",
-      "baseEntity": "level"
+      "baseEntity": "level",
+      "showLabels": true
     }
   },
   "baseEntities": {
