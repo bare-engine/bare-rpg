@@ -52,6 +52,10 @@
       "components": {
         "enemyAI": {
           "strength": 10
+        },
+        "wiggle": {
+          "wiggleSpeed": 0.35,
+          "wiggleAmount": 50
         }
       },
       "baseEntity": "alive",
@@ -126,7 +130,9 @@
       "baseEntity": "enemy",
       "components": {
         "enemyAI": {
-          "strength": 10
+          "strength": 10,
+          "roamSpeed": 15,
+          "attackSpeed": 40
         },
         "alive": {
           "maxHealth": 12

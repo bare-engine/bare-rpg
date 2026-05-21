@@ -22,9 +22,9 @@ export class PlayerComponent extends BaseComponent
             componentController.CallMethodOnComponentsOfObject("OnHit", object, this.weapon.strength, this.go);
         });
 
-        globalEvents.persistent.on(BareEvent.pointer_up, (mouseData: Events['pointer_up']) => {
+        events.on(BareEvent.pointer_up, (mouseData: Events['pointer_up']) => {
             this.Attack();
-        });
+        }, 'pointer_up');
     }
 
     OnUpdate(deltaTime: number): void
@@ -44,6 +44,8 @@ export class PlayerComponent extends BaseComponent
     OnDie()
     {
         this.go.stayInBounds = true;
+        events.offAlias("pointer_up");
+        
         events.emit("playerDied");
     }
     

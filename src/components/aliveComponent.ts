@@ -2,7 +2,6 @@ import { BaseComponent, Color, componentController, InspectorField, Save, TweenT
 
 export class AliveComponent extends BaseComponent
 {
-    //@InspectorField
     @Save
     health: number = 0;
 
