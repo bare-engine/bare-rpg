@@ -14,7 +14,7 @@ export class AliveComponent extends BaseComponent
     OnAdded(): void
     {
         // IF HEALTH WAS NOT SET BY INSPECTOR OR SAVE VALUE, SET IT TO MAX
-        //if (this.health == 0)
+        if (this.health == 0)
             this.health = this.maxHealth;
         
         // ENSURE HEALTH IS NOT GREATER THAN MAX, CAN HAPPEN WHEN INSPECTOR OR SAVE SETS MAX HEALTH

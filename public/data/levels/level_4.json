@@ -24,7 +24,7 @@
         "name": "tile_0123",
         "position": {
           "x": 40,
-          "y": 48
+          "y": 40
         }
       },
       {
@@ -45,35 +45,35 @@
         "name": "tile_0123",
         "position": {
           "x": 120,
-          "y": 32
+          "y": 40
         }
       },
       {
         "name": "tile_0123",
         "position": {
           "x": 120,
-          "y": 144
+          "y": 136
         }
       },
       {
         "name": "tile_0123",
         "position": {
           "x": 120,
-          "y": 96
+          "y": 104
         }
       },
       {
         "name": "tile_0123",
         "position": {
           "x": 88,
-          "y": 112
+          "y": 120
         }
       },
       {
         "name": "tile_0123",
         "position": {
           "x": 152,
-          "y": 48
+          "y": 56
         }
       }
     ],
