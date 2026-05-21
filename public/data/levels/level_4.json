@@ -16,8 +16,8 @@
       {
         "name": "tile_0082",
         "position": {
-          "x": 136,
-          "y": 64
+          "x": 200,
+          "y": 96
         }
       },
       {
@@ -30,8 +30,8 @@
       {
         "name": "tile_0082",
         "position": {
-          "x": 88,
-          "y": 128
+          "x": 184,
+          "y": 112
         }
       },
       {
@@ -53,6 +53,27 @@
         "position": {
           "x": 120,
           "y": 144
+        }
+      },
+      {
+        "name": "tile_0123",
+        "position": {
+          "x": 120,
+          "y": 96
+        }
+      },
+      {
+        "name": "tile_0123",
+        "position": {
+          "x": 88,
+          "y": 112
+        }
+      },
+      {
+        "name": "tile_0123",
+        "position": {
+          "x": 152,
+          "y": 48
         }
       }
     ],
@@ -109,8 +130,76 @@
       {
         "name": "tile_0049",
         "position": {
-          "x": 80,
+          "x": 96,
           "y": 48
+        }
+      },
+      {
+        "name": "tile_0070",
+        "position": {
+          "y": 64
+        }
+      },
+      {
+        "name": "tile_0070",
+        "position": {
+          "x": 16,
+          "y": 64
+        }
+      },
+      {
+        "name": "tile_0070",
+        "position": {
+          "x": 32,
+          "y": 64
+        }
+      },
+      {
+        "name": "tile_0070",
+        "position": {
+          "x": 48,
+          "y": 64
+        }
+      },
+      {
+        "name": "tile_0095",
+        "position": {
+          "x": 64,
+          "y": 64
+        }
+      },
+      {
+        "name": "tile_0081",
+        "position": {
+          "x": 64,
+          "y": 48
+        }
+      },
+      {
+        "name": "tile_0081",
+        "position": {
+          "x": 64,
+          "y": 32
+        }
+      },
+      {
+        "name": "tile_0081",
+        "position": {
+          "x": 64,
+          "y": 16
+        }
+      },
+      {
+        "name": "tile_0081",
+        "position": {
+          "x": 64,
+          "y": null
+        }
+      },
+      {
+        "name": "tile_0081",
+        "position": {
+          "x": 64
         }
       }
     ]

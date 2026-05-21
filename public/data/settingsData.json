@@ -1,5 +1,15 @@
 {
   "categories": {
+    "dynamic": {
+      "entries": ["tile_0098", "tile_0123", "tile_0082", "tile_0055", "tile_0110", "tile_0122"],
+      "baseEntity": "dynamic",
+      "expanded": true
+    },
+    "surface": {
+      "entries": ["tile_0069", "tile_0071", "tile_0081", "tile_0070", "tile_0093", "tile_0095", "tile_0067", "tile_0080", "tile_0042", "tile_0049", "tile_0066"],
+      "baseEntity": "NONE",
+      "expanded": true
+    },
     "tiles": {
       "entries": "tile_0000#131",
       "expanded": true
@@ -16,15 +26,46 @@
       },
       "drag": 0.1,
       "static": true,
-      "components": {
-        "wiggle": {}
-      },
       "pivotBasedOnHitbox": {
         "x": 0.5,
         "y": 1
       }
     },
-    "NONE": {}
+    "NONE": {},
+    "dynamic": {
+      "static": false,
+      "baseEntity": "ANY_ENTITY",
+      "components": {
+        "wiggle": {
+          "wiggleSpeed": 0.27
+        },
+        "flashOnHit": {}
+      }
+    },
+    "alive": {
+      "baseEntity": "dynamic",
+      "components": {
+        "alive": {}
+      }
+    },
+    "enemy": {
+      "components": {
+        "enemyAI": {
+          "strength": 10
+        }
+      },
+      "baseEntity": "alive",
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "hitbox": {
+        "x1": 0,
+        "y1": 0.5,
+        "x2": 1,
+        "y2": 1
+      }
+    }
   },
   "layers": ["objects", "surface"],
   "settings": {
@@ -33,23 +74,24 @@
     "gridSize": 16
   },
   "entities": {
-    "tile_0042": {
-      "baseEntity": "NONE"
-    },
-    "tile_0067": {
-      "baseEntity": "NONE"
-    },
     "tile_0098": {
       "static": false,
       "persistent": true,
       "stayInBounds": false,
-      "components": {}
-    },
-    "tile_0066": {
-      "baseEntity": "NONE"
-    },
-    "tile_0081": {
-      "baseEntity": "NONE"
+      "components": {
+        "player": {}
+      },
+      "children": [
+        {
+          "name": "tile_0104",
+          "position": {
+            "x": 15,
+            "y": 14
+          },
+          "flipped": true
+        }
+      ],
+      "baseEntity": "alive"
     },
     "tile_0055": {
       "hitbox": {
@@ -59,9 +101,53 @@
         "y2": 1
       }
     },
-    "tile_0049": {
-      "baseEntity": "NONE"
+    "tile_0104": {
+      "hitbox": {
+        "x1": 0.17,
+        "y1": 0,
+        "x2": 0.82,
+        "y2": 0.88
+      },
+      "baseClass": "Weapon",
+      "strength": 4
+    },
+    "tile_0123": {
+      "components": {
+        "alive": {
+          "maxHealth": 7
+        },
+        "enemyAI": {
+          "strength": 4
+        }
+      },
+      "baseEntity": "enemy"
+    },
+    "tile_0122": {
+      "baseEntity": "enemy",
+      "components": {
+        "enemyAI": {
+          "strength": 10
+        },
+        "alive": {
+          "maxHealth": 12
+        }
+      }
+    },
+    "tile_0110": {
+      "baseEntity": "enemy",
+      "components": {
+        "enemyAI": {
+          "strength": 10,
+          "attackSpeed": 150
+        },
+        "alive": {
+          "maxHealth": 10
+        }
+      }
     }
   },
-  "editorObjectSnapToPivot": false
+  "editorObjectSnapToPivot": false,
+  "saveVars": {
+    "PhysicsObjectBare": ["color"]
+  }
 }

@@ -2,7 +2,7 @@
 
 import mapLevelJson from '../../public/data/levels/map.json';
 import mapDataJson from '../../public/data/mapData.json';
-import { Button, EditorScene, Events, globalEvents, LevelData, plugin, sceneController, SettingsHandler, uiScene } from "bare-engine";
+import { BareEvent, Button, EditorScene, Events, globalEvents, LevelData, plugin, sceneController, SettingsHandler, uiScene } from "bare-engine";
 import { Game } from "../game";
 
 export type Direction = "top" | "right" | "bottom" | "left";
@@ -31,7 +31,7 @@ export class MapHandler
         this.FillLevelMap(mapLevelJson);
 
         // UPDATE LEVEL MAP WHEN IT'S SAVED/CHANGED
-        globalEvents.persistent.on('level_savedToDisk', (levelPayload: Events['level_savedToDisk']) => {
+        globalEvents.persistent.on(BareEvent.level_savedToDisk, (levelPayload: Events['level_savedToDisk']) => {
             if (levelPayload.level?.settingsData == "mapData")
             {
                 this.FillLevelMap(levelPayload.level);

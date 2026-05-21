@@ -10,15 +10,10 @@ export class WiggleComponent extends BaseComponent
     @InspectorField
     wiggleSpeed: number = .1;
 
-    Added(go: PhysicsObjectBare):void
-    {
-        super.Added(go);
-    }
-
     OnUpdate(deltaTime: number): void 
     {
         var sineInput = (bareEngine.count * this.wiggleSpeed);
-        //this.go.innerRotation = Math.sin(sineInput) * this.go.velocity.length();
-        this.go.innerRotation = Math.sin(sineInput) * this.wiggleAmount
+        this.go.rotation = Math.sin(sineInput) * Math.min(this.go.velocity.length()/120, 1) * this.wiggleAmount;
+        //this.go.rotation = Math.sin(sineInput) * this.wiggleAmount
     }
 }

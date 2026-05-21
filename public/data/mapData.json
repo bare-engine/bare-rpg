@@ -21,8 +21,8 @@
   },
   "entities": {},
   "settings": {
-    "gridEnabled": false,
+    "gridEnabled": true,
     "gridSize": 64,
-    "minimized": false
+    "minimized": true
   }
 }
