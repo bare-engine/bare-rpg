@@ -173,7 +173,6 @@ export class EnemyAIComponent extends BaseComponent
 
         // IF COLLISION WITH TARGET, HIT IT - USING collision_update SINCE collision_start DOESN'T FIRE IF THEY WERE ALREADY COLLIDING
         this.go.events.once(BareEvent.collision_update, (collidingObject: PhysicsObjectBare) => {
-            target.SetVelocity(vecToHitterNorm.multiply(400));
             componentController.CallMethodOnComponentsOfObject("OnHit", target, this.strength, this.go);
             //this.OnHit(collidingObject);
         }, 'hitCheck');

@@ -39,7 +39,7 @@
         "wiggle": {
           "wiggleSpeed": 0.27
         },
-        "flashOnHit": {}
+        "hit": {}
       }
     },
     "alive": {

@@ -2,7 +2,6 @@ import { CanvasPosition, CanvasScale, FlashShader, LevelData, objectController, 
 import settingsDataJson from '../public/data/settingsData.json';
 import { AliveComponent } from './components/aliveComponent';
 import { EnemyAIComponent } from './components/enemyAIComponent';
-import { FlashOnHitComponent } from './components/flashOnHitComponent';
 import { LevelConnectorComponent } from './components/levelConnectorComponent';
 import { PlayerComponent } from './components/playerComponents';
 import { WiggleComponent } from './components/wiggleComponent';
@@ -10,6 +9,7 @@ import { Layer } from './generated/layers';
 import { MapHandler } from './handlers/mapHandler';
 import { Weapon } from './objects/weapon';
 import { Joystick } from './ui/joystick';
+import { HitComponent } from './components/HitComponent';
 
 declare module "bare-engine"
 {
@@ -36,7 +36,7 @@ export class Game extends Scene
         bareEngine.AddClass(WiggleComponent);
         bareEngine.AddClass(LevelConnectorComponent);
         bareEngine.AddClass(EnemyAIComponent);
-        bareEngine.AddClass(FlashOnHitComponent);
+        bareEngine.AddClass(HitComponent);
         bareEngine.AddClass(AliveComponent);
         bareEngine.AddClass(Weapon);
 

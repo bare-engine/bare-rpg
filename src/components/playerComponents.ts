@@ -15,10 +15,6 @@ export class PlayerComponent extends BaseComponent
         this.weapon = this.go.GetChildByName("tile_0104") as Weapon;
         this.weapon.physicsHitbox.active = false;
         this.weapon.events.on(BareEvent.collision_start, (object: PhysicsObjectBare) => {
-            var dirVec = object.GetCenterPosition().subtract(this.go.GetCenterPosition()).normalize();
-            var hitVec = dirVec.multiply(300);
-            object.SetVelocity(hitVec);
-
             componentController.CallMethodOnComponentsOfObject("OnHit", object, this.weapon.strength, this.go);
         });
 
@@ -45,7 +41,7 @@ export class PlayerComponent extends BaseComponent
     {
         this.go.stayInBounds = true;
         events.offAlias("pointer_up");
-        
+
         events.emit("playerDied");
     }
     
