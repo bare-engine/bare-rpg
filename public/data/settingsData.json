@@ -65,7 +65,7 @@
       },
       "hitbox": {
         "x1": 0,
-        "y1": 0.5,
+        "y1": 0.2,
         "x2": 1,
         "y2": 1
       }
@@ -95,7 +95,13 @@
           "flipped": true
         }
       ],
-      "baseEntity": "alive"
+      "baseEntity": "alive",
+      "hitbox": {
+        "x1": 0,
+        "y1": 0.8,
+        "x2": 1,
+        "y2": 1
+      }
     },
     "tile_0055": {
       "hitbox": {
@@ -135,7 +141,10 @@
           "attackSpeed": 40
         },
         "alive": {
-          "maxHealth": 12
+          "maxHealth": 15
+        },
+        "wiggle": {
+          "wiggleSpeed": 0.35
         }
       }
     },

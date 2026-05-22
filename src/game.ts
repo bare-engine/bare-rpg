@@ -1,4 +1,4 @@
-import { CanvasPosition, CanvasScale, FlashShader, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, StartBare, TextureFilterMode, uiScene, Vec2 } from 'bare-engine';
+import { BareEvent, CanvasPosition, CanvasScale, FlashShader, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, StartBare, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
 import settingsDataJson from '../public/data/settingsData.json';
 import { AliveComponent } from './components/aliveComponent';
 import { EnemyAIComponent } from './components/enemyAIComponent';
@@ -56,13 +56,18 @@ export class Game extends Scene
         });
         uiScene.AddGameObject(joystick);
 
+        // FADE IT OUT WHEN USING KEYBOARD
+        events.on(BareEvent.key_pressed, () => {
+            TweenTo(joystick, .5, { alpha: 0 });
+        }, 'pointer_up');
+
         // RESTART THE GAME WHEN THE PLAYER DIES
         events.on("playerDied", async () => {
             await wait(1.5, true);
             bareEngine.Restart();
         });
         
-        // INIT MapHandler, THIS HANDLES HOW LEVELS ARE CONNECTED
+        // INIT MapHandler - THIS HANDLES HOW LEVELS ARE CONNECTED
         await MapHandler.Init(this);
 
         SaveDataHandler.Load();
@@ -70,7 +75,7 @@ export class Game extends Scene
 
     async OnStart()
     {
-        await this.LoadLevel( SaveData.currentLevelStr || 'level_1');
+        await this.LoadLevel(SaveData.currentLevelStr || 'level_1');
     }
 
     OnPostLoadLevel(level: LevelData): void
@@ -101,7 +106,7 @@ export class Game extends Scene
     }
 }
 
-StartBare(Game, {antiAlias: false, textureFilter: TextureFilterMode.NEAREST, 
+StartBare(Game, {antiAlias: false, textureFilter: TextureFilterMode.NEAREST, showEditorButton: true, 
     resolution: {
         width: 240, 
         height: 160, 

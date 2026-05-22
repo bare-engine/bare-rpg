@@ -69,6 +69,7 @@ export class MapHandler
             scale = bareEngine.resolution.width * .001736;
         mapEditorButton.SetScale(scale);
         mapEditorButton.name = "mapEditorButton";
+        mapEditorButton.buttonColor.a = 180;
 
         // ADDING mapEditorButton
         uiScene.AddGameObject(mapEditorButton)
