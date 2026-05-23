@@ -19,7 +19,8 @@ export class PlayerComponent extends BaseComponent
         });
 
         events.on(BareEvent.pointer_up, (mouseData: Events['pointer_up']) => {
-            this.Attack();
+            if (mouseData.isLeftButton)
+                this.Attack();
         }, 'pointer_up');
     }
 

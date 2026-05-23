@@ -152,7 +152,7 @@
       "baseEntity": "enemy",
       "components": {
         "enemyAI": {
-          "strength": 10,
+          "strength": 5,
           "attackSpeed": 150
         },
         "alive": {

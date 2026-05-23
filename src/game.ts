@@ -1,4 +1,4 @@
-import { BareEvent, CanvasPosition, CanvasScale, FlashShader, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, StartBare, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
+import { BareEvent, CanvasPosition, CanvasScale, CanvasScaleMode, FlashShader, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, StartBare, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
 import settingsDataJson from '../public/data/settingsData.json';
 import { AliveComponent } from './components/aliveComponent';
 import { EnemyAIComponent } from './components/enemyAIComponent';
@@ -57,7 +57,7 @@ export class Game extends Scene
         uiScene.AddGameObject(joystick);
 
         // FADE IT OUT WHEN USING KEYBOARD
-        events.on(BareEvent.key_pressed, () => {
+        events.once(BareEvent.key_pressed, () => {
             TweenTo(joystick, .5, { alpha: 0 });
         }, 'pointer_up');
 

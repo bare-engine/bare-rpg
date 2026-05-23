@@ -8,7 +8,7 @@ export class HitComponent extends BaseComponent
     OnHit(damage: number, hitter: PhysicsObjectBare): void
     {
         var dirVec = this.go.GetCenterPosition().subtract(hitter.GetCenterPosition()).normalize();
-        var hitVec = dirVec.multiply(400);
+        var hitVec = dirVec.multiply(80 * damage);
         this.go.SetVelocity(hitVec);
 
         this.go.AddShader(flashShader);

@@ -23,6 +23,6 @@
   "settings": {
     "gridEnabled": true,
     "gridSize": 16,
-    "minimized": true
+    "minimized": false
   }
 }
