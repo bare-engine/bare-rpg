@@ -50,19 +50,23 @@ export class Game extends Scene
 
     async OnAwake()
     {
+        // ADD THE PLAYER
         this.player = this.AddGameObject("tile_0098") as PhysicsObjectBare;
-        var playerComp = this.player.GetComponent(PlayerComponent)
 
         // CREATE A JOYSTICK AND LET IT MOVE THE PLAYER
         var joystick = new Joystick(uiScene, (normalizedStickVec: Vec2) => {
+            var playerComp = this.player.GetComponent(PlayerComponent);
             playerComp?.MovePlayer(normalizedStickVec);
         });
         uiScene.AddGameObject(joystick);
 
-        // MOUSE UP MAKES THE PLAYER ATTACK
+        // ATTACK ON MOUSE UP
         events.on(BareEvent.pointer_up, (mouseData: Events['pointer_up']) => {
             if (mouseData.isLeftButton)
+            {
+                var playerComp = this.player.GetComponent(PlayerComponent)
                 playerComp?.Attack();
+            }
         }, 'pointer_up');
 
         // FADE OUT JOYSTICK WHEN USING KEYBOARD
@@ -76,12 +80,12 @@ export class Game extends Scene
             sceneController.Goto(GameOver)
         });
 
-        // INIT SnapshotHandler - THIS SNAPS A LEVEL AFTER EACH EDIT 
-        // AND SAVES IT TO DISK, SO IT WILL UPDATE IN THE MAP EDITOR
+        // THIS HANDLES TAKING SNAPSHOTS OF LEVELS AFTER EACH EDIT AND SAVES IT TO DISK
+        // SO IT WILL UPDATE IN THE MAP EDITOR
         if (__DEV__)
             SnapshotHandler.Init(this);
         
-        // INIT MapHandler - THIS HANDLES HOW LEVELS ARE CONNECTED
+        // THIS HANDLES HOW LEVELS ARE CONNECTED
         await MapHandler.Init(this);
 
         SaveDataHandler.Load();
@@ -89,7 +93,7 @@ export class Game extends Scene
 
     async OnStart()
     {
-        await this.LoadLevel(SaveData.currentLevelStr || 'level_1'); // currentLevelStr IS HERE TO START FROM POTENTIAL LOADED LEVEL
+        await this.LoadLevel(SaveData.currentLevelStr || 'level_1'); // currentLevelStr IS HERE TO START FROM POTENTIAL SAVED LEVEL
     }
 
     OnPostLoadLevel(level: LevelData): void
