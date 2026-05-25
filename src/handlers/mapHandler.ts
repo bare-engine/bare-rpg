@@ -8,7 +8,7 @@ import { Game } from "../game";
 export type Direction = "top" | "right" | "bottom" | "left";
 
 type Level = {
-    connections: Partial<Record<Direction, string>>;
+    connections: Record<Direction, string>;
 };
 
 type LevelMap = Record<string, Level>;
@@ -56,10 +56,14 @@ export class MapHandler
                 scene.mouseController?.Reset();
             }
 
-            await sceneController.Add(EditorScene, {
-                levelPathOrData: "data/levels/map.json",
-                settingsHandler: this.mapSettingsHandler,
-            });
+            // ADDING _DEV_ HERE TOO, TO PREVENT EditorScene FROM BEING IMPORTED
+            if (__DEV__)
+            {
+                await sceneController.Add(EditorScene, {
+                    levelPathOrData: "data/levels/map.json",
+                    settingsHandler: this.mapSettingsHandler,
+                });
+            }
         }
 
         var mapEditorButton = new Button(uiScene, {text: "Map Editor", OnPress: async () => {
@@ -92,7 +96,7 @@ export class MapHandler
         {
             var levelName = entity.name;
 
-            var connections: Partial<Record<Direction, string>> = {};
+            var connections: Record<Direction, string> = {top: "", right: "", bottom: "", left: "" };
             this.map[levelName] = {connections: connections};
 
             var levelConnectorConnections = entity.components!.levelConnector as Record<Direction, string>;
