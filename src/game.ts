@@ -67,12 +67,12 @@ export class Game extends Scene
                 var playerComp = this.player.GetComponent(PlayerComponent)
                 playerComp?.Attack();
             }
-        }, 'pointer_up');
+        });
 
         // FADE OUT JOYSTICK WHEN USING KEYBOARD
         events.once(BareEvent.key_pressed, () => {
             TweenTo(joystick, .5, { alpha: 0 });
-        }, 'pointer_up');
+        });
 
         // RESTART THE GAME WHEN THE PLAYER DIES
         events.on("playerDied", async () => {

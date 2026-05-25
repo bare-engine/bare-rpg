@@ -38,8 +38,9 @@ export class PlayerComponent extends BaseComponent
 
     OnDie()
     {
+        this.weapon.active = false; // STOPS UPDATING
+
         this.go.stayInBounds = true;
-        events.offAlias("pointer_up");
 
         events.emit("playerDied");
     }
@@ -101,12 +102,8 @@ export class PlayerComponent extends BaseComponent
         if (this.stunned)
             return;
 
-        this.weapon.rotation = 0;
-        TweenTo(this.weapon, .1, { rotation: 60, persistent: true, yoyo: true });
-        
-        this.weapon.physicsHitbox.active = true;
-        await wait(.05, true);
-        this.weapon.physicsHitbox.active = false;
+        if (this.weapon.CanSlash())
+            this.weapon.Slash();
     }
 
     CheckOffScreen()
