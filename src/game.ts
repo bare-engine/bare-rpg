@@ -1,4 +1,4 @@
-import { BareEvent, CanvasPosition, CanvasScale, CanvasScaleMode, FlashShader, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, StartBare, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
+import { BareEvent, CanvasPosition, CanvasScale, CanvasScaleMode, FlashShader, globalEvents, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, StartBare, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
 import settingsDataJson from '../public/data/settingsData.json';
 import { AliveComponent } from './components/aliveComponent';
 import { EnemyAIComponent } from './components/enemyAIComponent';
@@ -66,6 +66,32 @@ export class Game extends Scene
             await wait(1.5, true);
             bareEngine.Restart();
         });
+
+        if (window.isLocalhost)
+        {
+            globalEvents.on(BareEvent.level_savedToDisk, async (levelPayload) => {
+                try 
+                {
+                    const levelName = levelPayload.level?.name || levelPayload.levelStr;
+                
+                    const response = await fetch("/api/snap-level", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ level: levelName })
+                    });
+
+                    if (!response.ok)
+                    {
+                        const result = await response.json().catch(() => null);
+                        throw new Error(result?.error || `snap-level failed with HTTP ${response.status}`);
+                    }
+                }
+                catch (error)
+                {
+                    console.error("Failed to snapshot saved level:", error);
+                }
+            });
+        }
         
         // INIT MapHandler - THIS HANDLES HOW LEVELS ARE CONNECTED
         await MapHandler.Init(this);

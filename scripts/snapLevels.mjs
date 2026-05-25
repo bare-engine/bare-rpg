@@ -14,6 +14,7 @@ const outputDir = path.join(root, "public", "images", "editorImages");
 const token = randomBytes(16).toString("hex");
 const pendingSaves = new Map();
 const showLabel = getShowLabelArg();
+const targetLevelName = getLevelArg();
 
 const chromePath = findChrome();
 if (!chromePath) {
@@ -42,7 +43,7 @@ await vite.listen();
 const vitePort = vite.httpServer.address().port;
 
 try {
-    const levels = await getLevelFiles();
+    const levels = await getLevelFiles(targetLevelName);
 
     if (levels.length === 0) {
         console.log("No level JSON files found to snapshot.");
@@ -56,14 +57,21 @@ try {
     await closeServer(saveServer);
 }
 
-async function getLevelFiles() {
+async function getLevelFiles(targetLevelName) {
     const entries = await readdir(levelsDir, { withFileTypes: true });
 
     const levels = [];
+    let foundTarget = false;
 
     for (const entry of entries) {
         if (!entry.isFile() || !entry.name.endsWith(".json"))
             continue;
+
+        const name = path.basename(entry.name, ".json");
+        if (targetLevelName && name !== targetLevelName)
+            continue;
+
+        foundTarget = true;
 
         const levelPath = path.join(levelsDir, entry.name);
         const level = JSON.parse(await readFile(levelPath, "utf8"));
@@ -73,12 +81,15 @@ async function getLevelFiles() {
             continue;
         }
 
-        const name = path.basename(entry.name, ".json");
         levels.push({
             name,
             width: Number(level.dimensions?.width) || 240,
             height: Number(level.dimensions?.height) || 160
         });
+    }
+
+    if (targetLevelName && !foundTarget) {
+        throw new Error(`Could not find level "${targetLevelName}" in ${levelsDir}.`);
     }
 
     return levels.sort((a, b) => a.name.localeCompare(b.name));
@@ -254,6 +265,33 @@ function findChrome() {
 
 function getShowLabelArg() {
     return process.argv.slice(2).some(arg => arg === "--showLabel" || arg === "--show-label" || arg === "--label");
+}
+
+function getLevelArg() {
+    const args = process.argv.slice(2);
+
+    for (let i = 0; i < args.length; i++) {
+        const arg = args[i];
+
+        if (arg === "--level") {
+            const value = args[i + 1] || "";
+            return validateLevelArg(value);
+        }
+
+        if (arg.startsWith("--level=")) {
+            return validateLevelArg(arg.slice("--level=".length));
+        }
+    }
+
+    return "";
+}
+
+function validateLevelArg(levelName) {
+    if (/^[a-zA-Z0-9_-]+$/.test(levelName)) {
+        return levelName;
+    }
+
+    throw new Error(`Invalid --level value "${levelName}".`);
 }
 
 function listen(server, host, port) {
