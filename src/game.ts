@@ -1,4 +1,4 @@
-import { BareEvent, CanvasPosition, CanvasScale, Events, FlashShader, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, StartBare, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
+import { BareEvent, CanvasPosition, CanvasScale, Events, FlashShader, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, sceneController, StartBare, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
 import settingsDataJson from '../public/data/settingsData.json';
 import { AliveComponent } from './components/aliveComponent';
 import { EnemyAIComponent } from './components/enemyAIComponent';
@@ -11,6 +11,7 @@ import { MapHandler } from './handlers/mapHandler';
 import { SnapshotHandler } from './handlers/snapshotHandler';
 import { Weapon } from './objects/weapon';
 import { Joystick } from './ui/joystick';
+import { GameOver } from './gameOver';
 
 declare module "bare-engine"
 {
@@ -71,7 +72,7 @@ export class Game extends Scene
         // RESTART THE GAME WHEN THE PLAYER DIES
         events.on("playerDied", async () => {
             await wait(1.5, true);
-            bareEngine.Restart();
+            sceneController.Goto(GameOver)
         });
 
         // INIT SnapshotHandler - THIS SNAPS A LEVEL AFTER EACH EDIT 
