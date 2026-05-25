@@ -18,8 +18,8 @@ export class SnapshotHandler
     {
         var scene = sceneController.GetMainScene();
         
-        if (!(scene instanceof Game))
-            return;
+        if (!this.game.enabled)
+            return; // WE'RE STILL IN EDITOR - NOT THE CASE JUST WHEN EDITOR IS CLOSED
 
         if (!scene.levelHandler.currentLevel)
             return; // WE'RE IN MAP EDITOR

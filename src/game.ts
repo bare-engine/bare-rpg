@@ -1,16 +1,16 @@
-import { assetsHandler, BareEvent, CanvasPosition, CanvasScale, CanvasScaleMode, FlashShader, globalEvents, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, StartBare, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
+import { BareEvent, CanvasPosition, CanvasScale, Events, FlashShader, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, StartBare, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
 import settingsDataJson from '../public/data/settingsData.json';
 import { AliveComponent } from './components/aliveComponent';
 import { EnemyAIComponent } from './components/enemyAIComponent';
+import { HitComponent } from './components/HitComponent';
 import { LevelConnectorComponent } from './components/levelConnectorComponent';
 import { PlayerComponent } from './components/playerComponents';
 import { WiggleComponent } from './components/wiggleComponent';
 import { Layer } from './generated/layers';
 import { MapHandler } from './handlers/mapHandler';
+import { SnapshotHandler } from './handlers/snapshotHandler';
 import { Weapon } from './objects/weapon';
 import { Joystick } from './ui/joystick';
-import { HitComponent } from './components/HitComponent';
-import { SnapshotHandler } from './handlers/snapshotHandler';
 
 declare module "bare-engine"
 {
@@ -49,15 +49,21 @@ export class Game extends Scene
     async OnAwake()
     {
         this.player = this.AddGameObject("tile_0098") as PhysicsObjectBare;
+        var playerComp = this.player.GetComponent(PlayerComponent)
 
         // CREATE A JOYSTICK AND LET IT MOVE THE PLAYER
         var joystick = new Joystick(uiScene, (normalizedStickVec: Vec2) => {
-            var playerComp = this.player.GetComponent(PlayerComponent)
             playerComp?.MovePlayer(normalizedStickVec);
         });
         uiScene.AddGameObject(joystick);
 
-        // FADE IT OUT WHEN USING KEYBOARD
+        // MOUSE UP MAKES THE PLAYER ATTACK
+        events.on(BareEvent.pointer_up, (mouseData: Events['pointer_up']) => {
+            if (mouseData.isLeftButton)
+                playerComp?.Attack();
+        }, 'pointer_up');
+
+        // FADE OUT JOYSTICK WHEN USING KEYBOARD
         events.once(BareEvent.key_pressed, () => {
             TweenTo(joystick, .5, { alpha: 0 });
         }, 'pointer_up');
@@ -70,7 +76,7 @@ export class Game extends Scene
 
         // INIT SnapshotHandler - THIS SNAPS A LEVEL AFTER EACH EDIT 
         // AND SAVES IT TO DISK, SO IT WILL UPDATE IN THE MAP EDITOR
-        if (window.isLocalhost)
+        if (__DEV__)
             SnapshotHandler.Init(this);
         
         // INIT MapHandler - THIS HANDLES HOW LEVELS ARE CONNECTED
@@ -81,7 +87,7 @@ export class Game extends Scene
 
     async OnStart()
     {
-        await this.LoadLevel(SaveData.currentLevelStr || 'level_1');
+        await this.LoadLevel(SaveData.currentLevelStr || 'level_1'); // currentLevelStr IS HERE TO START FROM POTENTIAL LOADED LEVEL
     }
 
     OnPostLoadLevel(level: LevelData): void

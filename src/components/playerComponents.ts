@@ -1,4 +1,4 @@
-import { BareEvent, BaseComponent, componentController, Events, globalEvents, keyboardController, levelHandler, PhysicsObjectBare, SaveData, Size, TweenTo, Vec2 } from "bare-engine";
+import { BareEvent, BaseComponent, componentController, keyboardController, levelHandler, PhysicsObjectBare, SaveData, Size, TweenTo, Vec2 } from "bare-engine";
 import { Direction, MapHandler } from "../handlers/mapHandler";
 import { Weapon } from "../objects/weapon";
 
@@ -12,16 +12,14 @@ export class PlayerComponent extends BaseComponent
     
     OnAdded(): void
     {
+        // GET WEAPON - ALREADY ADDED IN tile_0104 ENTITY
         this.weapon = this.go.GetChildByName("tile_0104") as Weapon;
         this.weapon.physicsHitbox.active = false;
+
+        // WEAPON HIT CALLS OnHit ON COMPONENTS
         this.weapon.events.on(BareEvent.collision_start, (object: PhysicsObjectBare) => {
             componentController.CallMethodOnComponentsOfObject("OnHit", object, this.weapon.strength, this.go);
         });
-
-        events.on(BareEvent.pointer_up, (mouseData: Events['pointer_up']) => {
-            if (mouseData.isLeftButton)
-                this.Attack();
-        }, 'pointer_up');
     }
 
     OnUpdate(deltaTime: number): void

@@ -38,7 +38,8 @@ export class MapHandler
             }
         });
 
-        this.AddMapEditorButton(scene);
+        if (__DEV__)
+            this.AddMapEditorButton(scene);
     }
 
     static AddMapEditorButton(scene: Game)
