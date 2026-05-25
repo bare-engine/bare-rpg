@@ -1,4 +1,4 @@
-import { BareEvent, CanvasPosition, CanvasScale, CanvasScaleMode, FlashShader, globalEvents, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, StartBare, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
+import { assetsHandler, BareEvent, CanvasPosition, CanvasScale, CanvasScaleMode, FlashShader, globalEvents, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, StartBare, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
 import settingsDataJson from '../public/data/settingsData.json';
 import { AliveComponent } from './components/aliveComponent';
 import { EnemyAIComponent } from './components/enemyAIComponent';
@@ -67,28 +67,22 @@ export class Game extends Scene
             bareEngine.Restart();
         });
 
+        // SNAPSHOT LEVEL WHEN CLOSING THE EDITOR - SO IT SHOWS UP UPDATED IN THE MAP EDITOR
         if (window.isLocalhost)
         {
-            globalEvents.on(BareEvent.level_savedToDisk, async (levelPayload) => {
-                try 
+            globalEvents.on(BareEvent.editor_closed, async ({ settingsDataName, levelName }) => {
+                if (settingsDataName == "levelEditor")
                 {
-                    const levelName = levelPayload.level?.name || levelPayload.levelStr;
-                
-                    const response = await fetch("/api/snap-level", {
+                    // CALLS npm run snapLevels -- --level [levelName]
+                    // FIRES UP A HEADLESS BROWSER TO TAKE A SNAPSHOT
+                    await fetch("/api/snap-level", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ level: levelName })
                     });
 
-                    if (!response.ok)
-                    {
-                        const result = await response.json().catch(() => null);
-                        throw new Error(result?.error || `snap-level failed with HTTP ${response.status}`);
-                    }
-                }
-                catch (error)
-                {
-                    console.error("Failed to snapshot saved level:", error);
+                    // CLEARS UP THE TEXTURE IF IT EXISTS, SO IT CAN BE RELOADED WHEN OPENING MAP EDITOR
+                    assetsHandler.RemoveTexture("editorImages/" + levelName);
                 }
             });
         }
