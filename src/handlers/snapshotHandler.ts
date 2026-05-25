@@ -3,8 +3,12 @@ import { Game } from "../game";
 
 export class SnapshotHandler
 {
-    static Init(scene: Scene)
+    static game:Game;
+
+    static Init(scene: Game)
     {
+        this.game = scene;
+
         globalEvents.on(BareEvent.level_savedToDisk, async (levelData) => {
             await this.SnapshotLevel(levelData.levelStr);
         });
@@ -40,9 +44,11 @@ export class SnapshotHandler
         const height = Math.max(1, Math.round(dimensions?.height || rapid.height));
         const target = rapid.texture.createRenderTexture({ width, height });
 
+        this.game.player.visible = false;
         rapid.drawToRenderTexture(target, () => {
             scene.Render();
         }, rapid.backgroundColor);
+        this.game.player.visible = true;
 
         const dataUrl = this.RenderTextureToCanvas(target, rapid.backgroundColor).toDataURL("image/webp", 1);
 

@@ -68,8 +68,8 @@ export class Game extends Scene
             bareEngine.Restart();
         });
 
-        // INIT SnapshotHandler - THIS SNAPS A LEVEL AFTER EACH EDIT AND SAVES IT TO level_savedToDisk
-        // FOR THE MAP EDITOR
+        // INIT SnapshotHandler - THIS SNAPS A LEVEL AFTER EACH EDIT 
+        // AND SAVES IT TO DISK, SO IT WILL UPDATE IN THE MAP EDITOR
         if (window.isLocalhost)
             SnapshotHandler.Init(this);
         
