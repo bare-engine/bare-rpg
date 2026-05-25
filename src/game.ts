@@ -1,4 +1,4 @@
-import { BareEvent, CanvasPosition, CanvasScale, Events, FlashShader, LevelData, objectController, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, sceneController, StartBare, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
+import { BareEvent, CanvasPosition, CanvasScale, Events, FlashShader, LevelData, objectController, ParticleComponent, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, sceneController, StartBare, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
 import settingsDataJson from '../public/data/settingsData.json';
 import { AliveComponent } from './components/aliveComponent';
 import { EnemyAIComponent } from './components/enemyAIComponent';
@@ -41,6 +41,7 @@ export class Game extends Scene
         bareEngine.AddClass(HitComponent);
         bareEngine.AddClass(AliveComponent);
         bareEngine.AddClass(Weapon);
+        bareEngine.AddClass(ParticleComponent);
 
         flashShader = new FlashShader();
 

@@ -1,4 +1,4 @@
-import { BaseComponent, Color, componentController, InspectorField, Save, TweenTo } from "bare-engine";
+import { BaseComponent, Color, componentController, InspectorField, ParticleComponent, Save, TweenTo } from "bare-engine";
 
 export class AliveComponent extends BaseComponent
 {
@@ -59,7 +59,7 @@ export class AliveComponent extends BaseComponent
     
     OnDie(): void
     {
-        componentController.RemoveComponentsFrom(this.go);
+        componentController.RemoveComponentsFrom(this.go, [ParticleComponent]);
         this.go.SetColor(Color.Gray);
     }
 }
