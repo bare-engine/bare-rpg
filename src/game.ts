@@ -10,6 +10,7 @@ import { MapHandler } from './handlers/mapHandler';
 import { Weapon } from './objects/weapon';
 import { Joystick } from './ui/joystick';
 import { HitComponent } from './components/HitComponent';
+import { SnapshotHandler } from './handlers/snapshotHandler';
 
 declare module "bare-engine"
 {
@@ -67,25 +68,10 @@ export class Game extends Scene
             bareEngine.Restart();
         });
 
-        // SNAPSHOT LEVEL WHEN CLOSING THE EDITOR - SO IT SHOWS UP UPDATED IN THE MAP EDITOR
+        // INIT SnapshotHandler - THIS SNAPS A LEVEL AFTER EACH EDIT AND SAVES IT TO level_savedToDisk
+        // FOR THE MAP EDITOR
         if (window.isLocalhost)
-        {
-            globalEvents.on(BareEvent.editor_closed, async ({ settingsDataName, levelName }) => {
-                if (settingsDataName == "levelEditor")
-                {
-                    // CALLS npm run snapLevels -- --level [levelName]
-                    // FIRES UP A HEADLESS BROWSER TO TAKE A SNAPSHOT
-                    await fetch("/api/snap-level", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ level: levelName })
-                    });
-
-                    // CLEARS UP THE TEXTURE IF IT EXISTS, SO IT CAN BE RELOADED WHEN OPENING MAP EDITOR
-                    assetsHandler.RemoveTexture("editorImages/" + levelName);
-                }
-            });
-        }
+            SnapshotHandler.Init(this);
         
         // INIT MapHandler - THIS HANDLES HOW LEVELS ARE CONNECTED
         await MapHandler.Init(this);

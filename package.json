@@ -10,8 +10,7 @@
         "build-nolog": "vite build --config vite.config.cjs --mode production",
         "analyze": "bare-engine-analyze",
         "poki-upload": "poki upload",
-        "build:assets": "node node_modules/bare-engine/scripts/buildAssets.cjs",
-        "snapLevels": "node scripts/snapLevels.mjs"
+        "build:assets": "node node_modules/bare-engine/scripts/buildAssets.cjs"
     },
     "repository": {
         "type": "git",

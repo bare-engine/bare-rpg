@@ -1,8 +1,8 @@
 const { defineBareConfig } = require("bare-engine/config");
-const { bareRpgSnapLevelPlugin } = require("./scripts/viteSnapLevelPlugin.cjs");
+const { saveTexturePlugin } = require("./vite/saveTexturePlugin.cjs");
 
 module.exports = defineBareConfig({
     plugins: [
-        bareRpgSnapLevelPlugin()
+        saveTexturePlugin()
     ]
 });
