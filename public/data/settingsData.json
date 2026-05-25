@@ -173,7 +173,7 @@
         "y": 0
       },
       "life": 0.4,
-      "texture": "particles/stripeParticle",
+      "texture": "stripeParticle",
       "origin": {
         "x": 0.5,
         "y": 0.5

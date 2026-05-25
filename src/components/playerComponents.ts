@@ -6,7 +6,7 @@ export class PlayerComponent extends BaseComponent
 {
     go: PhysicsObjectBare;
 
-    speed = 120;
+    speed = 90;
     weapon:Weapon;
     stunned: boolean = false;
     
