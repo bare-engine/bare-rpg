@@ -1,4 +1,4 @@
-import { GameObject, InspectorField, PhysicsObjectBare, Scene, TweenTo } from "bare-engine";
+import { GameObject, InspectorField, PhysicsObjectBare, Scene, tweenController, TweenTo } from "bare-engine";
 import { flashShader } from "../game";
 
 export class Weapon extends PhysicsObjectBare
@@ -37,6 +37,8 @@ export class Weapon extends PhysicsObjectBare
 
     async Slash()
     {
+        tweenController.FinishTweensFrom(this);
+
         this.rotation = 0;
         TweenTo(this, .1, { rotation: 60, persistent: true, yoyo: true });
         
@@ -45,5 +47,18 @@ export class Weapon extends PhysicsObjectBare
         this.physicsHitbox.active = false;
 
         this.cooldownCounter = this.cooldown;
-    }   
+    }
+
+    Shake()
+    {
+        this.cooldownCounter = this.cooldown;
+
+        TweenTo(this, .1, { onUpdate: () => {
+            var range = 2;
+            this.innerPosition.x = -range / 2 + range * Math.random();
+            this.innerPosition.y = -range / 2 + range * Math.random();
+        }, onComplete: () => {
+            this.innerPosition.set(0, 0)
+        }});
+    }
 }

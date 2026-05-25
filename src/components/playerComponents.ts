@@ -104,6 +104,8 @@ export class PlayerComponent extends BaseComponent
 
         if (this.weapon.CanSlash())
             this.weapon.Slash();
+        else
+            this.weapon.Shake();
     }
 
     CheckOffScreen()
