@@ -91,7 +91,7 @@
           "name": "tile_0104",
           "position": {
             "x": 15,
-            "y": 14
+            "y": 16
           },
           "flipped": true
         }
@@ -114,13 +114,17 @@
     },
     "tile_0104": {
       "hitbox": {
-        "x1": 0.17,
+        "x1": 4,
         "y1": 0,
-        "x2": 0.82,
-        "y2": 0.88
+        "x2": 12,
+        "y2": 16
       },
       "baseClass": "Weapon",
-      "strength": 4
+      "strength": 4,
+      "pivot": {
+        "x": 0.5,
+        "y": 1
+      }
     },
     "tile_0123": {
       "components": {
