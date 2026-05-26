@@ -1,5 +1,4 @@
-import { GameObject, InspectorField, PhysicsObjectBare, Scene, tweenController, TweenTo } from "bare-engine";
-import { flashShader } from "../game";
+import { FlashShader, InspectorField, PhysicsObjectBare, Scene, tweenController, TweenTo } from "bare-engine";
 
 export class Weapon extends PhysicsObjectBare
 {
@@ -24,7 +23,7 @@ export class Weapon extends PhysicsObjectBare
         this.rotation = 0;
         TweenTo(this, .1, { rotation: 60, persistent: true, yoyo: true });
         
-        this.AddShader(flashShader);
+        this.AddShader(FlashShader);
         
         this.physicsHitbox.active = true;
         await wait(.05, true);
@@ -41,7 +40,7 @@ export class Weapon extends PhysicsObjectBare
         await TweenTo(this, .4, { rotation: -20, persistent: true }).promise;
         TweenTo(this, .1, { rotation: 60, persistent: true }).promise;
         
-        this.AddShader(flashShader);
+        this.AddShader(FlashShader);
         
         this.physicsHitbox.active = true;
         await wait(.05, true);

@@ -1,5 +1,4 @@
-import { BaseComponent, ParticleComponent, PhysicsObjectBare } from "bare-engine";
-import { flashShader } from "../game";
+import { BaseComponent, FlashShader, ParticleComponent, PhysicsObjectBare } from "bare-engine";
 
 export class HitComponent extends BaseComponent
 {
@@ -11,7 +10,7 @@ export class HitComponent extends BaseComponent
         var hitVec = dirVec.multiply(80 * damage);
         this.go.SetVelocity(hitVec);
 
-        this.go.AddShader(flashShader);
+        this.go.AddShader(FlashShader);
 
         this.go.GetComponent(ParticleComponent).Fire();
     }

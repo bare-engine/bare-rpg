@@ -1,6 +1,5 @@
 import { BareEvent, BaseComponent, Color, componentController, InspectorField, Label, Locked, PhysicsObjectBare, TweenTo, Vec2 } from "bare-engine";
 import { BlockedState } from "../../../BareEngine/src/types/bareTypes";
-import { flashShader } from "../game";
 import { AliveComponent } from "./aliveComponent";
 
 enum State

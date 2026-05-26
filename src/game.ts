@@ -24,8 +24,6 @@ declare module "bare-engine"
     }
 }
 
-export var flashShader: FlashShader;
-
 export class Game extends Scene
 {
     player: PhysicsObjectBare;
@@ -42,8 +40,6 @@ export class Game extends Scene
         bareEngine.AddClass(AliveComponent);
         bareEngine.AddClass(Weapon);
         bareEngine.AddClass(ParticleComponent);
-
-        flashShader = new FlashShader();
 
         super(settingsDataJson);
     }
