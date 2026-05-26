@@ -6,55 +6,56 @@ export class Weapon extends PhysicsObjectBare
     @InspectorField
     strength:number = 1;
 
-    @InspectorField
-    cooldown:number = .7;
-
-    cooldownCounter:number = 0;
-
     constructor(scene: Scene)
     {
         super(scene)
     }
 
-    OnUpdate(deltaTime: number): void
-    {
-        if (this.cooldownCounter > 0)
-            this.cooldownCounter -= deltaTime;
-
-        if (this.cooldownCounter < 0)
-        {
-            if (this.cooldownCounter != 0)
-                this.AddShader(flashShader);
-
-            this.cooldownCounter = 0;
-        }
-    }
-
     CanSlash(): boolean
     {
-        return (this.cooldownCounter == 0);
+        var tweens = tweenController.GetTweensFrom(this);
+        return (tweens.length == 0);
     }
 
     async Slash()
     {
-        tweenController.FinishTweensFrom(this);
+        tweenController.FinishTweensFrom(this); // FINISH SHAKE TWEEN IF IT'S THERE
 
         this.rotation = 0;
         TweenTo(this, .1, { rotation: 60, persistent: true, yoyo: true });
+        
+        this.AddShader(flashShader);
+        
+        this.physicsHitbox.active = true;
+        await wait(.05, true);
+        this.physicsHitbox.active = false;
+    }
+
+    // COULD ALSO FIRE THIS INSTEAND OF Slash()
+    // TO MAKE IT LESS SPAMMY
+    async DelayedSlash()
+    {
+        tweenController.FinishTweensFrom(this); // FINISH SHAKE TWEEN IF IT'S THERE
+
+        this.rotation = 0;
+        await TweenTo(this, .4, { rotation: -20, persistent: true }).promise;
+        TweenTo(this, .1, { rotation: 60, persistent: true }).promise;
+        
+        this.AddShader(flashShader);
         
         this.physicsHitbox.active = true;
         await wait(.05, true);
         this.physicsHitbox.active = false;
 
-        this.cooldownCounter = this.cooldown;
+        await wait(.05, true);
+        await TweenTo(this, .1, { rotation: 0, persistent: true }).promise;
     }
 
     Shake()
     {
-        this.cooldownCounter = this.cooldown;
+        var range = 2;
 
         TweenTo(this, .1, { onUpdate: () => {
-            var range = 2;
             this.innerPosition.x = -range / 2 + range * Math.random();
             this.innerPosition.y = -range / 2 + range * Math.random();
         }, onComplete: () => {
