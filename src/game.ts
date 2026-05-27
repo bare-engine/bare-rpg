@@ -1,4 +1,4 @@
-import { BareEvent, CanvasPosition, CanvasScale, Events, FlashShader, LevelData, objectController, ParticleComponent, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, sceneController, StartBare, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
+import { assetsHandler, BareEvent, CanvasPosition, CanvasScale, Events, LevelData, MakePath, objectController, ParticleComponent, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, sceneController, StartBare, Texture, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
 import settingsDataJson from '../public/data/settingsData.json';
 import { AliveComponent } from './components/aliveComponent';
 import { EnemyAIComponent } from './components/enemyAIComponent';
@@ -6,12 +6,12 @@ import { HitComponent } from './components/HitComponent';
 import { LevelConnectorComponent } from './components/levelConnectorComponent';
 import { PlayerComponent } from './components/playerComponents';
 import { WiggleComponent } from './components/wiggleComponent';
+import { GameOver } from './gameOver';
 import { Layer } from './generated/layers';
-import { MapHandler } from './handlers/mapHandler';
+import { Direction, MapHandler } from './handlers/mapHandler';
 import { SnapshotHandler } from './handlers/snapshotHandler';
 import { Weapon } from './objects/weapon';
 import { Joystick } from './ui/joystick';
-import { GameOver } from './gameOver';
 
 declare module "bare-engine"
 {
@@ -27,6 +27,7 @@ declare module "bare-engine"
 export class Game extends Scene
 {
     player: PhysicsObjectBare;
+    promiseLevelLoads: Promise<void>;
     
     constructor()
     {
@@ -92,6 +93,13 @@ export class Game extends Scene
         await this.LoadLevel(SaveData.currentLevelStr || 'level_1'); // currentLevelStr IS HERE TO START FROM POTENTIAL SAVED LEVEL
     }
 
+    async OnPreLoadLevel(): Promise<void>
+    {
+        // WAIT FOR LOADING OF LEVELS AROUND TO COMPLETE, BEFORE STARTING A NEW ONE
+        if (this.promiseLevelLoads)
+            await this.promiseLevelLoads;
+    }
+
     OnPostLoadLevel(level: LevelData): void
     {
         var playerStartPositionObject = this.objectController.GetObjectByName("playerStart");
@@ -107,8 +115,57 @@ export class Game extends Scene
             if (this.player.position.equals(new Vec2(0, 0)))
                 this.player.SetPosition(level.dimensions.width / 2, level.dimensions.height / 2);
         }
+
+        this.promiseLevelLoads = this.LoadLevelAssetsAround(SaveData.currentLevelStr);
         
         SaveDataHandler.Save();
+    }
+
+    async LoadLevelAssetsAround(levelStr: string)
+    {
+        // LOAD ALL TEXTURES
+        var promisesAr: Array<Promise<Texture>> = [];
+        var texturesFound = new Set<string>();
+
+        var loadAssetsForLevel = (level: LevelData) => {
+            for (var layerName in level.entitiesByLayer) {
+                var entities = level.entitiesByLayer[layerName];
+                entities.forEach((entity: any) => {
+                    var entityConstructed = this.ConstructEntity(entity.name);
+                    var imagePath = entityConstructed.imagePath;
+                    var fullPath = imagePath + "/" + entity.name;
+
+                    if (texturesFound.has(fullPath))
+                        return;
+
+                    promisesAr.push(assetsHandler.GetTexturePromise(MakePath(imagePath!, entity.name)));
+                    texturesFound.add(fullPath);
+                });
+            }
+        }
+
+        if (MapHandler.map[levelStr])
+        {
+            var promisesLevelsAr: Array<Promise<LevelData>> = [];
+
+            var connections = MapHandler.map[levelStr].connections;
+            for (var dir in connections)
+            {
+                var levelName = connections[dir as Direction];
+                if (levelName == "")
+                    continue;
+                if (!SaveData.levelCache.has(levelName))
+                    promisesLevelsAr.push(this.levelHandler.LoadLevelData(levelName));
+            }
+
+            var levelDataAr = await Promise.all(promisesLevelsAr);
+            for (var i = 0; i < levelDataAr.length; i++)
+            {
+                loadAssetsForLevel(levelDataAr[i]);
+            }
+        }
+        
+        await Promise.all(promisesAr);
     }
 
     OnRender(): void
