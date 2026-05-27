@@ -28,6 +28,7 @@
         "bare-engine": "file:../BareEngine"
     },
     "bareEngine": {
+        "firstLevelLoad": "level1",
         "stripTexturePackImages": true,
         "texturePackImagesToInclude": ["tile_0098", "stripeParticle", "ring", "circle"],
         "index": {
