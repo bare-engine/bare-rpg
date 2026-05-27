@@ -70,15 +70,15 @@ export class MapHandler
             await OnClickMapEditorButton();
         }});
         var scale = 1;
-        if (bareEngine.resolution && bareEngine.resolution.width != undefined && bareEngine.resolution.height != undefined)
-            scale = bareEngine.resolution.width * .001736;
+        if (bare.resolution && bare.resolution.width != undefined && bare.resolution.height != undefined)
+            scale = bare.resolution.width * .001736;
         mapEditorButton.SetScale(scale);
         mapEditorButton.name = "mapEditorButton";
         mapEditorButton.buttonColor.a = 180;
 
         // ADDING mapEditorButton
         uiScene.AddGameObject(mapEditorButton)
-            .SetPosition(scene.width, 0)
+            .SetPosition(bare.width, 0)
             .SetPivot(1, 0);
 
         // ADD DEBUG ACTIONS FOR THE CHROME PLUGIN (IF IT'S THERE)

@@ -1,6 +1,6 @@
-import { FlashShader, InspectorField, PhysicsObjectBare, Scene, tweenController, TweenTo } from "bare-engine";
+import { FlashShader, InspectorField, ArcadeObject, Scene, tweenController, TweenTo } from "bare-engine";
 
-export class Weapon extends PhysicsObjectBare
+export class Weapon extends ArcadeObject
 {
     @InspectorField
     strength:number = 1;

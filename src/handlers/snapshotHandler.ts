@@ -28,12 +28,12 @@ export class SnapshotHandler
         await fetch("/api/save-texture", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ path: bareEngine.imagePath + "/editorImages/" + levelName, dataUrl: dataUrl })
+            body: JSON.stringify({ path: bare.imagePath + "/editorImages/" + levelName, dataUrl: dataUrl })
         });
 
         // CLEARS UP THE TEXTURE IF IT EXISTS, SO IT CAN BE RELOADED WHEN OPENING MAP EDITOR
         assetsHandler.RemoveTexture("editorImages/" + levelName);
-        var texture = await bareEngine.texture.load(dataUrl);
+        var texture = await bare.texture.load(dataUrl);
         assetsHandler.AddTexture("editorImages/" + levelName, texture);
     }
 

@@ -1,8 +1,8 @@
-import { BaseComponent, InspectorField, PhysicsObjectBare } from "bare-engine";
+import { BaseComponent, InspectorField, ArcadeObject } from "bare-engine";
 
 export class WiggleComponent extends BaseComponent
 {
-    go: PhysicsObjectBare;
+    go: ArcadeObject;
 
     @InspectorField
     wiggleAmount: number = 22;

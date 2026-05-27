@@ -31,7 +31,7 @@
         "firstLevelLoad": "level_1",
         "texturePackImages": {
             "stripUnused": true,
-            "alwaysInclude": ["tile_0098", "stripeParticle", "ring", "circle"]
+            "alwaysInclude": ["tile_0098", "ring", "circle"]
         },
         "index": {
             "title": "Bare RPG",

@@ -1,4 +1,4 @@
-import { BareEvent, BaseComponent, Color, componentController, InspectorField, Label, Locked, PhysicsObjectBare, TweenTo, Vec2 } from "bare-engine";
+import { BareEvent, BaseComponent, Color, componentController, InspectorField, Label, Locked, ArcadeObject, TweenTo, Vec2 } from "bare-engine";
 import { BlockedState } from "../../../BareEngine/src/types/bareTypes";
 import { AliveComponent } from "./aliveComponent";
 
@@ -14,7 +14,7 @@ enum State
 
 export class EnemyAIComponent extends BaseComponent
 {
-    go: PhysicsObjectBare;
+    go: ArcadeObject;
 
     state:State;
     stateArg:any;
@@ -73,7 +73,7 @@ export class EnemyAIComponent extends BaseComponent
             break;
 
             case State.Chase:
-                var target = this.stateArg as PhysicsObjectBare;
+                var target = this.stateArg as ArcadeObject;
                 var vecToHitter = target.GetHitboxCenter().subtract(this.go.GetHitboxCenter());
                 var distToHitter = vecToHitter.length();
                 var moveVec = vecToHitter.normalize().multiply(this.attackSpeed);
@@ -100,7 +100,7 @@ export class EnemyAIComponent extends BaseComponent
         this.counter -= deltaTime;
     }
 
-    async OnHit(damage: number, hitter: PhysicsObjectBare): Promise<void>
+    async OnHit(damage: number, hitter: ArcadeObject): Promise<void>
     {
         if (this.state == State.Dead)
             return;
@@ -150,7 +150,7 @@ export class EnemyAIComponent extends BaseComponent
         }
     }
 
-    async Attack(target: PhysicsObjectBare)
+    async Attack(target: ArcadeObject)
     {
         // WAIT LITTLE BIT - FOR BUILD UP / TIME TO ESCAPE
         await wait(.1);
@@ -171,7 +171,7 @@ export class EnemyAIComponent extends BaseComponent
         this.go.SetVelocity(moveVec.multiply(3));
 
         // IF COLLISION WITH TARGET, HIT IT - USING collision_update SINCE collision_start DOESN'T FIRE IF THEY WERE ALREADY COLLIDING
-        this.go.events.once(BareEvent.collision_update, (collidingObject: PhysicsObjectBare) => {
+        this.go.events.once(BareEvent.collision_update, (collidingObject: ArcadeObject) => {
             componentController.CallMethodOnComponentsOfObject("OnHit", target, this.strength, this.go);
             //this.OnHit(collidingObject);
         }, 'hitCheck');

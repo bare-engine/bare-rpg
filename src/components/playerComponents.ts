@@ -1,10 +1,10 @@
-import { BareEvent, BaseComponent, componentController, keyboardController, levelHandler, PhysicsObjectBare, SaveData, Size, TweenTo, Vec2 } from "bare-engine";
+import { BareEvent, BaseComponent, componentController, keyboardController, levelHandler, ArcadeObject, SaveData, Size, TweenTo, Vec2 } from "bare-engine";
 import { Direction, MapHandler } from "../handlers/mapHandler";
 import { Weapon } from "../objects/weapon";
 
 export class PlayerComponent extends BaseComponent
 {
-    go: PhysicsObjectBare;
+    go: ArcadeObject;
 
     speed = 90;
     weapon:Weapon;
@@ -17,7 +17,7 @@ export class PlayerComponent extends BaseComponent
         this.weapon.physicsHitbox.active = false;
 
         // WEAPON HIT CALLS OnHit ON COMPONENTS
-        this.weapon.events.on(BareEvent.collision_start, (object: PhysicsObjectBare) => {
+        this.weapon.events.on(BareEvent.collision_start, (object: ArcadeObject) => {
             componentController.CallMethodOnComponentsOfObject("OnHit", object, this.weapon.strength, this.go);
         });
     }

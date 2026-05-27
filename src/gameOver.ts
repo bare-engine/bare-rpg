@@ -4,7 +4,7 @@ export class GameOver extends Scene
 {
     async OnStart()
     {
-        bareEngine.SetBackgroundColor(Color.fromHex("#ff5c55"));
+        bare.SetBackgroundColor(Color.fromHex("#ff5c55"));
 
         this.AddGameObject(new TextTexture(rapid, {text: "Game Over", fill: "#ffffff"}))
             .SetPosition(this.width * .5, this.height * .5)
@@ -16,6 +16,6 @@ export class GameOver extends Scene
     async RestartWithDelay(delaySeconds: number)
     {
         await wait(delaySeconds, true);
-        bareEngine.Restart();
+        bare.Restart();
     }
 }

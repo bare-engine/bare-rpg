@@ -1,4 +1,4 @@
-import { assetsHandler, BareEvent, CanvasPosition, CanvasScale, Events, LevelData, MakePath, objectController, ParticleComponent, PhysicsControllerBare, PhysicsObjectBare, SaveData, SaveDataHandler, Scene, sceneController, StartBare, Texture, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
+import { assetsHandler, BareEvent, CanvasPosition, CanvasScale, Events, LevelData, MakePath, objectController, ParticleComponent, ArcadePhysicsController, ArcadeObject, SaveData, SaveDataHandler, Scene, sceneController, StartBare, Texture, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
 import settingsDataJson from '../public/data/settingsData.json';
 import { AliveComponent } from './components/aliveComponent';
 import { EnemyAIComponent } from './components/enemyAIComponent';
@@ -19,28 +19,28 @@ declare module "bare-engine"
     // SO THAT CallMethodOnAllComponents('Pop'); WORKS
     interface Component 
     {
-        OnHit?: (damage: number, hitter: PhysicsObjectBare) => void
+        OnHit?: (damage: number, hitter: ArcadeObject) => void
         OnDie?: () => void
     }
 }
 
 export class Game extends Scene
 {
-    player: PhysicsObjectBare;
+    player: ArcadeObject;
     promiseLevelLoads: Promise<void>;
     
     constructor()
     {
-        bareEngine.AddClass(PhysicsControllerBare);
-        bareEngine.AddClass(PhysicsObjectBare);
-        bareEngine.AddClass(PlayerComponent);
-        bareEngine.AddClass(WiggleComponent);
-        bareEngine.AddClass(LevelConnectorComponent);
-        bareEngine.AddClass(EnemyAIComponent);
-        bareEngine.AddClass(HitComponent);
-        bareEngine.AddClass(AliveComponent);
-        bareEngine.AddClass(Weapon);
-        bareEngine.AddClass(ParticleComponent);
+        bare.AddClass(ArcadePhysicsController);
+        bare.AddClass(ArcadeObject);
+        bare.AddClass(PlayerComponent);
+        bare.AddClass(WiggleComponent);
+        bare.AddClass(LevelConnectorComponent);
+        bare.AddClass(EnemyAIComponent);
+        bare.AddClass(HitComponent);
+        bare.AddClass(AliveComponent);
+        bare.AddClass(Weapon);
+        bare.AddClass(ParticleComponent);
 
         super(settingsDataJson);
     }
@@ -48,7 +48,7 @@ export class Game extends Scene
     async OnAwake()
     {
         // ADD THE PLAYER
-        this.player = this.AddGameObject("tile_0098") as PhysicsObjectBare;
+        this.player = this.AddGameObject("tile_0098") as ArcadeObject;
 
         // CREATE A JOYSTICK AND LET IT MOVE THE PLAYER
         var joystick = new Joystick(uiScene, (normalizedStickVec: Vec2) => {
