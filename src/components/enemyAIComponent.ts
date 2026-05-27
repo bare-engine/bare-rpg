@@ -177,7 +177,7 @@ export class EnemyAIComponent extends BaseComponent
         }, 'hitCheck');
 
         // DANGER WINDOW
-        await wait(.05);
+        await waitFrame();
 
         // ATTACK IS DONE, STOP LISTENING FOR COLLISION
         this.go.events.offAlias('hitCheck');

@@ -26,7 +26,7 @@ export class Weapon extends PhysicsObjectBare
         this.AddShader(FlashShader);
         
         this.physicsHitbox.active = true;
-        await wait(.05, true);
+        await waitFrame();
         this.physicsHitbox.active = false;
     }
 
@@ -43,10 +43,9 @@ export class Weapon extends PhysicsObjectBare
         this.AddShader(FlashShader);
         
         this.physicsHitbox.active = true;
-        await wait(.05, true);
+        await waitFrame();
         this.physicsHitbox.active = false;
 
-        await wait(.05, true);
         await TweenTo(this, .1, { rotation: 0, persistent: true }).promise;
     }
 
