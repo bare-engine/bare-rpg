@@ -28,6 +28,8 @@
         "bare-engine": "file:../BareEngine"
     },
     "bareEngine": {
+        "stripTexturePackImages": true,
+        "texturePackImagesToInclude": ["tile_0098", "stripeParticle", "ring", "circle"],
         "index": {
             "title": "Bare RPG",
             "backgroundColor": "rgb(255, 255, 255)",
