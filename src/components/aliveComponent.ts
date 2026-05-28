@@ -1,6 +1,6 @@
-import { BaseComponent, Color, componentController, InspectorField, ParticleComponent, Save, TweenTo } from "bare-engine";
+import { Component, Color, componentController, InspectorField, ParticleComponent, Save, TweenTo } from "bare-engine";
 
-export class AliveComponent extends BaseComponent
+export class AliveComponent extends Component
 {
     @Save
     health: number = 0;

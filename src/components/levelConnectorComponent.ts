@@ -1,11 +1,11 @@
-import { BaseComponent, componentController, GameMode, mouseController, Run, Save, Scene, sceneController, TextTexture } from "bare-engine"
+import { Component, componentController, GameMode, mouseController, Run, Save, Scene, sceneController, TextTexture } from "bare-engine"
 import { GameObject } from "bare-engine";
 import { Color, Vec2 } from "bare-engine";
 
 type Direction = "top" | "right" | "bottom" | "left";
 
 @Run(GameMode.Editor)
-export class LevelConnectorComponent extends BaseComponent
+export class LevelConnectorComponent extends Component
 {
     @Save private top:string;
     @Save private right:string;

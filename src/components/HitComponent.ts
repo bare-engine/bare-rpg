@@ -1,6 +1,6 @@
-import { BaseComponent, FlashShader, ParticleComponent, ArcadeObject } from "bare-engine";
+import { Component, FlashShader, ParticleComponent, ArcadeObject } from "bare-engine";
 
-export class HitComponent extends BaseComponent
+export class HitComponent extends Component
 {
     go: ArcadeObject;
 

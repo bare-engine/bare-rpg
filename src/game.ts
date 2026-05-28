@@ -17,7 +17,7 @@ declare module "bare-engine"
 {
     // EXTENDING THE COMPONENT INTERFACE WITH A METHOD
     // SO THAT CallMethodOnAllComponents('Pop'); WORKS
-    interface Component 
+    interface IComponent 
     {
         OnHit?: (damage: number, hitter: ArcadeObject) => void
         OnDie?: () => void

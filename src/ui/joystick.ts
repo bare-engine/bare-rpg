@@ -2,9 +2,6 @@ import { BareEvent, Easing, Events, GameObject, mouseController, ArcadeObject, S
 
 export class Joystick extends GameObject
 {
-    private controlledObject: ArcadeObject;
-    private moveSpeed: number = 500;
-
     private stick: GameObject;
     private interactDistance: number = 13;
     private moveAlongDistance: number = 50;
@@ -43,7 +40,7 @@ export class Joystick extends GameObject
     }
 
 
-    private PointerDown({ mouseX, mouseY, event, isLeftButton }: Events['pointerDown']): void
+    private PointerDown({ mouseX, mouseY, event, isLeftButton }: Events['pointer_down']): void
     {
         if (!isLeftButton)
             return;
@@ -60,7 +57,7 @@ export class Joystick extends GameObject
         tweenController.RemoveTweensFrom(this);
     }
 
-    private PointerMove({ mouseX, mouseY, event, isLeftButton }: Events['pointerMove']): void
+    private PointerMove({ mouseX, mouseY, event, isLeftButton }: Events['pointer_move']): void
     {
         if (!mouseController.IsMouseDown())
             return;
@@ -86,7 +83,7 @@ export class Joystick extends GameObject
         }
     }
 
-    private PointerUp({ mouseX, mouseY, event, isLeftButton }: Events['pointerUp']): void
+    private PointerUp({ mouseX, mouseY, event, isLeftButton }: Events['pointer_up']): void
     {
         if (!isLeftButton)
             return;

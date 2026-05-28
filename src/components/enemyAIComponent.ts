@@ -1,4 +1,4 @@
-import { BareEvent, BaseComponent, Color, componentController, InspectorField, Label, Locked, ArcadeObject, TweenTo, Vec2 } from "bare-engine";
+import { BareEvent, Component, Color, componentController, InspectorField, Label, Locked, ArcadeObject, TweenTo, Vec2 } from "bare-engine";
 import { BlockedState } from "../../../BareEngine/src/types/bareTypes";
 import { AliveComponent } from "./aliveComponent";
 
@@ -12,7 +12,7 @@ enum State
     None,
 }
 
-export class EnemyAIComponent extends BaseComponent
+export class EnemyAIComponent extends Component
 {
     go: ArcadeObject;
 
