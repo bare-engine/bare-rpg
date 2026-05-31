@@ -1,4 +1,4 @@
-import { BareEvent, Easing, Events, GameObject, mouseController, ArcadeObject, Scene, tweenController, TweenTo, Vec2 } from "bare-engine";
+import { BareEvent, Easing, Events, GameObject, mouseController, Scene, tweenController, TweenTo, Vec2 } from "bare-engine";
 
 export class Joystick extends GameObject
 {

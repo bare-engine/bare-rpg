@@ -1,5 +1,7 @@
-import { FlashShader, InspectorField, ArcadeObject, Scene, tweenController, TweenTo } from "bare-engine";
+import { FlashShader, InspectorBaseClass, InspectorField, Scene, tweenController, TweenTo } from "bare-engine";
+import { ArcadeObject } from "bare-engine/arcade";
 
+@InspectorBaseClass
 export class Weapon extends ArcadeObject
 {
     @InspectorField

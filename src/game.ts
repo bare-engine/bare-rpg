@@ -1,16 +1,11 @@
-import { assetsHandler, BareEvent, CanvasPosition, CanvasScale, Events, LevelData, MakePath, objectController, ParticleComponent, ArcadePhysicsController, ArcadeObject, SaveData, SaveDataHandler, Scene, sceneController, StartBare, Texture, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
+import { assetsHandler, BareEvent, CanvasPosition, CanvasScale, Events, LevelData, MakePath, objectController, SaveData, SaveDataHandler, Scene, sceneController, StartBare, Texture, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
+import { ArcadeObject, ArcadePhysicsController } from 'bare-engine/arcade';
 import settingsDataJson from '../public/data/settingsData.json';
-import { AliveComponent } from './components/aliveComponent';
-import { EnemyAIComponent } from './components/enemyAIComponent';
-import { HitComponent } from './components/HitComponent';
-import { LevelConnectorComponent } from './components/levelConnectorComponent';
 import { PlayerComponent } from './components/playerComponents';
-import { WiggleComponent } from './components/wiggleComponent';
 import { GameOver } from './gameOver';
 import { Layer } from './generated/layers';
 import { Direction, MapHandler } from './handlers/mapHandler';
 import { SnapshotHandler } from './handlers/snapshotHandler';
-import { Weapon } from './objects/weapon';
 import { Joystick } from './ui/joystick';
 
 declare module "bare-engine"
@@ -32,15 +27,6 @@ export class Game extends Scene
     constructor()
     {
         bare.AddClass(ArcadePhysicsController);
-        bare.AddClass(ArcadeObject);
-        bare.AddClass(PlayerComponent);
-        bare.AddClass(WiggleComponent);
-        bare.AddClass(LevelConnectorComponent);
-        bare.AddClass(EnemyAIComponent);
-        bare.AddClass(HitComponent);
-        bare.AddClass(AliveComponent);
-        bare.AddClass(Weapon);
-        bare.AddClass(ParticleComponent);
 
         super(settingsDataJson);
     }
@@ -48,7 +34,7 @@ export class Game extends Scene
     async OnAwake()
     {
         // ADD THE PLAYER
-        this.player = this.AddGameObject("tile_0098") as ArcadeObject;
+        this.player = this.AddGameObject("tile_0098");
 
         // CREATE A JOYSTICK AND LET IT MOVE THE PLAYER
         var joystick = new Joystick(uiScene, (normalizedStickVec: Vec2) => {

@@ -1,6 +1,7 @@
-import { BareEvent, Component, Color, componentController, InspectorField, Label, Locked, ArcadeObject, TweenTo, Vec2 } from "bare-engine";
+import { BareEvent, Component, Color, componentController, InspectorField, Label, Locked, TweenTo, Vec2 } from "bare-engine";
 import { BlockedState } from "../../../BareEngine/src/types/bareTypes";
 import { AliveComponent } from "./aliveComponent";
+import { ArcadeObject } from "bare-engine/arcade";
 
 enum State
 {

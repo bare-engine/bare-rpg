@@ -7,7 +7,7 @@ export class GameOver extends Scene
         bare.SetBackgroundColor(Color.fromHex("#ff5c55"));
 
         this.AddGameObject(new TextTexture(rapid, {text: "Game Over", fill: "#ffffff"}))
-            .SetPosition(this.width * .5, this.height * .5)
+            .SetPosition(bare.width * .5, bare.height * .5)
             .CenterPivot();
 
         this.RestartWithDelay(1.5);

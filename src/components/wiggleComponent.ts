@@ -1,4 +1,5 @@
-import { Component, InspectorField, ArcadeObject } from "bare-engine";
+import { Component, InspectorField } from "bare-engine";
+import { ArcadeObject } from "bare-engine/arcade";
 
 export class WiggleComponent extends Component
 {

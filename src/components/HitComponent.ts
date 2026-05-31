@@ -1,4 +1,5 @@
-import { Component, FlashShader, ParticleComponent, ArcadeObject } from "bare-engine";
+import { Component, FlashShader, ParticleComponent } from "bare-engine";
+import { ArcadeObject } from "bare-engine/arcade";
 
 export class HitComponent extends Component
 {
