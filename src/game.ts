@@ -7,6 +7,7 @@ import { Layer } from './generated/layers';
 import { Direction, MapHandler } from './handlers/mapHandler';
 import { SnapshotHandler } from './handlers/snapshotHandler';
 import { Joystick } from './ui/joystick';
+import { MakePathForEntity } from '../../BareEngine/src/globals';
 
 declare module "bare-engine"
 {
@@ -118,13 +119,12 @@ export class Game extends Scene
                 var entities = level.entitiesByLayer[layerName];
                 entities.forEach((entity: any) => {
                     var entityConstructed = this.ConstructEntity(entity.name);
-                    var imagePath = entityConstructed.imagePath;
-                    var fullPath = imagePath + "/" + entity.name;
+                    var fullPath = MakePathForEntity(entityConstructed);
 
                     if (texturesFound.has(fullPath))
                         return;
 
-                    promisesAr.push(assetsHandler.GetTexturePromise(MakePath(imagePath!, entity.name)));
+                    promisesAr.push(assetsHandler.GetTexturePromise(fullPath));
                     texturesFound.add(fullPath);
                 });
             }
