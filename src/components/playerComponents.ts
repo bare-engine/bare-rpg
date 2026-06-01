@@ -13,8 +13,8 @@ export class PlayerComponent extends Component
     
     OnAdded(): void
     {
-        // GET WEAPON - ALREADY ADDED IN tile_0104 ENTITY
-        this.weapon = this.go.GetChildByName("tile_0104") as Weapon;
+        // GET WEAPON - ALREADY ADDED IN player ENTITY
+        this.weapon = this.go.GetChildByName("weapon") as Weapon;
         this.weapon.physicsHitbox.active = false;
 
         // WEAPON HIT CALLS OnHit ON COMPONENTS

@@ -21,7 +21,7 @@
         }
       },
       {
-        "name": "tile_0123",
+        "name": "rat",
         "position": {
           "x": 40,
           "y": 40
@@ -42,35 +42,35 @@
         }
       },
       {
-        "name": "tile_0123",
+        "name": "rat",
         "position": {
           "x": 120,
           "y": 40
         }
       },
       {
-        "name": "tile_0123",
+        "name": "rat",
         "position": {
           "x": 120,
           "y": 136
         }
       },
       {
-        "name": "tile_0123",
+        "name": "rat",
         "position": {
           "x": 120,
           "y": 104
         }
       },
       {
-        "name": "tile_0123",
+        "name": "rat",
         "position": {
           "x": 88,
           "y": 120
         }
       },
       {
-        "name": "tile_0123",
+        "name": "rat",
         "position": {
           "x": 152,
           "y": 56

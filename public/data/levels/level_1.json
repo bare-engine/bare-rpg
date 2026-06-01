@@ -28,21 +28,21 @@
         }
       },
       {
-        "name": "tile_0123",
+        "name": "rat",
         "position": {
           "x": 104,
           "y": 40
         }
       },
       {
-        "name": "tile_0055",
+        "name": "cart",
         "position": {
           "x": 168,
           "y": 128
         }
       },
       {
-        "name": "tile_0123",
+        "name": "rat",
         "position": {
           "x": 72,
           "y": 120

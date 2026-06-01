@@ -14,7 +14,7 @@
         }
       },
       {
-        "name": "tile_0123",
+        "name": "rat",
         "position": {
           "x": 136,
           "y": 120
@@ -84,7 +84,7 @@
         }
       },
       {
-        "name": "tile_0122",
+        "name": "spider",
         "position": {
           "x": 56,
           "y": 120

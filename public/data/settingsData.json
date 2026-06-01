@@ -1,7 +1,7 @@
 {
   "categories": {
     "dynamic": {
-      "entries": ["tile_0098", "tile_0123", "tile_0082", "tile_0055", "tile_0110", "tile_0122"],
+      "entries": ["player", "rat", "tile_0082", "cart", "crab", "spider"],
       "baseEntity": "dynamic",
       "expanded": true
     },
@@ -79,7 +79,7 @@
     "gridSize": 16
   },
   "entities": {
-    "tile_0098": {
+    "player": {
       "static": false,
       "persistent": true,
       "stayInBounds": false,
@@ -88,7 +88,7 @@
       },
       "children": [
         {
-          "name": "tile_0104",
+          "name": "weapon",
           "position": {
             "x": 15,
             "y": 16
@@ -102,17 +102,19 @@
         "y1": 0.8,
         "x2": 1,
         "y2": 1
-      }
+      },
+      "texture": "tile_0098"
     },
-    "tile_0055": {
+    "cart": {
       "hitbox": {
         "x1": 0,
         "y1": 0.3,
         "x2": 1,
         "y2": 1
-      }
+      },
+      "texture": "tile_0055"
     },
-    "tile_0104": {
+    "weapon": {
       "hitbox": {
         "x1": 4,
         "y1": 0,
@@ -124,9 +126,10 @@
       "pivot": {
         "x": 0.5,
         "y": 1
-      }
+      },
+      "texture": "tile_0104"
     },
-    "tile_0123": {
+    "rat": {
       "components": {
         "alive": {
           "maxHealth": 7
@@ -135,9 +138,10 @@
           "strength": 4
         }
       },
-      "baseEntity": "enemy"
+      "baseEntity": "enemy",
+      "texture": "tile_0123"
     },
-    "tile_0122": {
+    "spider": {
       "baseEntity": "enemy",
       "components": {
         "enemyAI": {
@@ -151,9 +155,10 @@
         "wiggle": {
           "wiggleSpeed": 0.35
         }
-      }
+      },
+      "texture": "tile_0122"
     },
-    "tile_0110": {
+    "crab": {
       "baseEntity": "enemy",
       "components": {
         "enemyAI": {
@@ -163,7 +168,8 @@
         "alive": {
           "maxHealth": 10
         }
-      }
+      },
+      "texture": "tile_0110"
     }
   },
   "editorObjectSnapToPivot": false,

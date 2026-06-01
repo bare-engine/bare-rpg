@@ -34,7 +34,7 @@ export class Game extends Scene
     async OnAwake()
     {
         // ADD THE PLAYER
-        this.player = this.AddGameObject("tile_0098");
+        this.player = this.AddGameObject("player");
 
         // CREATE A JOYSTICK AND LET IT MOVE THE PLAYER
         var joystick = new Joystick(uiScene, (normalizedStickVec: Vec2) => {
