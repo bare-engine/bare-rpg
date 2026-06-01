@@ -25,7 +25,7 @@
         "vite": "^6.3.5"
     },
     "dependencies": {
-        "bare-engine": "file:../BareEngine"
+        "bare-engine": "github:BareEngine/BareEngine"
     },
     "bareEngine": {
         "firstLevelLoad": "level_1",
