@@ -7,6 +7,7 @@
 node_modules/
 dist/
 public/initial/generated/
+src/generated/
 
 # Compiled Java class files
 *.class
