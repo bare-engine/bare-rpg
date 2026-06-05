@@ -1,4 +1,4 @@
-import { assetsHandler, BareEvent, CanvasPosition, CanvasScale, Events, LevelData, MakePath, objectController, SaveData, SaveDataHandler, Scene, sceneController, StartBare, Texture, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
+import { assetsHandler, BareEvent, CanvasPosition, CanvasScale, Events, GameObject, LevelData, MakePath, objectController, SaveData, SaveDataHandler, Scene, sceneController, StartBare, Texture, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
 import { ArcadeObject, ArcadePhysicsController } from 'bare-engine/arcade';
 import settingsDataJson from '../public/data/settingsData.json';
 import { PlayerComponent } from './components/playerComponents';
@@ -13,10 +13,10 @@ declare module "bare-engine"
 {
     // EXTENDING THE COMPONENT INTERFACE WITH A METHOD
     // SO THAT CallMethodOnAllComponents('Pop'); WORKS
-    interface IComponent 
+    interface Component 
     {
-        OnHit?: (damage: number, hitter: ArcadeObject) => void
-        OnDie?: () => void
+        OnHit?(damage: number, hitter: GameObject): void | Promise<void>
+        OnDie?(): void
     }
 }
 
@@ -46,11 +46,8 @@ export class Game extends Scene
 
         // ATTACK ON MOUSE UP
         events.on(BareEvent.pointer_up, (mouseData: Events['pointer_up']) => {
-            if (mouseData.isLeftButton)
-            {
-                var playerComp = this.player.GetComponent(PlayerComponent)
-                playerComp?.Attack();
-            }
+            var playerComp = this.player.GetComponent(PlayerComponent)
+            playerComp?.Attack();
         });
 
         // FADE OUT JOYSTICK WHEN USING KEYBOARD

@@ -74,9 +74,8 @@
   },
   "layers": ["objects", "surface"],
   "settings": {
-    "minimized": false,
-    "gridEnabled": true,
-    "gridSize": 16
+    "minimized": true,
+    "gridEnabled": true
   },
   "entities": {
     "player": {

@@ -40,11 +40,8 @@ export class Joystick extends GameObject
     }
 
 
-    private PointerDown({ mouseX, mouseY, event, isLeftButton }: Events['pointer_down']): void
+    private PointerDown({ mouseX, mouseY, event }: Events['pointer_down']): void
     {
-        if (!isLeftButton)
-            return;
-
         var p = mouseController.screen.position;
         this.SetPosition(p.x, p.y);
 
@@ -83,11 +80,8 @@ export class Joystick extends GameObject
         }
     }
 
-    private PointerUp({ mouseX, mouseY, event, isLeftButton }: Events['pointer_up']): void
+    private PointerUp({ mouseX, mouseY, event }: Events['pointer_up']): void
     {
-        if (!isLeftButton)
-            return;
-
         TweenTo(this.stick.innerPosition, .15, { delay: .12, x: 0, y: 0, ease: Easing.Back.Out });
         TweenTo(this, .6, { delay: .4, alpha: 0 });
 
