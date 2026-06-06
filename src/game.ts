@@ -3,11 +3,11 @@ import { ArcadeObject, ArcadePhysicsController } from 'bare-engine/arcade';
 import settingsDataJson from '../public/data/settingsData.json';
 import { PlayerComponent } from './components/playerComponents';
 import { GameOver } from './gameOver';
-import { Layer } from './generated/layers';
 import { Direction, MapHandler } from './handlers/mapHandler';
 import { SnapshotHandler } from './handlers/snapshotHandler';
 import { Joystick } from './ui/joystick';
 import { MakePathForEntity } from '../../BareEngine/src/globals';
+import { Data } from './generated/assets';
 
 declare module "bare-engine"
 {
@@ -154,7 +154,7 @@ export class Game extends Scene
     OnRender(): void
     {
         // ORDER OBJECTS BY Y, SO OBJECTS ARE RENDERED FROM TOP TO BOTTOM
-        objectController.GetLayer(Layer.OBJECTS).sort((a, b) => {
+        objectController.GetLayer(Data.Layer.OBJECTS).sort((a, b) => {
             return a.y - b.y;
         });
     }
