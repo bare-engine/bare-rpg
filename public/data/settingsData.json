@@ -31,7 +31,6 @@
         "y": 1
       }
     },
-    "NONE": {},
     "dynamic": {
       "static": false,
       "baseEntity": "ANY_ENTITY",
@@ -75,7 +74,8 @@
   "layers": ["objects", "surface"],
   "settings": {
     "minimized": true,
-    "gridEnabled": true
+    "gridEnabled": true,
+    "gridSize": 16
   },
   "entities": {
     "player": {
