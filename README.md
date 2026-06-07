@@ -22,4 +22,5 @@
     <li>Custom component methods</li>
     <li>Customizing enemies with components</li>
     <li>BaseClass usage - weapon</li>
+    <li>Static resolution - scaled up to fit</li>
 </ul>
