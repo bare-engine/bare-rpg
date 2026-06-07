@@ -100,55 +100,59 @@ export class Game extends Scene
                 this.player.SetPosition(level.dimensions.width / 2, level.dimensions.height / 2);
         }
 
-        this.promiseLevelLoads = this.LoadLevelAssetsAround(SaveData.currentLevelStr);
+        this.promiseLevelLoads = this.LoadLevelJsonsAround(SaveData.currentLevelStr);
         
         SaveDataHandler.Save();
     }
 
-    async LoadLevelAssetsAround(levelStr: string)
+    async LoadLevelJsonsAround(levelStr: string)
     {
-        // LOAD ALL TEXTURES
-        var promisesAr: Array<Promise<Texture>> = [];
-        var texturesFound = new Set<string>();
-
-        var loadAssetsForLevel = (level: LevelData) => {
-            for (var layerName in level.entitiesByLayer) {
-                var entities = level.entitiesByLayer[layerName];
-                entities.forEach((entity: any) => {
-                    var entityConstructed = this.ConstructEntity(entity.name);
-                    var fullPath = MakePathForEntity(entityConstructed);
-
-                    if (texturesFound.has(fullPath))
-                        return;
-
-                    promisesAr.push(assetsHandler.GetTexturePromise(fullPath));
-                    texturesFound.add(fullPath);
-                });
-            }
-        }
-
         if (MapHandler.map[levelStr])
         {
             var promisesLevelsAr: Array<Promise<LevelData>> = [];
 
+            // COLLECT LEVELS TO LOAD AROUND CURRENT ONE
             var connections = MapHandler.map[levelStr].connections;
             for (var dir in connections)
             {
                 var levelName = connections[dir as Direction];
+                
                 if (levelName == "")
                     continue;
+
                 if (!SaveData.levelCache.has(levelName))
                     promisesLevelsAr.push(this.levelHandler.LoadLevelData(levelName));
             }
 
+            // LOAD THE LEVELS
             var levelDataAr = await Promise.all(promisesLevelsAr);
+
+            // LOAD ALL TEXTURES - NOT NEEDED CURRENTLY, SINCE TEXTURES ARE LOADED FROM ATLAS ALREADY
+            // BUT IF YOU WERE TO STREAM THEM FROM THE images/ FOLDER, THIS WOULD BE HANDY
+            /*var promisesAr: Array<Promise<Texture>> = [];
+            var texturesFound = new Set<string>();
+
             for (var i = 0; i < levelDataAr.length; i++)
             {
-                loadAssetsForLevel(levelDataAr[i]);
+                var level = levelDataAr[i];
+                for (var layerName in level.entitiesByLayer)
+                {
+                    var entities = level.entitiesByLayer[layerName];
+                    entities.forEach((entity: any) => {
+                        var entityConstructed = this.ConstructEntity(entity.name);
+                        var fullPath = MakePathForEntity(entityConstructed);
+
+                        if (texturesFound.has(fullPath))
+                            return;
+
+                        promisesAr.push(assetsHandler.GetTexturePromise(fullPath));
+                        texturesFound.add(fullPath);
+                    });
+                }
             }
+
+            await Promise.all(promisesAr);*/
         }
-        
-        await Promise.all(promisesAr);
     }
 
     OnRender(): void
