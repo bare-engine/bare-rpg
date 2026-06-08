@@ -17,6 +17,7 @@
     <li>Arcade physics</li>
     <li>Hitboxes</li>
     <li>Enemy AI behaviour</li>
+    <li>Saving / loading</li>
     <li>Preloading levels</li>
     <li>Base entity inheritance</li>
     <li>Custom component methods</li>
