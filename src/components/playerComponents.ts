@@ -1,4 +1,4 @@
-import { BareEvent, Component, componentController, keyboardController, levelHandler, SaveData, Size, TweenTo, Vec2 } from "bare-engine";
+import { BareEvent, Component, SaveData, Size, TweenTo, Vec2 } from "bare-engine";
 import { Direction, MapHandler } from "../handlers/mapHandler";
 import { Weapon } from "../objects/weapon";
 import { ArcadeObject } from "bare-engine/arcade";
@@ -19,7 +19,7 @@ export class PlayerComponent extends Component
 
         // WEAPON HIT CALLS OnHit ON COMPONENTS
         this.weapon.events.on(BareEvent.collision_start, (object: ArcadeObject) => {
-            componentController.CallMethodOnComponentsOfObject("OnHit", object, this.weapon.strength, this.go);
+            bare.component.CallMethodOnComponentsOfObject("OnHit", object, this.weapon.strength, this.go);
         });
     }
 
@@ -43,7 +43,7 @@ export class PlayerComponent extends Component
 
         this.go.stayInBounds = true;
 
-        events.emit("playerDied");
+        bare.events.emit("playerDied");
     }
     
     MovePlayer(normVec: Vec2)
@@ -59,24 +59,24 @@ export class PlayerComponent extends Component
 
     CheckMovementKeys()
     {
-        if (keyboardController.IsAnyDirectionKeyDown())
+        if (bare.keyboard.IsAnyDirectionKeyDown())
         {
             var vel = new Vec2(0, 0);
 
             // KEYBOARD MOVEMENT
-            if (keyboardController.IsLeftDown())
+            if (bare.keyboard.IsLeftDown())
             {
                 vel.x = -1;
             }
-            if (keyboardController.IsRightDown())
+            if (bare.keyboard.IsRightDown())
             {
                 vel.x = 1;
             }
-            if (keyboardController.IsUpDown())
+            if (bare.keyboard.IsUpDown())
             {
                 vel.y = -1;
             }
-            if (keyboardController.IsDownDown())
+            if (bare.keyboard.IsDownDown())
             {
                 vel.y = 1;
             }
@@ -92,7 +92,7 @@ export class PlayerComponent extends Component
             this.MovePlayer(vel);
         }
 
-        if (keyboardController.IsKeyPressed("space"))
+        if (bare.keyboard.IsKeyPressed("space"))
         {
             this.Attack();
         }
@@ -109,24 +109,24 @@ export class PlayerComponent extends Component
 
     CheckOffScreen()
     {
-        if (!levelHandler.currentLevel)
+        if (!bare.level.currentLevel)
             return;
 
         if (this.go.velocity.isZero())
             return;
 
-        var dims:Size = levelHandler.currentLevel.dimensions;
+        var dims:Size = bare.level.currentLevel.dimensions;
         var checkLevel = (dir:Direction) =>{
             var newLevel = MapHandler.GetLevelInDirectionFrom(SaveData.currentLevelStr, dir);
             if (newLevel != "")
             {
                 var loadLevel = async () => {
-                    levelHandler.SaveLevel();
+                    bare.level.Save();
                     
-                    await levelHandler.LoadLevel(newLevel);
+                    await bare.level.Load(newLevel);
 
                     // WARP PLAYER POSITION
-                    let dimsNewLevel:Size = levelHandler.currentLevel.dimensions;
+                    let dimsNewLevel:Size = bare.level.currentLevel.dimensions;
                     if (dir == "left")
                     {
                         this.go.x = dimsNewLevel.width;

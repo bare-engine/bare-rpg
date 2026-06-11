@@ -1,4 +1,4 @@
-import { assetsHandler, BareEvent, CanvasPosition, CanvasScale, Events, GameObject, LevelData, MakePath, objectController, SaveData, SaveDataHandler, Scene, sceneController, StartBare, Texture, TextureFilterMode, TweenTo, uiScene, Vec2 } from 'bare-engine';
+import { BareEvent, CanvasPosition, CanvasScale, Events, GameObject, LevelData, MakePath, SaveData, Scene, StartBare, Texture, TextureFilterMode, TweenTo, Vec2 } from 'bare-engine';
 import { ArcadeObject, ArcadePhysicsController } from 'bare-engine/arcade';
 import settingsDataJson from '../public/data/settingsData.json';
 import { PlayerComponent } from './components/playerComponents';
@@ -38,27 +38,27 @@ export class Game extends Scene
         this.player = this.AddGameObject("player");
 
         // CREATE A JOYSTICK AND LET IT MOVE THE PLAYER
-        var joystick = new Joystick(uiScene, (normalizedStickVec: Vec2) => {
+        var joystick = new Joystick(bare.ui, (normalizedStickVec: Vec2) => {
             var playerComp = this.player.GetComponent(PlayerComponent);
             playerComp?.MovePlayer(normalizedStickVec);
         });
-        uiScene.AddGameObject(joystick);
+        bare.ui.AddGameObject(joystick);
 
         // ATTACK ON MOUSE UP
-        events.on(BareEvent.pointer_up, (mouseData: Events['pointer_up']) => {
+        bare.events.on(BareEvent.pointer_up, (mouseData: Events['pointer_up']) => {
             var playerComp = this.player.GetComponent(PlayerComponent)
             playerComp?.Attack();
         });
 
         // FADE OUT JOYSTICK WHEN USING KEYBOARD
-        events.once(BareEvent.key_pressed, () => {
+        bare.events.once(BareEvent.key_pressed, () => {
             TweenTo(joystick, .5, { alpha: 0 });
         });
 
         // RESTART THE GAME WHEN THE PLAYER DIES
-        events.on("playerDied", async () => {
+        bare.events.on("playerDied", async () => {
             await wait(1.5, true);
-            sceneController.Goto(GameOver)
+            bare.scene.Goto(GameOver)
         });
 
         // THIS HANDLES TAKING SNAPSHOTS OF LEVELS AFTER EACH EDIT AND SAVES IT TO DISK
@@ -69,7 +69,7 @@ export class Game extends Scene
         // THIS HANDLES HOW LEVELS ARE CONNECTED
         await MapHandler.Init(this);
 
-        SaveDataHandler.Load();
+        bare.storage.Load();
     }
 
     async OnStart()
@@ -86,7 +86,7 @@ export class Game extends Scene
 
     OnPostLoadLevel(level: LevelData): void
     {
-        var playerStartPositionObject = this.objectController.GetObjectByName("playerStart");
+        var playerStartPositionObject = bare.object.GetByName("playerStart");
         if (playerStartPositionObject)
         {
             // POSITION PLAYER AT OBJECT playerStart
@@ -102,7 +102,7 @@ export class Game extends Scene
 
         this.promiseLevelLoads = this.LoadLevelJsonsAround(SaveData.currentLevelStr);
         
-        SaveDataHandler.Save();
+        bare.storage.Save();
     }
 
     async LoadLevelJsonsAround(levelStr: string)
@@ -121,7 +121,7 @@ export class Game extends Scene
                     continue;
 
                 if (!SaveData.levelCache.has(levelName))
-                    promisesLevelsAr.push(this.levelHandler.LoadLevelData(levelName));
+                    promisesLevelsAr.push(bare.level.LoadData(levelName));
             }
 
             // LOAD THE LEVELS
@@ -145,7 +145,7 @@ export class Game extends Scene
                         if (texturesFound.has(fullPath))
                             return;
 
-                        promisesAr.push(assetsHandler.GetTexturePromise(fullPath));
+                        promisesAr.push(bare.asset.GetTexturePromise(fullPath));
                         texturesFound.add(fullPath);
                     });
                 }
@@ -158,7 +158,7 @@ export class Game extends Scene
     OnRender(): void
     {
         // ORDER OBJECTS BY Y, SO OBJECTS ARE RENDERED FROM TOP TO BOTTOM
-        objectController.GetLayer(Data.Layer.OBJECTS).sort((a, b) => {
+        bare.object.GetLayer(Data.Layer.OBJECTS).sort((a, b) => {
             return a.y - b.y;
         });
     }

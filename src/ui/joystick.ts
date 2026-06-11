@@ -1,4 +1,4 @@
-import { BareEvent, Easing, Events, GameObject, mouseController, Scene, tweenController, TweenTo, Vec2 } from "bare-engine";
+import { BareEvent, Easing, Events, GameObject, Scene, TweenTo, Vec2 } from "bare-engine";
 
 export class Joystick extends GameObject
 {
@@ -25,9 +25,9 @@ export class Joystick extends GameObject
         this.stick.SetPosition(this.pivotX, this.pivotY);
         this.AddChild(this.stick)
         
-        events.on(BareEvent.pointer_down, this.PointerDown.bind(this), 'pointer_down');
-        events.on(BareEvent.pointer_move, this.PointerMove.bind(this), 'pointer_move');
-        events.on(BareEvent.pointer_up, this.PointerUp.bind(this), 'pointer_up');
+        bare.events.on(BareEvent.pointer_down, this.PointerDown.bind(this), 'pointer_down');
+        bare.events.on(BareEvent.pointer_move, this.PointerMove.bind(this), 'pointer_move');
+        bare.events.on(BareEvent.pointer_up, this.PointerUp.bind(this), 'pointer_up');
     }
 
     OnUpdate(): void
@@ -42,7 +42,7 @@ export class Joystick extends GameObject
 
     private PointerDown({ mouseX, mouseY, event }: Events['pointer_down']): void
     {
-        var p = mouseController.screen.position;
+        var p = bare.mouse.screen.position;
         this.SetPosition(p.x, p.y);
 
         this.SetStickPosition(0, 0);
@@ -50,19 +50,19 @@ export class Joystick extends GameObject
 
         this.alpha = .7;
         
-        tweenController.RemoveTweensFrom(this.stick.innerPosition);
-        tweenController.RemoveTweensFrom(this);
+        bare.tween.RemoveAllFrom(this.stick.innerPosition);
+        bare.tween.RemoveAllFrom(this);
     }
 
     private PointerMove({ mouseX, mouseY, event, isLeftButton }: Events['pointer_move']): void
     {
-        if (!mouseController.IsMouseDown())
+        if (!bare.mouse.IsDown())
             return;
 
-        if (mouseController.IsRightMouseDown() || mouseController.IsMiddleMouseDown())
+        if (bare.mouse.IsRightDown() || bare.mouse.IsMiddleDown())
             return;
 
-        var p = mouseController.screen.position;
+        var p = bare.mouse.screen.position;
         var localPos = this.ToLocal(p).subtract(this.pivot);
         this.SetStickPosition(localPos.x, localPos.y);
 

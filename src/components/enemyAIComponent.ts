@@ -1,4 +1,4 @@
-import { BareEvent, Component, Color, componentController, InspectorField, Label, Locked, TweenTo, Vec2 } from "bare-engine";
+import { BareEvent, Component, Color, InspectorField, Label, Locked, TweenTo, Vec2 } from "bare-engine";
 import { BlockedState } from "../../../BareEngine/src/types/bareTypes";
 import { AliveComponent } from "./aliveComponent";
 import { ArcadeObject } from "bare-engine/arcade";
@@ -172,8 +172,8 @@ export class EnemyAIComponent extends Component
         this.go.SetVelocity(moveVec.multiply(3));
 
         // IF COLLISION WITH TARGET, HIT IT - USING collision_update SINCE collision_start DOESN'T FIRE IF THEY WERE ALREADY COLLIDING
-        this.go.events.once(BareEvent.collision_update, (collidingObject: ArcadeObject) => {
-            componentController.CallMethodOnComponentsOfObject("OnHit", target, this.strength, this.go);
+        this.go.events.once(BareEvent.collision_update, (collidingObject) => {
+            bare.component.CallMethodOnComponentsOfObject("OnHit", target, this.strength, this.go);
             //this.OnHit(collidingObject);
         }, 'hitCheck');
 

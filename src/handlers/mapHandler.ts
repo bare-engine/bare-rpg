@@ -2,7 +2,7 @@
 
 import mapLevelJson from '../../public/data/levels/map.json';
 import mapDataJson from '../../public/data/mapData.json';
-import { BareEvent, Button, EditorScene, Events, globalEvents, LevelData, plugin, sceneController, SettingsHandler, uiScene } from "bare-engine";
+import { BareEvent, Button, EditorScene, Events, LevelData, plugin, SettingsHandler } from "bare-engine";
 import { Game } from "../game";
 
 export type Direction = "top" | "right" | "bottom" | "left";
@@ -31,7 +31,7 @@ export class MapHandler
         this.FillLevelMap(mapLevelJson);
 
         // UPDATE LEVEL MAP WHEN IT'S SAVED/CHANGED
-        globalEvents.persistent.on(BareEvent.level_savedToDisk, (levelPayload: Events['level_savedToDisk']) => {
+        bare.globalEvents.persistent.on(BareEvent.level_savedToDisk, (levelPayload: Events['level_savedToDisk']) => {
             if (levelPayload.level?.settingsData == "mapData")
             {
                 this.FillLevelMap(levelPayload.level);
@@ -46,27 +46,27 @@ export class MapHandler
     {
         // CREATE MAP EDITOR BUTTON
         var OnClickMapEditorButton = async () => {
-            sceneController.DisableAllScenes();
+            bare.scene.DisableAll();
 
-            for (var scene of sceneController.GetAllScenes())
+            for (var scene of bare.scene.GetAll())
             {
                 // HARDCODED THESE FOR NOW - NEEDED SO MOUSE IS NOT LOCKED TO DOWN AFTER CLICKING THIS BUTTON
                 // HITBOX CONTROLLER FOR GOOD MEASURE TOO
-                scene.hitboxController?.Reset();
-                scene.mouseController?.Reset();
+                scene.hitbox?.Reset();
+                scene.mouse?.Reset();
             }
 
             // ADDING _DEV_ HERE TOO, TO PREVENT EditorScene FROM BEING IMPORTED
             if (__DEV__)
             {
-                await sceneController.Add(EditorScene, {
+                await bare.scene.Add(EditorScene, {
                     levelPathOrData: "data/levels/map.json",
                     settingsHandler: this.mapSettingsHandler,
                 });
             }
         }
 
-        var mapEditorButton = new Button(uiScene, {text: "Map Editor", OnPress: async () => {
+        var mapEditorButton = new Button(bare.ui, {text: "Map Editor", OnPress: async () => {
             await OnClickMapEditorButton();
         }});
         var scale = 1;
@@ -77,7 +77,7 @@ export class MapHandler
         mapEditorButton.buttonColor.a = 180;
 
         // ADDING mapEditorButton
-        uiScene.AddGameObject(mapEditorButton)
+        bare.ui.AddGameObject(mapEditorButton)
             .SetPosition(bare.width, 0)
             .SetPivot(1, 0);
 

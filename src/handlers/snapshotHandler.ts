@@ -1,4 +1,4 @@
-import { assetsHandler, BareEvent, Color, globalEvents, RenderTexture, Scene, sceneController } from "bare-engine";
+import { BareEvent, Color, RenderTexture, Scene } from "bare-engine";
 import { Game } from "../game";
 
 export class SnapshotHandler
@@ -9,19 +9,19 @@ export class SnapshotHandler
     {
         this.game = scene;
 
-        globalEvents.on(BareEvent.level_savedToDisk, async (levelData) => {
+        bare.globalEvents.on(BareEvent.level_savedToDisk, async (levelData) => {
             await this.SnapshotLevel(levelData.levelStr);
         });
     }
 
     static async SnapshotLevel(levelName: string): Promise<void>
     {
-        var scene = sceneController.GetMainScene();
+        var scene = bare.scene.GetMainScene();
         
         if (!this.game.enabled)
             return; // WE'RE STILL IN EDITOR - NOT THE CASE JUST WHEN EDITOR IS CLOSED
 
-        if (!scene.levelHandler.currentLevel)
+        if (!scene.level.currentLevel)
             return; // WE'RE IN MAP EDITOR
 
         var dataUrl = this.SceneToDataUrl(scene);
@@ -32,14 +32,14 @@ export class SnapshotHandler
         });
 
         // CLEARS UP THE TEXTURE IF IT EXISTS, SO IT CAN BE RELOADED WHEN OPENING MAP EDITOR
-        assetsHandler.RemoveTexture("editorImages/" + levelName);
+        bare.asset.RemoveTexture("editorImages/" + levelName);
         var texture = await bare.texture.load(dataUrl);
-        assetsHandler.AddTexture("editorImages/" + levelName, texture);
+        bare.asset.AddTexture("editorImages/" + levelName, texture);
     }
 
     static SceneToDataUrl(scene: Scene): string
     {
-        const dimensions = scene.levelHandler.currentLevel.dimensions;
+        const dimensions = scene.level.currentLevel.dimensions;
         const width = Math.max(1, Math.round(dimensions?.width || rapid.width));
         const height = Math.max(1, Math.round(dimensions?.height || rapid.height));
         const target = rapid.texture.createRenderTexture({ width, height });

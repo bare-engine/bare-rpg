@@ -1,4 +1,4 @@
-import { FlashShader, InspectorBaseClass, InspectorField, Scene, tweenController, TweenTo } from "bare-engine";
+import { FlashShader, InspectorBaseClass, InspectorField, Scene, TweenTo } from "bare-engine";
 import { ArcadeObject } from "bare-engine/arcade";
 
 @InspectorBaseClass
@@ -14,13 +14,13 @@ export class Weapon extends ArcadeObject
 
     CanSlash(): boolean
     {
-        var tweens = tweenController.GetTweensFrom(this);
+        var tweens = bare.tween.GetAllFrom(this);
         return (tweens.length == 0);
     }
 
     async Slash()
     {
-        tweenController.FinishTweensFrom(this); // FINISH SHAKE TWEEN IF IT'S THERE
+        bare.tween.FinishAllFrom(this); // FINISH SHAKE TWEEN IF IT'S THERE
 
         this.rotation = 0;
         TweenTo(this, .1, { rotation: 60, persistent: true, yoyo: true });
@@ -36,7 +36,7 @@ export class Weapon extends ArcadeObject
     // TO MAKE IT LESS SPAMMY
     async DelayedSlash()
     {
-        tweenController.FinishTweensFrom(this); // FINISH SHAKE TWEEN IF IT'S THERE
+        bare.tween.FinishAllFrom(this); // FINISH SHAKE TWEEN IF IT'S THERE
 
         this.rotation = 0;
         await TweenTo(this, .4, { rotation: -20, persistent: true }).promise;
