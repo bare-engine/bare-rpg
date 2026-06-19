@@ -1,4 +1,4 @@
-import { BareEvent, Component, SaveData, Size, TweenTo, Vec2 } from "bare-engine";
+import { BareEvent, Component, InspectorField, Locked, SaveData, Size, TweenTo, Vec2 } from "bare-engine";
 import { Direction, MapHandler } from "../handlers/mapHandler";
 import { Weapon } from "../objects/weapon";
 import { ArcadeObject } from "bare-engine/arcade";
@@ -7,10 +7,10 @@ export class PlayerComponent extends Component
 {
     go: ArcadeObject;
 
-    speed = 90;
-    weapon:Weapon;
+    @InspectorField speed = 90;
     stunned: boolean = false;
     
+    weapon:Weapon;
     OnAdded(): void
     {
         // GET WEAPON - ALREADY ADDED IN player ENTITY
