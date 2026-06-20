@@ -79,7 +79,6 @@
   },
   "entities": {
     "player": {
-      "static": false,
       "persistent": true,
       "stayInBounds": false,
       "components": {

@@ -1,4 +1,4 @@
-import { BareEvent, Component, Color, InspectorField, Label, Locked, TweenTo, Vec2 } from "bare-engine";
+import { BareEvent, Component, Color, InspectorField, Label, Locked, TweenTo, Vec2, Int } from "bare-engine";
 import { BlockedState } from "../../../BareEngine/src/types/bareTypes";
 import { AliveComponent } from "./aliveComponent";
 import { ArcadeObject } from "bare-engine/arcade";
@@ -38,6 +38,7 @@ export class EnemyAIComponent extends Component
     attackSpeed: number = 60;
 
     @InspectorField
+    @Int
     strength: number = 5;
 
     OnAdded(): void

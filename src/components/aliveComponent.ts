@@ -1,11 +1,13 @@
-import { Component, Color, InspectorField, ParticleComponent, Save, TweenTo } from "bare-engine";
+import { Component, Color, InspectorField, ParticleComponent, Save, TweenTo, Int } from "bare-engine";
 
 export class AliveComponent extends Component
 {
     @Save
+    @Int
     health: number = 0;
 
     @InspectorField
+    @Int
     maxHealth: number = 10;
 
     healthbarWidth: number = 16;
