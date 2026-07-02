@@ -11,6 +11,7 @@ export class PlayerComponent extends Component
     stunned: boolean = false;
     
     weapon:Weapon;
+    
     OnAdded(): void
     {
         // GET WEAPON - ALREADY ADDED IN player ENTITY

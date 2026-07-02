@@ -1,4 +1,4 @@
-import { FlashShader, InspectorBaseClass, InspectorField, Scene, TweenTo } from "bare-engine";
+import { FlashShader, InspectorBaseClass, InspectorField, TweenTo } from "bare-engine";
 import { ArcadeObject } from "bare-engine/arcade";
 
 @InspectorBaseClass
@@ -6,11 +6,6 @@ export class Weapon extends ArcadeObject
 {
     @InspectorField
     strength:number = 1;
-
-    constructor(scene: Scene)
-    {
-        super(scene)
-    }
 
     CanSlash(): boolean
     {
@@ -20,8 +15,6 @@ export class Weapon extends ArcadeObject
 
     async Slash()
     {
-        bare.tween.FinishAllFrom(this); // FINISH SHAKE TWEEN IF IT'S THERE
-
         this.rotation = 0;
         TweenTo(this, .1, { rotation: 60, persistent: true, yoyo: true });
         
@@ -30,36 +23,5 @@ export class Weapon extends ArcadeObject
         this.physicsHitbox.active = true;
         await wait(.05, true);
         this.physicsHitbox.active = false;
-    }
-
-    // COULD ALSO FIRE THIS INSTEAND OF Slash()
-    // TO MAKE IT LESS SPAMMY
-    async DelayedSlash()
-    {
-        bare.tween.FinishAllFrom(this); // FINISH SHAKE TWEEN IF IT'S THERE
-
-        this.rotation = 0;
-        await TweenTo(this, .4, { rotation: -20, persistent: true }).promise;
-        TweenTo(this, .1, { rotation: 60, persistent: true }).promise;
-        
-        this.AddShader(FlashShader);
-        
-        this.physicsHitbox.active = true;
-        await waitFrame();
-        this.physicsHitbox.active = false;
-
-        await TweenTo(this, .1, { rotation: 0, persistent: true }).promise;
-    }
-
-    Shake()
-    {
-        var range = 2;
-
-        TweenTo(this, .1, { onUpdate: () => {
-            this.innerPosition.x = -range / 2 + range * Math.random();
-            this.innerPosition.y = -range / 2 + range * Math.random();
-        }, onComplete: () => {
-            this.innerPosition.set(0, 0)
-        }});
     }
 }
