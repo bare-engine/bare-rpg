@@ -176,43 +176,48 @@
   },
   "presets": {
     "PARTICLE_EFFECT": {
-      "position": {
-        "x": 0,
-        "y": 0
-      },
-      "life": 0.4,
-      "texture": "stripeParticle",
-      "origin": {
-        "x": 0.5,
-        "y": 0.5
-      },
-      "emitRate": 4,
-      "localSpace": false,
-      "emitShape": "CIRCLE",
-      "emitRadius": 0,
-      "animation": {
-        "scale": {
-          "start": [
-            0.7,
-            1
-          ],
-          "end": 0.01
+      "particle": {
+        "position": {
+          "x": 0,
+          "y": 0
         },
-        "rotation": {
-          "start": [
-            0,
-            6.283185307179586
-          ]
+        "life": 0.4,
+        "texture": "stripeParticle",
+        "origin": {
+          "x": 0.5,
+          "y": 0.5
         },
-        "color": {
-          "start": "#ffffff",
-          "end": "#ffcb02"
+        "emitRate": 4,
+        "localSpace": false,
+        "emitShape": "CIRCLE",
+        "emitRadius": 0,
+        "animation": {
+          "scale": {
+            "start": [
+              0.7,
+              1
+            ],
+            "end": 0.01
+          },
+          "rotation": {
+            "start": [
+              0,
+              6.283185307179586
+            ]
+          },
+          "color": {
+            "start": "#ffffff",
+            "end": "#ffcb02"
+          },
+          "speed": {
+            "start": [
+              100,
+              170
+            ]
+          }
         },
-        "speed": {
-          "start": [
-            100,
-            170
-          ]
+        "__presets": {
+          "origin": "CENTER"
         }
       }
     }
