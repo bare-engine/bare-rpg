@@ -1,10 +1,10 @@
-import { FlashShader, InspectorBaseClass, InspectorField, TweenTo } from "bare-engine";
+import { FlashShader, Inspector, TweenTo } from "bare-engine";
 import { ArcadeObject } from "bare-engine/arcade";
 
-@InspectorBaseClass
+@Inspector.BaseClass
 export class Weapon extends ArcadeObject
 {
-    @InspectorField
+    @Inspector.Field
     strength:number = 1;
 
     CanSlash(): boolean

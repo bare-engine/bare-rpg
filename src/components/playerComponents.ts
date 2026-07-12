@@ -1,7 +1,7 @@
-import { BareEvent, Component, InspectorField, Locked, SaveData, Size, TweenTo, Vec2 } from "bare-engine";
+import { BareEvent, Component, InspectorField, SaveData, Size, Vec2 } from "bare-engine";
+import { ArcadeObject } from "bare-engine/arcade";
 import { Direction, MapHandler } from "../handlers/mapHandler";
 import { Weapon } from "../objects/weapon";
-import { ArcadeObject } from "bare-engine/arcade";
 
 export class PlayerComponent extends Component
 {

@@ -1,14 +1,14 @@
-import { Component, InspectorField } from "bare-engine";
+import { Component, Inspector } from "bare-engine";
 import { ArcadeObject } from "bare-engine/arcade";
 
 export class WiggleComponent extends Component
 {
     go: ArcadeObject;
 
-    @InspectorField
+    @Inspector.Field
     wiggleAmount: number = 22;
 
-    @InspectorField
+    @Inspector.Field
     wiggleSpeed: number = .1;
 
     wiggleTime: number = 0;
@@ -20,3 +20,4 @@ export class WiggleComponent extends Component
         this.go.rotation = Math.sin(sineInput) * Math.min(this.go.velocity.length()/120, 1) * this.wiggleAmount;
     }
 }
+

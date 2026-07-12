@@ -1,4 +1,4 @@
-import { Component, GameMode, Run, Save, Scene, TextTexture } from "bare-engine";
+import { Component, GameMode, Inspector, Run, Save, Scene, TextTexture } from "bare-engine";
 import { GameObject } from "bare-engine";
 import { Color, Vec2 } from "bare-engine";
 
@@ -128,3 +128,5 @@ export class LevelConnectorComponent extends Component
         }
     }
 }
+
+
