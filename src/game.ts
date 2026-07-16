@@ -1,13 +1,12 @@
-import { BareEvent, CanvasPosition, CanvasScale, Events, GameObject, level, LevelData, MakePath, SaveData, Scene, StartBare, Texture, TextureFilterMode, TweenTo, Vec2 } from 'bare-engine';
+import { BareEvent, CanvasPosition, CanvasScale, Events, GameObject, LevelData, SaveData, Scene, StartBare, TextureFilterMode, TweenTo, Vec2 } from 'bare-engine';
 import { ArcadeObject, ArcadePhysicsController } from 'bare-engine/arcade';
 import settingsDataJson from '../public/data/settingsData.json';
 import { PlayerComponent } from './components/playerComponents';
 import { GameOver } from './gameOver';
+import { Data } from './generated/assets';
 import { Direction, MapHandler } from './handlers/mapHandler';
 import { SnapshotHandler } from './handlers/snapshotHandler';
 import { Joystick } from './ui/joystick';
-import { MakePathForEntity } from '../../BareEngine/src/globals';
-import { Data } from './generated/assets';
 
 declare module "bare-engine"
 {

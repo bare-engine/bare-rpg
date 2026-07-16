@@ -56,8 +56,8 @@ export class LevelConnectorComponent extends Component
                 this[direction] = "";
             }
 
-            var lineMargin = 100;
-            var minDist = 400;
+            var alignmentMargin = 16;
+            var minDist = 50;
 
             var allConnectorComponents:LevelConnectorComponent[] = bare.component.GetAllByType(LevelConnectorComponent as any);
             for (var connectorComp of allConnectorComponents)
@@ -67,14 +67,31 @@ export class LevelConnectorComponent extends Component
                 if (otherBO == this.go)
                     continue;
 
-                var thisPos = this.go.position;
-                var otherPos = otherBO.position;
+                var thisBounds = this.go.GetBounds();
+                var otherBounds = otherBO.GetBounds();
+
+                var horizontalDistance = this.GetEdgeDistance(
+                    thisBounds.x,
+                    thisBounds.x + thisBounds.width,
+                    otherBounds.x,
+                    otherBounds.x + otherBounds.width
+                );
+                var verticalDistance = this.GetEdgeDistance(
+                    thisBounds.y,
+                    thisBounds.y + thisBounds.height,
+                    otherBounds.y,
+                    otherBounds.y + otherBounds.height
+                );
+
+                var thisCenterX = thisBounds.x + thisBounds.width * .5;
+                var thisCenterY = thisBounds.y + thisBounds.height * .5;
+                var otherCenterX = otherBounds.x + otherBounds.width * .5;
+                var otherCenterY = otherBounds.y + otherBounds.height * .5;
+                var horizontalCenterDistance = Math.abs(otherCenterX - thisCenterX);
+                var verticalCenterDistance = Math.abs(otherCenterY - thisCenterY);
                 
-                var deltaX = Math.abs(thisPos.x - otherPos.x);
-                var deltaY = Math.abs(thisPos.y - otherPos.y);
-                
-                var isHorizontallyAligned = deltaY <= lineMargin && deltaX <= minDist && deltaX > 0;
-                var isVerticallyAligned = deltaX <= lineMargin && deltaY <= minDist && deltaY > 0;
+                var isHorizontallyAligned = verticalCenterDistance <= alignmentMargin && horizontalDistance <= minDist && horizontalDistance > 0;
+                var isVerticallyAligned = horizontalCenterDistance <= alignmentMargin && verticalDistance <= minDist && verticalDistance > 0;
                 
                 if (isHorizontallyAligned || isVerticallyAligned)
                 {
@@ -82,14 +99,14 @@ export class LevelConnectorComponent extends Component
                     
                     if (isHorizontallyAligned)
                     {
-                        if (otherPos.x > thisPos.x)
+                        if (otherBounds.x > thisBounds.x)
                             direction = "right";
                         else
                             direction = "left";
                     }
                     else if (isVerticallyAligned)
                     {
-                        if (otherPos.y < thisPos.y)
+                        if (otherBounds.y < thisBounds.y)
                             direction = "top";
                         else
                             direction = "bottom";
@@ -127,6 +144,17 @@ export class LevelConnectorComponent extends Component
                 }
             }
         }
+    }
+
+    private GetEdgeDistance(startA: number, endA: number, startB: number, endB: number): number
+    {
+        if (endA < startB)
+            return startB - endA;
+
+        if (endB < startA)
+            return startA - endB;
+
+        return 0;
     }
 }
 
