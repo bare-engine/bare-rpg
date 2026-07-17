@@ -66,7 +66,7 @@ export class MapHandler
             }
         }
 
-        var mapEditorButton = new Button(bare.ui, {text: "Map Editor", OnPress: async () => {
+        var mapEditorButton = new Button(bare.uiScene, {text: "Map Editor", OnPress: async () => {
             await OnClickMapEditorButton();
         }});
         var scale = 1;
@@ -77,7 +77,7 @@ export class MapHandler
         mapEditorButton.buttonColor.a = 180;
 
         // ADDING mapEditorButton
-        bare.ui.AddGameObject(mapEditorButton)
+        bare.uiScene.AddGameObject(mapEditorButton)
             .SetPosition(bare.width, 0)
             .SetPivot(1, 0);
 

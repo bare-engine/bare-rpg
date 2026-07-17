@@ -37,11 +37,11 @@ export class Game extends Scene
         this.player = this.AddGameObject("player");
 
         // CREATE A JOYSTICK AND LET IT MOVE THE PLAYER
-        var joystick = new Joystick(bare.ui, (normalizedStickVec: Vec2) => {
+        var joystick = new Joystick(bare.uiScene, (normalizedStickVec: Vec2) => {
             var playerComp = this.player.GetComponent(PlayerComponent);
             playerComp?.MovePlayer(normalizedStickVec);
         });
-        bare.ui.AddGameObject(joystick);
+        bare.uiScene.AddGameObject(joystick);
 
         // ATTACK ON MOUSE UP
         bare.events.on(BareEvent.pointer_up, (mouseData: Events['pointer_up']) => {
