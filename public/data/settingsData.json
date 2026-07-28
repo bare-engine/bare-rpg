@@ -71,7 +71,7 @@
       }
     }
   },
-  "layers": ["objects", "surface"],
+  "layers": ["surface", "objects"],
   "settings": {
     "minimized": true,
     "gridEnabled": true,
