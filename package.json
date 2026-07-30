@@ -31,12 +31,17 @@
         "firstLevelLoad": "level_1",
         "texturePackImages": {
             "stripUnused": true,
-            "alwaysInclude": ["tile_0098", "ring", "circle"]
+            "alwaysInclude": [
+                "tile_0098",
+                "ring",
+                "circle"
+            ]
         },
         "index": {
             "title": "Bare RPG",
             "backgroundColor": "rgb(255, 255, 255)",
             "textColor": "rgb(0, 0, 0)"
-        }
+        },
+        "gameId": "bareRPG"
     }
 }
