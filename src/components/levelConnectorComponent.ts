@@ -4,7 +4,7 @@ import { Color, Vec2 } from "bare-engine";
 
 type Direction = "top" | "right" | "bottom" | "left";
 
-@Run(GameMode.Editor)
+@Run(GameMode.Edit)
 export class LevelConnectorComponent extends Component
 {
     @Save private top:string;
