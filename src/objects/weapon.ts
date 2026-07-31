@@ -21,7 +21,7 @@ export class Weapon extends ArcadeObject
         this.AddShader(FlashShader);
         
         this.physicsHitbox.active = true;
-        await wait(.05, true);
+        await waitFrame(1, true);
         this.physicsHitbox.active = false;
     }
 }
