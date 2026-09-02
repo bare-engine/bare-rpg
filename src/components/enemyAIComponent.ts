@@ -1,7 +1,8 @@
-import { BareEvent, Component, Color, Inspector, TweenTo, Vec2 } from "bare-engine";
+import { BareEvent, Component, Color, Inspector, TweenTo, Vec2, Locked } from "bare-engine";
 import { BlockedState } from "../../../BareEngine/src/types/bareTypes";
 import { AliveComponent } from "./aliveComponent";
 import { ArcadeObject } from "bare-engine/arcade";
+import { Decimal, Limit } from "../../../BareEngine/src/utils/decorators";
 
 enum State
 {
@@ -20,7 +21,6 @@ export class EnemyAIComponent extends Component
     state:State;
     stateArg:any;
 
-    counter: number = 0;
     roamVec: Vec2 = new Vec2(0, 0);
     
     @Inspector.Field
@@ -33,6 +33,16 @@ export class EnemyAIComponent extends Component
 
     @Inspector.Field
     roamSpeed: number = 30;
+
+    @Inspector.Field @Limit(0)
+    roamIntervalRandom: number = .5;
+
+    @Inspector.Field @Limit(0)
+    roamIntervalConstant: number = .7;
+
+    @Inspector.Field 
+    @Locked @Decimal(2)
+    roamCounter: number = 0;
 
     @Inspector.Field
     attackSpeed: number = 60;
@@ -51,17 +61,17 @@ export class EnemyAIComponent extends Component
         switch (this.state)
         {
             case State.Roam:
-                if (this.counter <= 0)
+                if (this.roamCounter <= 0)
                 {
                     // ROAM IN A RANDOM DIRECTION
                     this.roamVec = new Vec2(Math.random() * 100 - 50, Math.random() * 100 - 50).normalize().multiply(this.roamSpeed);
-                    this.counter = Math.random() * .5 + .7;
+                    this.roamCounter = Math.random() * this.roamIntervalRandom + this.roamIntervalConstant;
 
                     // RANDOM CHANCE FOR A QUICK STOP
                     if (Math.random() > .5)
                     {
                         this.roamVec.set(0, 0);
-                        this.counter *= .25;
+                        this.roamCounter *= .25;
                     }
                 }
 
@@ -99,7 +109,7 @@ export class EnemyAIComponent extends Component
             break;
         }
 
-        this.counter -= deltaTime;
+        this.roamCounter -= deltaTime;
     }
 
     async OnHit(damage: number, hitter: ArcadeObject): Promise<void>

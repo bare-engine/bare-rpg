@@ -2,12 +2,12 @@
   "categories": {
     "dynamic": {
       "entries": ["player", "rat", "tile_0082", "cart", "crab", "spider"],
-      "baseEntity": "dynamic",
+      "entity": "dynamic",
       "expanded": true
     },
     "surface": {
       "entries": ["tile_0069", "tile_0071", "tile_0081", "tile_0070", "tile_0093", "tile_0095", "tile_0067", "tile_0080", "tile_0042", "tile_0049", "tile_0066"],
-      "baseEntity": "NONE",
+      "entity": "ANY",
       "expanded": true
     },
     "tiles": {
@@ -16,6 +16,9 @@
     }
   },
   "baseEntities": {
+    "ANY": {
+      "texture": "NAME"
+    },
     "ANY_ENTITY": {
       "baseClass": "ArcadeObject",
       "hitbox": {
@@ -33,7 +36,7 @@
     },
     "dynamic": {
       "static": false,
-      "baseEntity": "ANY_ENTITY",
+      "entity": "ANY_ENTITY",
       "components": {
         "wiggle": {
           "wiggleSpeed": 0.27
@@ -43,7 +46,7 @@
       }
     },
     "alive": {
-      "baseEntity": "dynamic",
+      "entity": "dynamic",
       "components": {
         "alive": {}
       }
@@ -58,7 +61,7 @@
           "wiggleAmount": 50
         }
       },
-      "baseEntity": "alive",
+      "entity": "alive",
       "pivot": {
         "x": 0.5,
         "y": 0.5
@@ -87,6 +90,7 @@
       "children": [
         {
           "name": "weapon",
+          "entity": "weapon",
           "position": {
             "x": 15,
             "y": 16
@@ -94,7 +98,7 @@
           "flipped": true
         }
       ],
-      "baseEntity": "alive",
+      "entity": "alive",
       "hitbox": {
         "x1": 0,
         "y1": 0.8,
@@ -136,11 +140,11 @@
           "strength": 4
         }
       },
-      "baseEntity": "enemy",
+      "entity": "enemy",
       "texture": "tile_0123"
     },
     "spider": {
-      "baseEntity": "enemy",
+      "entity": "enemy",
       "components": {
         "enemyAI": {
           "strength": 10,
@@ -157,7 +161,7 @@
       "texture": "tile_0122"
     },
     "crab": {
-      "baseEntity": "enemy",
+      "entity": "enemy",
       "components": {
         "enemyAI": {
           "strength": 5,

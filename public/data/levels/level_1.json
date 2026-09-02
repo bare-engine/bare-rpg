@@ -7,49 +7,49 @@
   "entitiesByLayer": {
     "objects": [
       {
-        "name": "playerStart",
+        "texture": "playerStart",
         "position": {
           "x": 120,
           "y": 96
         }
       },
       {
-        "name": "tile_0064",
+        "entity": "tile_0064",
         "position": {
           "x": 56,
           "y": 32
         }
       },
       {
-        "name": "tile_0065",
+        "entity": "tile_0065",
         "position": {
           "x": 200,
           "y": 48
         }
       },
       {
-        "name": "rat",
+        "entity": "rat",
         "position": {
           "x": 104,
           "y": 40
         }
       },
       {
-        "name": "cart",
+        "entity": "cart",
         "position": {
           "x": 168,
           "y": 128
         }
       },
       {
-        "name": "rat",
+        "entity": "rat",
         "position": {
           "x": 72,
           "y": 120
         }
       },
       {
-        "name": "tile_0082",
+        "entity": "tile_0082",
         "position": {
           "x": 152,
           "y": 64
@@ -58,77 +58,77 @@
     ],
     "surface": [
       {
-        "name": "tile_0066",
+        "entity": "tile_0066",
         "position": {
           "x": 192,
           "y": 48
         }
       },
       {
-        "name": "tile_0066",
+        "entity": "tile_0066",
         "position": {
           "x": 48,
           "y": 32
         }
       },
       {
-        "name": "tile_0081",
+        "entity": "tile_0081",
         "position": {
           "x": 160,
           "y": 112
         }
       },
       {
-        "name": "tile_0081",
+        "entity": "tile_0081",
         "position": {
           "x": 160,
           "y": 128
         }
       },
       {
-        "name": "tile_0081",
+        "entity": "tile_0081",
         "position": {
           "x": 160,
           "y": 144
         }
       },
       {
-        "name": "tile_0067",
+        "entity": "tile_0067",
         "position": {
           "x": 160,
           "y": 96
         }
       },
       {
-        "name": "tile_0049",
+        "entity": "tile_0049",
         "position": {
           "x": 112,
           "y": 128
         }
       },
       {
-        "name": "tile_0042",
+        "entity": "tile_0042",
         "position": {
           "x": 192,
           "y": 96
         }
       },
       {
-        "name": "tile_0042",
+        "entity": "tile_0042",
         "position": {
           "x": 160,
           "y": 32
         }
       },
       {
-        "name": "tile_0042",
+        "entity": "tile_0042",
         "position": {
           "x": 48,
           "y": 64
         }
       },
       {
-        "name": "tile_0049",
+        "entity": "tile_0049",
         "position": {
           "x": 16,
           "y": 96

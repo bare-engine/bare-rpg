@@ -7,49 +7,49 @@
   "entitiesByLayer": {
     "objects": [
       {
-        "name": "tile_0082",
+        "entity": "tile_0082",
         "position": {
           "x": 120,
           "y": 96
         }
       },
       {
-        "name": "tile_0082",
+        "entity": "tile_0082",
         "position": {
           "x": 120,
           "y": 112
         }
       },
       {
-        "name": "tile_0082",
+        "entity": "tile_0082",
         "position": {
           "x": 136,
           "y": 80
         }
       },
       {
-        "name": "tile_0082",
+        "entity": "tile_0082",
         "position": {
           "x": 136,
           "y": 96
         }
       },
       {
-        "name": "crab",
+        "entity": "crab",
         "position": {
           "x": 200,
           "y": 104
         }
       },
       {
-        "name": "crab",
+        "entity": "crab",
         "position": {
           "x": 216,
           "y": 72
         }
       },
       {
-        "name": "crab",
+        "entity": "crab",
         "position": {
           "x": 184,
           "y": 56
@@ -58,119 +58,119 @@
     ],
     "surface": [
       {
-        "name": "tile_0081",
+        "entity": "tile_0081",
         "position": {
           "x": 64,
           "y": 144
         }
       },
       {
-        "name": "tile_0081",
+        "entity": "tile_0081",
         "position": {
           "x": 64,
           "y": 128
         }
       },
       {
-        "name": "tile_0081",
+        "entity": "tile_0081",
         "position": {
           "x": 64,
           "y": 112
         }
       },
       {
-        "name": "tile_0081",
+        "entity": "tile_0081",
         "position": {
           "x": 64,
           "y": 96
         }
       },
       {
-        "name": "tile_0081",
+        "entity": "tile_0081",
         "position": {
           "x": 64,
           "y": 80
         }
       },
       {
-        "name": "tile_0081",
+        "entity": "tile_0081",
         "position": {
           "x": 64,
           "y": 64
         }
       },
       {
-        "name": "tile_0081",
+        "entity": "tile_0081",
         "position": {
           "x": 64,
           "y": 48
         }
       },
       {
-        "name": "tile_0069",
+        "entity": "tile_0069",
         "position": {
           "x": 64,
           "y": 32
         }
       },
       {
-        "name": "tile_0070",
+        "entity": "tile_0070",
         "position": {
           "x": 80,
           "y": 32
         }
       },
       {
-        "name": "tile_0070",
+        "entity": "tile_0070",
         "position": {
           "x": 96,
           "y": 32
         }
       },
       {
-        "name": "tile_0080",
+        "entity": "tile_0080",
         "position": {
           "x": 112,
           "y": 32
         }
       },
       {
-        "name": "tile_0049",
+        "entity": "tile_0049",
         "position": {
           "x": 144,
           "y": 128
         }
       },
       {
-        "name": "tile_0049",
+        "entity": "tile_0049",
         "position": {
           "x": 144,
           "y": 32
         }
       },
       {
-        "name": "tile_0049",
+        "entity": "tile_0049",
         "position": {
           "x": 32,
           "y": 16
         }
       },
       {
-        "name": "tile_0042",
+        "entity": "tile_0042",
         "position": {
           "x": 96,
           "y": 128
         }
       },
       {
-        "name": "tile_0042",
+        "entity": "tile_0042",
         "position": {
           "x": 16,
           "y": 80
         }
       },
       {
-        "name": "tile_0042",
+        "entity": "tile_0042",
         "position": {
           "x": 208,
           "y": 32
