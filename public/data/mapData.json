@@ -7,8 +7,9 @@
       "showLabels": true
     }
   },
-  "baseEntities": {
-    "level": {
+  "baseEntities": [
+    {
+      "name": "level",
       "imagePath": "editorImages",
       "components": {
         "levelConnector": {}
@@ -18,8 +19,8 @@
         "y": 0.5
       }
     }
-  },
-  "entities": {},
+  ],
+  "entities": [],
   "settings": {
     "gridEnabled": true,
     "gridSize": 16

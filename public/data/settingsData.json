@@ -7,7 +7,7 @@
     },
     "surface": {
       "entries": ["tile_0069", "tile_0071", "tile_0081", "tile_0070", "tile_0093", "tile_0095", "tile_0067", "tile_0080", "tile_0042", "tile_0049", "tile_0066"],
-      "entity": "ANY",
+      "entity": "BG",
       "expanded": true
     },
     "tiles": {
@@ -15,11 +15,15 @@
       "expanded": true
     }
   },
-  "baseEntities": {
-    "ANY": {
-      "texture": "NAME"
-    },
-    "ANY_ENTITY": {
+  "baseEntities": [
+    {
+      "name": "BG",
+      "texture": "NAME",
+	  "entity": "NONE"
+	},
+    {
+      "name": "ANY",
+      "texture": "NAME",
       "baseClass": "ArcadeObject",
       "hitbox": {
         "x1": 0,
@@ -34,9 +38,9 @@
         "y": 1
       }
     },
-    "dynamic": {
+    {
+      "name": "dynamic",
       "static": false,
-      "entity": "ANY_ENTITY",
       "components": {
         "wiggle": {
           "wiggleSpeed": 0.27
@@ -45,13 +49,15 @@
         "particle": "PARTICLE_EFFECT"
       }
     },
-    "alive": {
+    {
+      "name": "alive",
       "entity": "dynamic",
       "components": {
         "alive": {}
       }
     },
-    "enemy": {
+    {
+      "name": "enemy",
       "components": {
         "enemyAI": {
           "strength": 10
@@ -73,15 +79,16 @@
         "y2": 1
       }
     }
-  },
+  ],
   "layers": ["surface", "objects"],
   "settings": {
     "minimized": true,
     "gridEnabled": true,
     "gridSize": 16
   },
-  "entities": {
-    "player": {
+  "entities": [
+    {
+      "name": "player",
       "persistent": true,
       "stayInBounds": false,
       "components": {
@@ -107,7 +114,8 @@
       },
       "texture": "tile_0098"
     },
-    "cart": {
+    {
+      "name": "cart",
       "hitbox": {
         "x1": 0,
         "y1": 0.3,
@@ -116,7 +124,8 @@
       },
       "texture": "tile_0055"
     },
-    "weapon": {
+    {
+      "name": "weapon",
       "hitbox": {
         "x1": 4,
         "y1": 0,
@@ -131,7 +140,8 @@
       },
       "texture": "tile_0104"
     },
-    "rat": {
+    {
+      "name": "rat",
       "components": {
         "alive": {
           "maxHealth": 7
@@ -143,7 +153,8 @@
       "entity": "enemy",
       "texture": "tile_0123"
     },
-    "spider": {
+    {
+      "name": "spider",
       "entity": "enemy",
       "components": {
         "enemyAI": {
@@ -160,7 +171,8 @@
       },
       "texture": "tile_0122"
     },
-    "crab": {
+    {
+      "name": "crab",
       "entity": "enemy",
       "components": {
         "enemyAI": {
@@ -173,7 +185,7 @@
       },
       "texture": "tile_0110"
     }
-  },
+  ],
   "editorObjectSnapToPivot": false,
   "saveVars": {
     "ArcadeObject": ["color"]
