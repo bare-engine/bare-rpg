@@ -3,13 +3,14 @@
   "categories": {
     "Levels": {
       "entries": "level_[editorImages]",
-      "baseEntity": "level",
+      "entity": "level",
       "showLabels": true
     }
   },
   "baseEntities": [
     {
       "name": "level",
+      "texture": "NAME",
       "imagePath": "editorImages",
       "components": {
         "levelConnector": {}
