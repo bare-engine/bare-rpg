@@ -3,6 +3,7 @@ import { Component, Color, Inspector, ParticleComponent, Save, TweenTo } from "b
 export class AliveComponent extends Component
 {
     @Save
+    @Inspector.Field
     @Inspector.Int
     health: number = 0;
 

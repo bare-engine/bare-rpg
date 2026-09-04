@@ -17,11 +17,6 @@
   },
   "baseEntities": [
     {
-      "name": "BG",
-      "texture": "NAME",
-	  "entity": "NONE"
-	},
-    {
       "name": "ANY",
       "texture": "NAME",
       "baseClass": "ArcadeObject",
@@ -37,6 +32,11 @@
         "x": 0.5,
         "y": 1
       }
+    },
+    {
+      "name": "BG",
+      "texture": "NAME",
+      "entity": "NONE"
     },
     {
       "name": "dynamic",
