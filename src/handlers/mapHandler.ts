@@ -22,21 +22,25 @@ export class MapHandler
     {
         this.mapSettingsHandler = new SettingsHandler(scene);
 
-        // THE MAP HAS "level_[editorImages]" IN IT'S CATEGORIES, THIS WILL RESOLVE THAT
+        // THE mapData HAS "level_[editorImages]" IN IT'S CATEGORIES, THIS WILL RESOLVE THAT
         // BY FINDING ALL IMAGES IN editorImages FOLDER AND MAKING THEM INTO PLACABLE OBJECTS
         // (NOT NEEDED RIGHT AWAY, BUT HANDY TO HAVE IT BEFORE OPENING THE MAP EDITOR)
         await this.mapSettingsHandler.Process(mapDataJson);
 
-        // READ INITIAL LEVEL MAP, SO WE KNOW HOW LEVELS ARE CONNECTED
-        this.FillLevelMap(mapLevelJson);
+        // FILL MAP FROM STATIC mapLevelJson ONCE, PREVENTING IT ON SUBSEQUENT RESTARTS
+        if (!this.map)
+        {
+            // READ INITIAL LEVEL MAP, SO WE KNOW HOW LEVELS ARE CONNECTED
+            this.FillLevelMap(mapLevelJson);
 
-        // UPDATE LEVEL MAP WHEN IT'S SAVED/CHANGED
-        bare.globalEvents.persistent.on(BareEvent.level_savedToDisk, (levelPayload: Events['level_savedToDisk']) => {
-            if (levelPayload.level?.settingsData == "mapData")
-            {
-                this.FillLevelMap(levelPayload.level);
-            }
-        });
+            // UPDATE LEVEL MAP WHEN IT'S SAVED/CHANGED
+            bare.globalEvents.persistent.on(BareEvent.level_savedToDisk, (levelPayload: Events['level_savedToDisk']) => {
+                if (levelPayload.level?.settingsData == "mapData")
+                {
+                    this.FillLevelMap(levelPayload.level);
+                }
+            });
+        }
 
         if (__DEV__)
             this.AddMapEditorButton(scene);

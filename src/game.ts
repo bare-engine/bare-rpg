@@ -10,8 +10,8 @@ import { Joystick } from './ui/joystick';
 
 declare module "bare-engine"
 {
-    // EXTENDING THE COMPONENT INTERFACE WITH A METHOD
-    // SO THAT CallMethodOnAllComponents('Pop'); WORKS
+    // EXTENDING THE COMPONENT INTERFACE WITH METHODS
+    // SO WE CAN CALL EG: bare.component.CallMethodOnComponentsOfObject("OnHit", ...);
     interface Component 
     {
         OnHit?(damage: number, hitter: GameObject): void | Promise<void>
