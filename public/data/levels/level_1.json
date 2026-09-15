@@ -7,7 +7,8 @@
   "entitiesByLayer": {
     "objects": [
       {
-        "texture": "playerStart",
+        "name": "playerStart",
+        "texture": "tile_0098",
         "position": {
           "x": 120,
           "y": 96
