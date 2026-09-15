@@ -33,6 +33,8 @@ export class Game extends Scene
 
     async OnAwake()
     {
+        await bare.LoadFont("Pixellari");
+
         // ADD THE PLAYER
         this.player = this.AddGameObject("player");
 
@@ -163,7 +165,12 @@ export class Game extends Scene
     }
 }
 
-StartBare(Game, {antiAlias: false, textureFilter: TextureFilterMode.NEAREST, showEditorButton: true, 
+StartBare(Game, {
+    antiAlias: false,
+    textureFilter: TextureFilterMode.NEAREST, 
+    textResolution: 1, 
+    pixelPerfectText: true, 
+    showEditorButton: true, 
     resolution: {
         width: 240, 
         height: 160, 
