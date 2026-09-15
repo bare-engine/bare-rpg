@@ -70,7 +70,7 @@ export class MapHandler
             }
         }
 
-        var mapEditorButton = new Button(bare.uiScene, {text: "Map Editor", OnPress: async () => {
+        var mapEditorButton = new Button(bare.uiScene, {text: "Map Editor", fontFamily: bare.defaultEngineFont, OnPress: async () => {
             await OnClickMapEditorButton();
         }});
         var scale = 1;
