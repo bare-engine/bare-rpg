@@ -19,7 +19,7 @@
     <li>Enemy AI behaviour</li>
     <li>Saving / loading</li>
     <li>Preloading levels</li>
-    <li>Base entity inheritance</li>
+    <li>Prefab inheritance</li>
     <li>Custom component methods</li>
     <li>Customizing enemies with components</li>
     <li>BaseClass usage - weapon</li>

@@ -2,12 +2,12 @@
   "categories": {
     "dynamic": {
       "entries": ["player", "rat", "tile_0082", "cart", "crab", "spider"],
-      "entity": "dynamic",
+      "extends": "dynamic",
       "expanded": true
     },
     "surface": {
       "entries": ["tile_0069", "tile_0071", "tile_0081", "tile_0070", "tile_0093", "tile_0095", "tile_0067", "tile_0080", "tile_0042", "tile_0049", "tile_0066"],
-      "entity": "BG",
+      "extends": "BG",
       "expanded": true
     },
     "tiles": {
@@ -15,7 +15,7 @@
       "expanded": true
     }
   },
-  "baseEntities": [
+  "basePrefabs": [
     {
       "name": "ANY",
       "texture": "NAME",
@@ -36,7 +36,7 @@
     {
       "name": "BG",
       "texture": "NAME",
-      "entity": "NONE"
+      "extends": "NONE"
     },
     {
       "name": "dynamic",
@@ -51,7 +51,7 @@
     },
     {
       "name": "alive",
-      "entity": "dynamic",
+      "extends": "dynamic",
       "components": {
         "alive": {}
       }
@@ -67,7 +67,7 @@
           "wiggleAmount": 50
         }
       },
-      "entity": "alive",
+      "extends": "alive",
       "pivot": {
         "x": 0.5,
         "y": 0.5
@@ -86,7 +86,7 @@
     "gridEnabled": true,
     "gridSize": 16
   },
-  "entities": [
+  "prefabs": [
     {
       "name": "player",
       "persistent": true,
@@ -97,7 +97,7 @@
       "children": [
         {
           "name": "weapon",
-          "entity": "weapon",
+          "extends": "weapon",
           "position": {
             "x": 15,
             "y": 16
@@ -105,7 +105,7 @@
           "flipped": true
         }
       ],
-      "entity": "alive",
+      "extends": "alive",
       "hitbox": {
         "x1": 0,
         "y1": 0.8,
@@ -150,12 +150,12 @@
           "strength": 4
         }
       },
-      "entity": "enemy",
+      "extends": "enemy",
       "texture": "tile_0123"
     },
     {
       "name": "spider",
-      "entity": "enemy",
+      "extends": "enemy",
       "components": {
         "enemyAI": {
           "strength": 10,
@@ -173,7 +173,7 @@
     },
     {
       "name": "crab",
-      "entity": "enemy",
+      "extends": "enemy",
       "components": {
         "enemyAI": {
           "strength": 5,

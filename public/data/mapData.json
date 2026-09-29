@@ -3,11 +3,11 @@
   "categories": {
     "Levels": {
       "entries": "level_[editorImages]",
-      "entity": "level",
+      "extends": "level",
       "showLabels": true
     }
   },
-  "baseEntities": [
+  "basePrefabs": [
     {
       "name": "level",
       "texture": "NAME",
@@ -21,7 +21,7 @@
       }
     }
   ],
-  "entities": [],
+  "prefabs": [],
   "settings": {
     "gridEnabled": true,
     "gridSize": 16

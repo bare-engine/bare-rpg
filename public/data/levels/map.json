@@ -10,7 +10,7 @@
   "entitiesByLayer": {
     "objects": [
       {
-        "entity": "level_2",
+        "extends": "level_2",
         "components": {
           "levelConnector": {
             "top": "",
@@ -25,7 +25,7 @@
         }
       },
       {
-        "entity": "level_1",
+        "extends": "level_1",
         "components": {
           "levelConnector": {
             "top": "",
@@ -40,7 +40,7 @@
         }
       },
       {
-        "entity": "level_3",
+        "extends": "level_3",
         "components": {
           "levelConnector": {
             "top": "level_1",
@@ -55,7 +55,7 @@
         }
       },
       {
-        "entity": "level_4",
+        "extends": "level_4",
         "components": {
           "levelConnector": {
             "top": "level_2",
