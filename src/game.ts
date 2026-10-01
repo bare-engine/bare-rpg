@@ -100,8 +100,6 @@ export class Game extends Scene
         }
 
         this.promiseLevelLoads = this.LoadLevelJsonsAround(SaveData.currentLevelStr);
-        
-        bare.storage.Save();
     }
 
     async LoadLevelJsonsAround(levelStr: string)
