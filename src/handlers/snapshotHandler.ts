@@ -67,7 +67,7 @@ export class SnapshotHandler
         if (!pixelsContext)
             throw new Error("Could not create canvas context for level snapshot.");
 
-        const sourcePixels = texture.GetPixels();
+        const sourcePixels = texture.getPixels();
         const flippedPixels = new Uint8ClampedArray(sourcePixels.length);
         const rowLength = texture.width * 4;
 
