@@ -13,6 +13,7 @@ export class Weapon extends ArcadeObject
         return (tweens.length == 0);
     }
 
+    @Inspector.Button
     async Slash()
     {
         this.rotation = 0;
