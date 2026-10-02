@@ -1,4 +1,4 @@
-import { BareEvent, Component, InspectorField, SaveData, Size, Vec2 } from "bare-engine";
+import { Component, InspectorField, SaveData, Size, Vec2 } from "bare-engine";
 import { ArcadeObject } from "bare-engine/arcade";
 import { Direction, MapHandler } from "../handlers/mapHandler";
 import { Weapon } from "../objects/weapon";
@@ -16,12 +16,6 @@ export class PlayerComponent extends Component
     {
         // GET WEAPON - ALREADY ADDED IN player ENTITY
         this.weapon = this.go.GetChildByName("weapon") as Weapon;
-        this.weapon.physicsHitbox.active = false;
-
-        // WEAPON HIT CALLS OnHit ON COMPONENTS
-        this.weapon.events.on(BareEvent.collision_start, (object: ArcadeObject) => {
-            bare.component.CallMethodOnComponentsOfObject("OnHit", object, this.weapon.strength, this.go);
-        });
     }
 
     OnUpdate(deltaTime: number): void
@@ -104,8 +98,7 @@ export class PlayerComponent extends Component
         if (this.stunned)
             return;
 
-        if (this.weapon.CanSlash())
-            this.weapon.Slash();
+        this.weapon.Slash();
     }
 
     CheckOffScreen()

@@ -1,4 +1,4 @@
-import { FlashShader, Inspector, TweenTo } from "bare-engine";
+import { BareEvent, FlashShader, Inspector, TweenTo } from "bare-engine";
 import { ArcadeObject } from "bare-engine/arcade";
 
 @Inspector.BaseClass
@@ -6,6 +6,16 @@ export class Weapon extends ArcadeObject
 {
     @Inspector.Field
     strength:number = 1;
+
+    OnAdded(): void
+    {
+        this.physicsHitbox.active = false;
+    }
+
+    OnCollisionStart(collidingObject: ArcadeObject)
+    {
+        bare.component.CallMethodOnComponentsOfObject("OnHit", collidingObject, this.strength, this.parent);
+    }
 
     CanSlash(): boolean
     {
@@ -16,6 +26,9 @@ export class Weapon extends ArcadeObject
     @Inspector.Button
     async Slash()
     {
+        if (!this.CanSlash())
+            return;
+
         this.rotation = 0;
         TweenTo(this, .1, { rotation: 60, persistent: true, yoyo: true });
         
