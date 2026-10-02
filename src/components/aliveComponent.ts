@@ -5,6 +5,7 @@ export class AliveComponent extends Component
     @Save
     @Inspector.Field
     @Inspector.Int
+    @Inspector.Limit(0, 100)
     health: number = 0;
 
     @Inspector.Field
