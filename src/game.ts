@@ -32,7 +32,9 @@ export class Game extends Scene
     }
 
     async OnAwake()
-    {
+    {        
+        await bare.LoadFont("Pixellari");
+        
         // ADD THE PLAYER
         this.player = this.AddGameObject("player");
 
