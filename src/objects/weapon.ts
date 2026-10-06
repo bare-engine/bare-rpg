@@ -12,7 +12,7 @@ export class Weapon extends ArcadeObject
         this.physicsHitbox.active = false;
     }
 
-    OnCollisionUpdate(collidingObject: ArcadeObject)
+    OnCollisionStart(collidingObject: ArcadeObject)
     {
         bare.component.CallMethodOnComponentsOfObject("OnHit", collidingObject, this.strength, this.parent);
     }
@@ -35,7 +35,7 @@ export class Weapon extends ArcadeObject
         this.AddShader(FlashShader);
         
         this.physicsHitbox.active = true;
-        await waitFrame(3, true);
+        await waitFrame(1, true);
         this.physicsHitbox.active = false;
     }
 }
