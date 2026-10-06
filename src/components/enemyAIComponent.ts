@@ -1,4 +1,4 @@
-import { BareEvent, Component, Color, Inspector, TweenTo, Vec2, Locked } from "bare-engine";
+import { BareEvent, Component, Color, Inspector, SerializeField, TweenTo, Vec2, Locked } from "bare-engine";
 import { BlockedState } from "../../../BareEngine/src/types/bareTypes";
 import { AliveComponent } from "./aliveComponent";
 import { ArcadeObject } from "bare-engine/arcade";
@@ -31,23 +31,23 @@ export class EnemyAIComponent extends Component
         set: (state: string) => this.SetState(State[state as keyof typeof State])
     };
 
-    @Inspector.Field
+    @SerializeField
     roamSpeed: number = 30;
 
-    @Inspector.Field @Limit(0)
+    @SerializeField @Limit(0)
     roamIntervalRandom: number = .5;
 
-    @Inspector.Field @Limit(0)
+    @SerializeField @Limit(0)
     roamIntervalConstant: number = .7;
 
     @Inspector.Field 
     @Locked @Decimal(2)
     roamCounter: number = 0;
 
-    @Inspector.Field
+    @SerializeField
     attackSpeed: number = 60;
 
-    @Inspector.Field
+    @SerializeField
     @Inspector.Int
     strength: number = 5;
 

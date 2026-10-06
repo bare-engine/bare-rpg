@@ -1,14 +1,13 @@
-import { Component, Color, Inspector, ParticleComponent, Save, TweenTo } from "bare-engine";
+import { Component, Color, GameMode, Inspector, ParticleComponent, SerializeField, TweenTo } from "bare-engine";
 
 export class AliveComponent extends Component
 {
-    @Save
-    @Inspector.Field
+    @SerializeField(GameMode.Play)
     @Inspector.Int
     @Inspector.Limit(0, 100)
     health: number = 0;
 
-    @Inspector.Field
+    @SerializeField
     @Inspector.Int
     maxHealth: number = 10;
 

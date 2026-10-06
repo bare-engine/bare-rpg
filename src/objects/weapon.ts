@@ -1,10 +1,10 @@
-import { BareEvent, FlashShader, Inspector, TweenTo } from "bare-engine";
+import { BareEvent, FlashShader, Inspector, SerializeField, TweenTo } from "bare-engine";
 import { ArcadeObject } from "bare-engine/arcade";
 
 @Inspector.BaseClass
 export class Weapon extends ArcadeObject
 {
-    @Inspector.Field
+    @SerializeField
     strength:number = 1;
 
     OnAdded(): void

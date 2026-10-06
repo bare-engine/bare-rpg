@@ -1,14 +1,14 @@
-import { Component, Inspector } from "bare-engine";
+import { Component, SerializeField } from "bare-engine";
 import { ArcadeObject } from "bare-engine/arcade";
 
 export class WiggleComponent extends Component
 {
     go: ArcadeObject;
 
-    @Inspector.Field
+    @SerializeField
     wiggleAmount: number = 22;
 
-    @Inspector.Field
+    @SerializeField
     wiggleSpeed: number = .1;
 
     wiggleTime: number = 0;

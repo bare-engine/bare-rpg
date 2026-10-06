@@ -1,4 +1,4 @@
-import { Component, InspectorField, SaveData, Size, Vec2 } from "bare-engine";
+import { Component, SaveData, SerializeField, Size, Vec2 } from "bare-engine";
 import { ArcadeObject } from "bare-engine/arcade";
 import { Direction, MapHandler } from "../handlers/mapHandler";
 import { Weapon } from "../objects/weapon";
@@ -7,7 +7,7 @@ export class PlayerComponent extends Component
 {
     go: ArcadeObject;
 
-    @InspectorField speed = 90;
+    @SerializeField speed = 90;
     stunned: boolean = false;
     
     weapon:Weapon;
