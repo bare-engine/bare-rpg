@@ -12,7 +12,7 @@ export class WiggleComponent extends Component<ArcadeObject>
 
     wiggleTime: number = 0;
 
-    OnUpdate(deltaTime: number): void 
+    override OnUpdate(deltaTime: number): void 
     {
         this.wiggleTime += (deltaTime * 60);
         var sineInput = (this.wiggleTime * this.wiggleSpeed);

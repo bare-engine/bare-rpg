@@ -4,7 +4,7 @@ import { ArcadeObject } from "bare-engine/arcade";
 export class HitComponent extends Component<ArcadeObject>
 {
 
-    OnHit(damage: number, hitter: ArcadeObject): void
+    override OnHit(damage: number, hitter: ArcadeObject): void
     {
         var dirVec = this.go.GetCenterPosition().subtract(hitter.GetCenterPosition()).normalize();
         var hitVec = dirVec.multiply(80 * damage);

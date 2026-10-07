@@ -49,12 +49,12 @@ export class EnemyAIComponent extends Component<ArcadeObject>
     @Inspector.Int
     strength: number = 5;
 
-    OnAdded(): void
+    override OnAdded(): void
     {
         this.SetState(State.Roam);
     }
 
-    OnUpdate(deltaTime: number): void 
+    override OnUpdate(deltaTime: number): void 
     {
         switch (this.state)
         {
@@ -110,7 +110,7 @@ export class EnemyAIComponent extends Component<ArcadeObject>
         this.roamCounter -= deltaTime;
     }
 
-    async OnHit(damage: number, hitter: ArcadeObject): Promise<void>
+    override async OnHit(damage: number, hitter: ArcadeObject): Promise<void>
     {
         if (this.state == State.Dead)
             return;
@@ -125,12 +125,12 @@ export class EnemyAIComponent extends Component<ArcadeObject>
         this.SetState(State.Chase, hitter);
     }
 
-    OnDie()
+    override OnDie()
     {
         this.SetState(State.Dead);
     }
 
-    OnRemoved(): void
+    override OnRemoved(): void
     {
         this.SetState(State.None);
     }

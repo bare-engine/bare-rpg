@@ -2,7 +2,7 @@ import { Color, Scene, TextObject } from "bare-engine";
 
 export class GameOver extends Scene
 {
-    async OnStart()
+    override async OnStart()
     {
         bare.SetBackgroundColor(Color.fromHex("#ff5c55"));
 

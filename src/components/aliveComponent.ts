@@ -14,7 +14,7 @@ export class AliveComponent extends Component
     healthbarWidth: number = 16;
     healthbarAlpha:number = 0;
     
-    OnAdded(): void
+    override OnAdded(): void
     {
         // IF HEALTH WAS NOT SET BY INSPECTOR OR SAVE VALUE, SET IT TO MAX
         if (this.health == 0)
@@ -24,7 +24,7 @@ export class AliveComponent extends Component
         //this.health = Math.min(this.health, this.maxHealth);
     }
 
-    OnPostRender(): void
+    override OnPostRender(): void
     {
         if (this.healthbarAlpha == 0)
            return;
@@ -41,7 +41,7 @@ export class AliveComponent extends Component
         rapid.drawRect({x: x, y: y, width: this.healthbarWidth * this.health / this.maxHealth, height: 2, color: colorRed}); 
     }
 
-    async OnHit(damage: number): Promise<void>
+    override async OnHit(damage: number): Promise<void>
     {
         this.health -= damage;
         if (this.health <= 0)
@@ -60,7 +60,7 @@ export class AliveComponent extends Component
         }
     }
     
-    OnDie(): void
+    override OnDie(): void
     {
         bare.component.RemoveAllFrom(this.go, [ParticleComponent]);
         this.go.SetColor(Color.Gray);

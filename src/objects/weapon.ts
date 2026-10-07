@@ -7,13 +7,15 @@ export class Weapon extends ArcadeObject
     @SerializeField
     strength:number = 1;
 
-    OnAdded(): void
+    override OnAdded(): void
     {
         this.physicsHitbox.active = false;
     }
 
-    OnCollisionStart(collidingObject: ArcadeObject)
+    override OnCollisionStart(collidingObject: ArcadeObject)
     {
+        super.OnCollisionStart(collidingObject);
+
         bare.component.CallMethodOnComponentsOfObject("OnHit", collidingObject, this.strength, this.parent);
     }
 

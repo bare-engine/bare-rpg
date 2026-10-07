@@ -14,7 +14,7 @@ export class LevelConnectorComponent extends Component
 
     textOverlay!: GameObject;
 
-    OnAdded(): void
+    override OnAdded(): void
     {
         this.textOverlay = bScene.AddGameObject(new TextTexture(rapid, {text: this.go.name, stroke: "#ffffff", strokeThickness: 4}), this.go);
         this.textOverlay.save = false;
@@ -46,7 +46,7 @@ export class LevelConnectorComponent extends Component
         });
     }
 
-    OnUpdate(deltaTime: number): void 
+    override OnUpdate(deltaTime: number): void 
     {
         if (bare.mouse.IsDown() || bare.mouse.IsRightDown()/* && bare.hitbox.GetCurrentHover() == this.go.hitbox*/)
         {
@@ -118,7 +118,7 @@ export class LevelConnectorComponent extends Component
         }
     }
 
-    OnRender(): void 
+    override OnRender(): void 
     {
         var directions:Direction[] = ["top", "right", "bottom", "left"];
         var allConnectorComponents:LevelConnectorComponent[] = bare.component.GetAllByType(LevelConnectorComponent as any);

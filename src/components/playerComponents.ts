@@ -11,19 +11,19 @@ export class PlayerComponent extends Component<ArcadeObject>
     
     weapon!: Weapon;
     
-    OnAdded(): void
+    override OnAdded(): void
     {
         // GET WEAPON - ALREADY ADDED IN player ENTITY
         this.weapon = this.go.GetChildByName("weapon") as Weapon;
     }
 
-    OnUpdate(deltaTime: number): void
+    override OnUpdate(deltaTime: number): void
     {
         this.CheckMovementKeys();
         this.CheckOffScreen();
     }
 
-    async OnHit()
+    override async OnHit()
     {
         // SET stunned FOR A WHILE, SO YOU CAN'T MOVE OR ATTACK WHILE BEING LAUNCHED AWAY
         this.stunned = true;
@@ -31,7 +31,7 @@ export class PlayerComponent extends Component<ArcadeObject>
         this.stunned = false;
     }
 
-    OnDie()
+    override OnDie()
     {
         this.weapon.active = false; // STOPS UPDATING
 

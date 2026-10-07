@@ -31,7 +31,7 @@ export class Game extends Scene
         super(settingsDataJson);
     }
 
-    async OnAwake()
+    override async OnAwake()
     {        
         await bare.LoadFont("Pixellari");
         
@@ -73,19 +73,19 @@ export class Game extends Scene
         bare.storage.Load();
     }
 
-    async OnStart()
+    override async OnStart()
     {
         await this.LoadLevel(SaveData.currentLevelStr || 'level_1'); // currentLevelStr IS HERE TO START FROM POTENTIAL SAVED LEVEL
     }
 
-    async OnPreLoadLevel(): Promise<void>
+    override async OnPreLoadLevel(): Promise<void>
     {
         // WAIT FOR LOADING OF LEVELS AROUND TO COMPLETE, BEFORE STARTING A NEW ONE
         if (this.promiseLevelLoads)
             await this.promiseLevelLoads;
     }
 
-    OnPostLoadLevel(level: LevelData): void
+    override OnPostLoadLevel(level: LevelData): void
     {
         var playerStartPositionObject = bare.object.GetByName("playerStart");
         if (playerStartPositionObject)
@@ -157,7 +157,7 @@ export class Game extends Scene
         }
     }
 
-    OnRender(): void
+    override OnRender(): void
     {
         // ORDER OBJECTS BY Y, SO OBJECTS ARE RENDERED FROM TOP TO BOTTOM
         bare.object.GetLayer(Data.Layer.OBJECTS).sort((a, b) => {

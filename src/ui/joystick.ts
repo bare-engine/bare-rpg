@@ -30,7 +30,7 @@ export class Joystick extends GameObject
         bare.events.on(BareEvent.pointer_up, this.PointerUp.bind(this), 'pointer_up');
     }
 
-    OnUpdate(): void
+    override OnUpdate(): void
     {
         var vec = this.stickDeltaNormalized;
         if (vec.squaredLength() > 0)
