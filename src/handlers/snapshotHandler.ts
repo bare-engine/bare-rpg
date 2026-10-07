@@ -39,7 +39,7 @@ export class SnapshotHandler
 
     static SceneToDataUrl(scene: Scene): string
     {
-        const dimensions = scene.level.currentLevel.dimensions;
+        const dimensions = scene.level.currentLevel!.dimensions;
         const width = Math.max(1, Math.round(dimensions?.width || rapid.width));
         const height = Math.max(1, Math.round(dimensions?.height || rapid.height));
         const target = rapid.texture.createRenderTexture({ width, height });

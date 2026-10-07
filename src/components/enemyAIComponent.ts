@@ -14,11 +14,9 @@ enum State
     None,
 }
 
-export class EnemyAIComponent extends Component
+export class EnemyAIComponent extends Component<ArcadeObject>
 {
-    go: ArcadeObject;
-
-    state:State;
+    state!: State;
     stateArg:any;
 
     roamVec: Vec2 = new Vec2(0, 0);

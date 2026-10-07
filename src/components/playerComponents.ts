@@ -3,14 +3,13 @@ import { ArcadeObject } from "bare-engine/arcade";
 import { Direction, MapHandler } from "../handlers/mapHandler";
 import { Weapon } from "../objects/weapon";
 
-export class PlayerComponent extends Component
+export class PlayerComponent extends Component<ArcadeObject>
 {
-    go: ArcadeObject;
 
     @SerializeField speed = 90;
     stunned: boolean = false;
     
-    weapon:Weapon;
+    weapon!: Weapon;
     
     OnAdded(): void
     {
@@ -120,7 +119,7 @@ export class PlayerComponent extends Component
                     await bare.level.Load(newLevel);
 
                     // WARP PLAYER POSITION
-                    let dimsNewLevel:Size = bare.level.currentLevel.dimensions;
+                    let dimsNewLevel:Size = bare.level.currentLevel!.dimensions;
                     if (dir == "left")
                     {
                         this.go.x = dimsNewLevel.width;

@@ -21,8 +21,8 @@ declare module "bare-engine"
 
 export class Game extends Scene
 {
-    player: ArcadeObject;
-    promiseLevelLoads: Promise<void>;
+    player!: ArcadeObject;
+    promiseLevelLoads!: Promise<void>;
     
     constructor()
     {

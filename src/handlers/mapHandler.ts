@@ -98,7 +98,7 @@ export class MapHandler
         var entities = map.entitiesByLayer.objects;
         for (var entity of entities)
         {
-            var levelName = entity.extends;
+            var levelName = entity.extends!;
 
             var connections: Record<Direction, string> = {top: "", right: "", bottom: "", left: "" };
             this.map[levelName] = {connections: connections};

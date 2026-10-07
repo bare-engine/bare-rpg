@@ -1,9 +1,8 @@
 import { Component, FlashShader, ParticleComponent } from "bare-engine";
 import { ArcadeObject } from "bare-engine/arcade";
 
-export class HitComponent extends Component
+export class HitComponent extends Component<ArcadeObject>
 {
-    go: ArcadeObject;
 
     OnHit(damage: number, hitter: ArcadeObject): void
     {
@@ -13,6 +12,6 @@ export class HitComponent extends Component
 
         this.go.AddShader(FlashShader);
 
-        this.go.GetComponent(ParticleComponent).Fire();
+        this.go.GetComponent(ParticleComponent)!.Fire();
     }
 }

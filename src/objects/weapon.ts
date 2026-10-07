@@ -1,4 +1,4 @@
-import { BareEvent, FlashShader, Inspector, SerializeField, TweenTo } from "bare-engine";
+import { FlashShader, Inspector, SerializeField, TweenTo } from "bare-engine";
 import { ArcadeObject } from "bare-engine/arcade";
 
 @Inspector.BaseClass

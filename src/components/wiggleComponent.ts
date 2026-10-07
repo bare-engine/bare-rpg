@@ -1,9 +1,8 @@
 import { Component, SerializeField } from "bare-engine";
 import { ArcadeObject } from "bare-engine/arcade";
 
-export class WiggleComponent extends Component
+export class WiggleComponent extends Component<ArcadeObject>
 {
-    go: ArcadeObject;
 
     @SerializeField
     wiggleAmount: number = 22;

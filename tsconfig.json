@@ -1,8 +1,8 @@
 {
     "extends": "bare-engine/config/tsconfig.base.json",
     "compilerOptions": {
-        "outDir": "./dist/",
-        "baseUrl": "./src"
+        "strict": true,
+        "noEmit": true
     },
     "include": [
         "src"

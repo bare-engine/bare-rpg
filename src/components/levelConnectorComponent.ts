@@ -7,12 +7,12 @@ type Direction = "top" | "right" | "bottom" | "left";
 @Run(GameMode.Edit)
 export class LevelConnectorComponent extends Component
 {
-    @SerializeField(GameMode.Edit) private top:string;
-    @SerializeField(GameMode.Edit) private right:string;
-    @SerializeField(GameMode.Edit) private bottom:string;
-    @SerializeField(GameMode.Edit) private left:string;
+    @SerializeField(GameMode.Edit) private top!: string;
+    @SerializeField(GameMode.Edit) private right!: string;
+    @SerializeField(GameMode.Edit) private bottom!: string;
+    @SerializeField(GameMode.Edit) private left!: string;
 
-    textOverlay: GameObject;
+    textOverlay!: GameObject;
 
     OnAdded(): void
     {
