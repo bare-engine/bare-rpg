@@ -5,7 +5,7 @@
         "dev": "vite --config vite.config.cjs --mode development",
         "dev:open": "vite --config vite.config.cjs --mode development --open",
         "build": "vite build --config vite.config.cjs --mode production",
-        "build-zip": "npm run build && cd dist && bestzip ../dist.zip *",
+        "build-zip": "npm run build && bare-engine-zip",
         "dev-nolog": "vite --config vite.config.cjs --mode development --open",
         "build-nolog": "vite build --config vite.config.cjs --mode production",
         "analyze": "bare-engine-analyze",
@@ -19,8 +19,6 @@
     "author": "Jeroen Wimmers",
     "license": "MIT",
     "devDependencies": {
-        "@assetpack/core": "^1.7.0",
-        "bestzip": "^2.2.1",
         "typescript": "6.0.3",
         "vite": "^6.3.5"
     },
@@ -43,5 +41,10 @@
             "textColor": "rgb(0, 0, 0)"
         },
         "gameId": "bareRPG"
+    },
+    "allowScripts": {
+        "esbuild": true,
+        "sharp": true,
+        "vue-demi": true
     }
 }
