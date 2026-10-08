@@ -12,10 +12,6 @@
         "poki-upload": "poki upload",
         "build:assets": "node node_modules/bare-engine/scripts/buildAssets.cjs"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/BareEngine/Template.git"
-    },
     "author": "Jeroen Wimmers",
     "license": "MIT",
     "devDependencies": {
