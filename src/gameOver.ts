@@ -6,7 +6,7 @@ export class GameOver extends Scene
     {
         bare.SetBackgroundColor(Color.fromHex("#ff5c55"));
 
-        this.AddGameObject(new TextObject(this, {text: "Game Over", fill: "#ffffff", fontSize: 48}))
+        this.AddGameObject(new TextObject(this, {text: "Game Over", fill: "#ffffff", fontSize: 38}))
             .SetPosition(bare.width * .5, bare.height * .5)
             .CenterPivot();
 
