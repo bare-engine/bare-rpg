@@ -67,18 +67,8 @@ export class SnapshotHandler
         if (!pixelsContext)
             throw new Error("Could not create canvas context for level snapshot.");
 
-        const sourcePixels = texture.getPixels();
-        const flippedPixels = new Uint8ClampedArray(sourcePixels.length);
-        const rowLength = texture.width * 4;
-
-        for (let y = 0; y < texture.height; y++)
-        {
-            const sourceStart = (texture.height - y - 1) * rowLength;
-            const targetStart = y * rowLength;
-            flippedPixels.set(sourcePixels.subarray(sourceStart, sourceStart + rowLength), targetStart);
-        }
-
-        pixelsContext.putImageData(new ImageData(flippedPixels, texture.width, texture.height), 0, 0);
+        const pixels = new Uint8ClampedArray(texture.getPixels());
+        pixelsContext.putImageData(new ImageData(pixels, texture.width, texture.height), 0, 0);
 
         const canvas = document.createElement("canvas");
         canvas.width = texture.width;
