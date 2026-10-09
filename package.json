@@ -10,7 +10,8 @@
         "build-nolog": "vite build --config vite.config.cjs --mode production",
         "analyze": "bare-engine-analyze",
         "poki-upload": "poki upload",
-        "build:assets": "node node_modules/bare-engine/scripts/buildAssets.cjs"
+        "build:assets": "node node_modules/bare-engine/scripts/buildAssets.cjs",
+        "update-engine": "npm install bare-engine@github:bare-engine/bare-engine#semver:^0.6.0"
     },
     "author": "Jeroen Wimmers",
     "license": "MIT",
@@ -19,7 +20,7 @@
         "vite": "^6.3.5"
     },
     "dependencies": {
-        "bare-engine": "github:BareEngine/BareEngine"
+        "bare-engine": "github:bare-engine/bare-engine#semver:^0.6.0"
     },
     "bareEngine": {
         "firstLevelLoad": "level_1",
