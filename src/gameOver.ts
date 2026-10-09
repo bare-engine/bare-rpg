@@ -15,7 +15,7 @@ export class GameOver extends Scene
 
     async RestartWithDelay(delaySeconds: number)
     {
-        await wait(delaySeconds, true);
+        await wait(delaySeconds);
         bare.Restart();
     }
 }
