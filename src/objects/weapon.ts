@@ -7,6 +7,8 @@ export class Weapon extends ArcadeObject
     @SerializeField
     strength:number = 1;
 
+    private enemiesHitThisSlash = new Set<ArcadeObject>();
+
     override OnAdded(): void
     {
         this.physicsHitbox.active = false;
@@ -14,7 +16,10 @@ export class Weapon extends ArcadeObject
 
     override OnCollisionStart(collidingObject: ArcadeObject)
     {
-        super.OnCollisionStart(collidingObject);
+        if (this.enemiesHitThisSlash.has(collidingObject))
+            return;
+
+        this.enemiesHitThisSlash.add(collidingObject);
 
         bare.component.CallMethodOnComponentsOfObject("OnHit", collidingObject, this.strength, this.parent);
     }
@@ -32,12 +37,15 @@ export class Weapon extends ArcadeObject
             return;
 
         this.rotation = 0;
+
         TweenTo(this, .1, { rotation: 60, persistent: true, yoyo: true });
-        
+
         this.AddShader(FlashShader);
-        
+
+        this.enemiesHitThisSlash.clear();
+
         this.physicsHitbox.active = true;
-        await waitFrame(1, true);
+        await wait(.05, this.parent!.persistent);
         this.physicsHitbox.active = false;
     }
 }
