@@ -1,4 +1,6 @@
 # Bare RPG - Example
+Made with the <a href="https://github.com/bare-engine/bare-engine">Bare Engine</a>.
+<br><br>
 <img width="800" height="531" alt="ezgif-709bdc8293befa69" src="https://github.com/user-attachments/assets/6bf6c397-1b5e-491e-ae66-387bee48bea4" />
 
 <h2>Getting Started</h2>
