@@ -46,6 +46,7 @@ Links inside the docs leave out `.md`: `./components` means `components.md` in t
 | `npm run build-zip` | Build and zip to `dist.zip`. |
 | `npm run analyze` | Build and open a bundle size map. |
 | `npm run build:assets` | Run AssetPack without the dev server. |
+| `npm run update-engine` | Move to the newest engine release allowed by `package.json`. Updates `package-lock.json`. |
 
 On PowerShell setups that block `npm.ps1`, use `npm.cmd`.
 
