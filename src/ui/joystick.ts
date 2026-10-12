@@ -22,7 +22,6 @@ export class Joystick extends GameObject
 
         this.stick = new GameObject(scene, "circle");
         this.stick.CenterPivot();
-        this.stick.SetPosition(this.pivotX, this.pivotY);
         this.AddChild(this.stick)
         
         bare.events.on(BareEvent.pointer_down, this.PointerDown.bind(this), 'pointer_down');
@@ -63,7 +62,7 @@ export class Joystick extends GameObject
             return;
 
         var p = bare.mouse.screen.position;
-        var localPos = this.ToLocal(p).subtract(this.pivot);
+        var localPos = this.ToLocal(p);
         this.SetStickPosition(localPos.x, localPos.y);
 
         var normalized = this.NormalizedStickVector;

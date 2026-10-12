@@ -19,7 +19,7 @@ export class LevelConnectorComponent extends Component
         this.textOverlay = this.scene.AddGameObject(new TextTexture(rapid, {text: this.go.name, stroke: "#ffffff", strokeThickness: 4}), this.go);
         this.textOverlay.save = false;
         this.textOverlay.visibleInEditor = false;
-        this.textOverlay.SetPosition(this.go.width - this.textOverlay.width * .5 - 3, this.textOverlay.height * .5 + 3);
+        this.textOverlay.SetPosition(this.go.width - this.textOverlay.width * .5 - 3 - this.go.pivotX, this.textOverlay.height * .5 + 3 - this.go.pivotY); // from the top right; children sit on the pivot
         this.textOverlay.CenterPivot();
 
         // SHOW/HIDE OVERLAY TEXT ON HOVER IN/OUT
