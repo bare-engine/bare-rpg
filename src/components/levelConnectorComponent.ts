@@ -16,7 +16,7 @@ export class LevelConnectorComponent extends Component
 
     override OnAdded(): void
     {
-        this.textOverlay = bScene.AddGameObject(new TextTexture(rapid, {text: this.go.name, stroke: "#ffffff", strokeThickness: 4}), this.go);
+        this.textOverlay = this.scene.AddGameObject(new TextTexture(rapid, {text: this.go.name, stroke: "#ffffff", strokeThickness: 4}), this.go);
         this.textOverlay.save = false;
         this.textOverlay.visibleInEditor = false;
         this.textOverlay.SetPosition(this.go.width - this.textOverlay.width * .5 - 3, this.textOverlay.height * .5 + 3);
