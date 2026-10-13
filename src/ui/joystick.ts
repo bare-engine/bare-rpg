@@ -18,6 +18,7 @@ export class Joystick extends GameObject
         this.callback = callback;
 
         this.CenterPivot();
+        this.childrenAtPivot = true; // (0, 0) is the ring center, for the stick and ToLocal
         this.SetPosition(bare.width * .75, bare.height * .75);
 
         this.stick = new GameObject(scene, "circle");
