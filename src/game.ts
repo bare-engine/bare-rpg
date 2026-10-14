@@ -28,7 +28,7 @@ export class Game extends Scene
     {
         bare.AddClass(ArcadePhysicsController);
 
-        super(settingsDataJson);
+        super({ settingsData: settingsDataJson });
     }
 
     override async OnAwake()
