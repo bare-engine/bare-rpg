@@ -45,7 +45,13 @@ export class Weapon extends ArcadeObject
         this.enemiesHitThisSlash.clear();
 
         this.physicsHitbox.active = true;
-        await wait(.05, this.parent!.persistent);
-        this.physicsHitbox.active = false;
+        try
+        {
+            await this.scene.Wait(.05, this.parent!.persistent);
+        }
+        finally
+        {
+            this.physicsHitbox.active = false;
+        }
     }
 }

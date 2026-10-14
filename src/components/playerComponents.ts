@@ -27,8 +27,14 @@ export class PlayerComponent extends Component<ArcadeObject>
     {
         // SET stunned FOR A WHILE, SO YOU CAN'T MOVE OR ATTACK WHILE BEING LAUNCHED AWAY
         this.stunned = true;
-        await wait(.4, true);
-        this.stunned = false;
+        try
+        {
+            await this.scene.Wait(.4, true);
+        }
+        finally
+        {
+            this.stunned = false;
+        }
     }
 
     override OnDie()

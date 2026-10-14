@@ -116,7 +116,8 @@ export class EnemyAIComponent extends Component<ArcadeObject>
             return;
 
         this.SetState(State.Hit);
-        await wait(.6);
+        if (!await this.scene.Wait(.6))
+            return;
 
         // CHECK IF INTERRUPTED
         if (this.state != State.Hit)
@@ -163,7 +164,8 @@ export class EnemyAIComponent extends Component<ArcadeObject>
     async Attack(target: ArcadeObject)
     {
         // WAIT LITTLE BIT - FOR BUILD UP / TIME TO ESCAPE
-        await wait(.1);
+        if (!await this.scene.Wait(.1))
+            return;
 
         // CHECK IF INTERRUPTED, MAYBE HIT, IN THAT CASE STOP THE ATTACK
         if (this.state != State.Attack)
@@ -187,13 +189,16 @@ export class EnemyAIComponent extends Component<ArcadeObject>
         }, 'hitCheck');
 
         // DANGER WINDOW
-        await waitFrame();
+        const completed = await this.scene.WaitFrame();
 
         // ATTACK IS DONE, STOP LISTENING FOR COLLISION
         this.go.events.offAlias('hitCheck');
+        if (!completed)
+            return;
 
         // COOL DOWN FROM ATTACK
-        await wait(.4);
+        if (!await this.scene.Wait(.4))
+            return;
 
         // CHECK IF INTERRUPTED
         if (this.state != State.Attack)

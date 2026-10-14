@@ -58,7 +58,8 @@ export class Game extends Scene
 
         // RESTART THE GAME WHEN THE PLAYER DIES
         bare.events.on("playerDied", async () => {
-            await wait(1.5);
+            if (!await this.Wait(1.5))
+                return;
             bare.scene.Goto(GameOver)
         });
 

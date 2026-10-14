@@ -52,10 +52,11 @@ export class AliveComponent extends Component
         else
         {
             // SHOW HEALTHBAR, THEN HIDE
-            // persistent FIELD IS NEEDED, SO THE TWEEN IS NOT KILLED ON SCENE CHANGE
+            // persistent FIELD IS NEEDED, SO THE TWEEN IS NOT KILLED ON LEVEL LOAD
             // SAME GOES FOR THE WAIT
             TweenTo(this, .2, { healthbarAlpha: 1, persistent: true });
-            await wait(1.6, this.go.persistent);
+            if (!await this.scene.Wait(1.6, this.go.persistent))
+                return;
             TweenTo(this, .2, { healthbarAlpha: 0, persistent: true });
         }
     }
