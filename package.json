@@ -11,7 +11,7 @@
         "analyze": "bare-engine-analyze",
         "poki-upload": "poki upload",
         "build:assets": "node node_modules/bare-engine/scripts/buildAssets.cjs",
-        "update-engine": "npm install bare-engine@github:bare-engine/bare-engine#semver:^0.6.0"
+        "update-engine": "npm update bare-engine"
     },
     "author": "Jeroen Wimmers",
     "license": "MIT",
@@ -20,7 +20,7 @@
         "vite": "^6.3.5"
     },
     "dependencies": {
-        "bare-engine": "github:bare-engine/bare-engine#semver:^0.6.0"
+        "bare-engine": "^1.0.0"
     },
     "bareEngine": {
         "firstLevelLoad": "level_1",
