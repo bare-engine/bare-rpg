@@ -1,8 +1,6 @@
-import { BareEvent, Component, Color, Inspector, SerializeField, TweenTo, Vec2, Locked } from "bare-engine";
-import { BlockedState } from "../../../BareEngine/src/types/bareTypes";
+import { BareEvent, Component, Color, Inspector, SerializeField, TweenTo, Vec2, Locked, BlockedState, Decimal, Limit } from "bare-engine";
 import { AliveComponent } from "./aliveComponent";
 import { ArcadeObject } from "bare-engine/arcade";
-import { Decimal, Limit } from "../../../BareEngine/src/utils/decorators";
 
 enum State
 {
